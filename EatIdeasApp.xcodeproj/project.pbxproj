@@ -14,6 +14,9 @@
 		AF98A6C2295E184A00461E3D /* EatIdeasApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6C0295E184A00461E3D /* EatIdeasApp.xcdatamodeld */; };
 		AF98A6C4295E184C00461E3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF98A6C3295E184C00461E3D /* Assets.xcassets */; };
 		AF98A6C7295E184C00461E3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF98A6C5295E184C00461E3D /* LaunchScreen.storyboard */; };
+		AF98A6D22961FE0E00461E3D /* RandomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6D12961FE0E00461E3D /* RandomData.swift */; };
+		AF98A6D42962184500461E3D /* RandomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6D32962184500461E3D /* RandomManager.swift */; };
+		AF98A6D6296221A500461E3D /* RandomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6D5296221A500461E3D /* RandomModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		AF98A6C3295E184C00461E3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF98A6C6295E184C00461E3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF98A6C8295E184C00461E3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF98A6D12961FE0E00461E3D /* RandomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomData.swift; sourceTree = "<group>"; };
+		AF98A6D32962184500461E3D /* RandomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomManager.swift; sourceTree = "<group>"; };
+		AF98A6D5296221A500461E3D /* RandomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +64,43 @@
 		AF98A6B6295E184A00461E3D /* EatIdeasApp */ = {
 			isa = PBXGroup;
 			children = (
+				AF98A6CE295E278200461E3D /* Model */,
+				AF98A6CF295E278A00461E3D /* View */,
+				AF98A6D0295E278F00461E3D /* Controller */,
 				AF98A6B7295E184A00461E3D /* AppDelegate.swift */,
 				AF98A6B9295E184A00461E3D /* SceneDelegate.swift */,
-				AF98A6BB295E184A00461E3D /* ViewController.swift */,
-				AF98A6BD295E184A00461E3D /* Main.storyboard */,
 				AF98A6C3295E184C00461E3D /* Assets.xcassets */,
 				AF98A6C5295E184C00461E3D /* LaunchScreen.storyboard */,
 				AF98A6C8295E184C00461E3D /* Info.plist */,
 				AF98A6C0295E184A00461E3D /* EatIdeasApp.xcdatamodeld */,
 			);
 			path = EatIdeasApp;
+			sourceTree = "<group>";
+		};
+		AF98A6CE295E278200461E3D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AF98A6D12961FE0E00461E3D /* RandomData.swift */,
+				AF98A6D32962184500461E3D /* RandomManager.swift */,
+				AF98A6D5296221A500461E3D /* RandomModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AF98A6CF295E278A00461E3D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AF98A6BD295E184A00461E3D /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AF98A6D0295E278F00461E3D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AF98A6BB295E184A00461E3D /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,7 +174,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF98A6D42962184500461E3D /* RandomManager.swift in Sources */,
 				AF98A6BC295E184A00461E3D /* ViewController.swift in Sources */,
+				AF98A6D6296221A500461E3D /* RandomModel.swift in Sources */,
+				AF98A6D22961FE0E00461E3D /* RandomData.swift in Sources */,
 				AF98A6C2295E184A00461E3D /* EatIdeasApp.xcdatamodeld in Sources */,
 				AF98A6B8295E184A00461E3D /* AppDelegate.swift in Sources */,
 				AF98A6BA295E184A00461E3D /* SceneDelegate.swift in Sources */,
