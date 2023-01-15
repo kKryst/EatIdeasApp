@@ -25,9 +25,7 @@ class ViewController: UIViewController {
         
         randomManager.delegate = self
         
-        
         randomManager.fetchDishes()
-        
         
         // Do any additional setup after loading the view.
     }
@@ -42,18 +40,36 @@ extension ViewController : UITableViewDataSource {
     // stworz cell i zwroc ja
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Dish", for: indexPath)
-        print(indexPath.row)
         cell.textLabel?.text = dishes[indexPath.row].name
+        
+        //zawijanie wierszy w komorce
         cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         cell.textLabel?.numberOfLines = 0
+        
+        
         return cell
     }
     
 }
-//TODO: docelowo, po nacisnieciu danej pozycji nastepuje przejscie do innego okienka z wieksza liczba danych o wybranym produkcie
+//TODO: docelowo, po nacisnieciu danej pozycji nastepuje przejscie do innego okienka z wieksza liczba danych 9o wybranym produkcie
 extension ViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
+        let selectedCell = tableView.cellForRow(at: indexPath)
+        performSegue(withIdentifier: "goToDetails", sender: selectedCell)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToDetails" {
+            let detailsViewController = segue.destination as! DetailViewController
+            let selectedCell = sender
+            
+            let indexPath = tableView.indexPath(for: selectedCell as! UITableViewCell)
+            let row = indexPath!.row
+            
+            detailsViewController.recipeId = dishes[row].id
+            
+            
+        }
     }
 }
 

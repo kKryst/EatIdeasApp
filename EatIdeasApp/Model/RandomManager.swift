@@ -14,12 +14,16 @@ protocol RandomManagerDelegate {
 
 struct RandomManager{
     // sciezka do api
-    let dishApi = "https://api.spoonacular.com/recipes/random?apiKey=1b03f0f7b52f417597ff56a137c661cb&number=2"
+    let dishApi = "https://api.spoonacular.com/recipes/random?apiKey=1b03f0f7b52f417597ff56a137c661cb&number=6"
     
     var delegate: RandomManagerDelegate?
     
     func fetchDishes() {
         performRequest(with: dishApi)
+    }
+    
+    func fetchSpecificDisch(id: Int){
+        
     }
     
     // funkcja odpowiadająca za networking
