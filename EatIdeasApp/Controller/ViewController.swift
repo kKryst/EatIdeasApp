@@ -8,6 +8,11 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    //TODO: zająć się tematem danych w systemie:
+    //1. albo tworzymy mozliwie unikalna strukture ktora mozemy wykorzystac w kazdym zapytaniu
+    //2. albo tworzymy drugi zestaw Manager,Data,Model dla drugiego zapytania i tak generujemy pierdyliard kodu
+    //3. albo 
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -74,6 +79,10 @@ extension ViewController : UITableViewDelegate {
 }
 
 extension ViewController : RandomManagerDelegate {
+    func didRecieveSpecificDish(_ randomManager: RandomManager, model: DishModel) {
+        //
+    }
+    
     func didRecieveDishes(_ randomManager: RandomManager, model: [RandomModel]) {
         
         DispatchQueue.main.async {
@@ -87,6 +96,7 @@ extension ViewController : RandomManagerDelegate {
     func didFailWithError(error: Error) {
         print(error)
     }
+    
     
   
 }

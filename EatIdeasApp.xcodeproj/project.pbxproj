@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AF22F06B2974921D0097D36D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F06A2974921D0097D36D /* DetailViewController.swift */; };
+		AF22F06D2975EC260097D36D /* DishData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F06C2975EC260097D36D /* DishData.swift */; };
+		AF22F06F2975EFDD0097D36D /* DIshModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F06E2975EFDD0097D36D /* DIshModel.swift */; };
 		AF98A6B8295E184A00461E3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6B7295E184A00461E3D /* AppDelegate.swift */; };
 		AF98A6BA295E184A00461E3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6B9295E184A00461E3D /* SceneDelegate.swift */; };
 		AF98A6BC295E184A00461E3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6BB295E184A00461E3D /* ViewController.swift */; };
@@ -22,6 +24,8 @@
 
 /* Begin PBXFileReference section */
 		AF22F06A2974921D0097D36D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		AF22F06C2975EC260097D36D /* DishData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishData.swift; sourceTree = "<group>"; };
+		AF22F06E2975EFDD0097D36D /* DIshModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIshModel.swift; sourceTree = "<group>"; };
 		AF98A6B4295E184A00461E3D /* EatIdeasApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatIdeasApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF98A6B7295E184A00461E3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF98A6B9295E184A00461E3D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 				AF98A6D32962184500461E3D /* RandomManager.swift */,
 				AF98A6D5296221A500461E3D /* RandomModel.swift */,
 				AF98A6D12961FE0E00461E3D /* RandomData.swift */,
+				AF22F06C2975EC260097D36D /* DishData.swift */,
+				AF22F06E2975EFDD0097D36D /* DIshModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -182,7 +188,9 @@
 				AF98A6D6296221A500461E3D /* RandomModel.swift in Sources */,
 				AF98A6D22961FE0E00461E3D /* RandomData.swift in Sources */,
 				AF98A6C2295E184A00461E3D /* EatIdeasApp.xcdatamodeld in Sources */,
+				AF22F06D2975EC260097D36D /* DishData.swift in Sources */,
 				AF98A6B8295E184A00461E3D /* AppDelegate.swift in Sources */,
+				AF22F06F2975EFDD0097D36D /* DIshModel.swift in Sources */,
 				AF98A6BA295E184A00461E3D /* SceneDelegate.swift in Sources */,
 				AF22F06B2974921D0097D36D /* DetailViewController.swift in Sources */,
 			);

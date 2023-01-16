@@ -10,16 +10,39 @@ import UIKit
 
 
 class DetailViewController : UIViewController {
-    var recipeId : Int = 0
-        
     @IBOutlet weak var idText: UILabel!
     
+    var recipeId : Int = 0
     
+    var randomManager = RandomManager()
+
     
     override func viewDidLoad() {
-        idText.text = String(recipeId)
+        randomManager.delegate = self
+        randomManager.fetchSpecificDisch(id: recipeId)
     }
     
+    
+    
+}
+
+extension DetailViewController : RandomManagerDelegate {
+    func didRecieveSpecificDish(_ randomManager: RandomManager, model: DishModel) {
+        DispatchQueue.main.async {
+            self.idText.text = model.title
+        }
+        
+    }
+    
+    func didRecieveDishes(_ randomManager: RandomManager, model: [RandomModel]) {
+        
+        //
+        
+    }
+    
+    func didFailWithError(error: Error) {
+        print("error")
+    }
     
     
 }
