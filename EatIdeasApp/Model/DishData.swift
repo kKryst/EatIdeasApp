@@ -29,5 +29,6 @@ struct DishData: Codable {
 struct ExtendedIngredient: Codable {
     let id: Int
     let name: String
+    
 }
 

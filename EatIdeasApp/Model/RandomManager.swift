@@ -7,10 +7,12 @@
 
 import Foundation
 
+
+
 protocol RandomManagerDelegate {
-    func didRecieveDishes(_ randomManager: RandomManager, model: [RandomModel])
+    func didRecieveDishes(_ randomManager: RandomManager, returned: [RandomModel])
     func didFailWithError(error: Error)
-    func didRecieveSpecificDish(_ randomManager: RandomManager, model: DishModel)
+    func didRecieveSpecificDish(_ randomManager: RandomManager, returned: DishModel)
 }
 
 struct RandomManager{
@@ -18,6 +20,8 @@ struct RandomManager{
     let dishApi = "https://api.spoonacular.com/recipes/random?apiKey=1b03f0f7b52f417597ff56a137c661cb&number=6"
     
     var delegate: RandomManagerDelegate?
+    
+    
     
     func fetchDishes() {
         performRequest(with: dishApi)
@@ -41,7 +45,7 @@ struct RandomManager{
                 }
                 if let safeData = data {
                     if let response = self.parseJSON(safeData){
-                        self.delegate?.didRecieveDishes(self, model: response)
+                        self.delegate?.didRecieveDishes(self, returned: response)
                     }
                 }
             }
@@ -60,7 +64,7 @@ struct RandomManager{
                 }
                 if let safeData = data {
                     if let response = self.parseJSONForSpecificDish(safeData){
-                        self.delegate?.didRecieveSpecificDish(self, model: response)
+                        self.delegate?.didRecieveSpecificDish(self, returned: response)
                     }
                 }
             }
@@ -85,7 +89,7 @@ struct RandomManager{
             return nil
         }
     }
-    
+    // json moglby zwracac bardziej ogolny obiekt, randomData moglby byc duzo bardziej ogolnym typem danych
     func parseJSONForSpecificDish(_ dishData: Data) -> DishModel? {
         
         let decoder = JSONDecoder()
