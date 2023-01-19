@@ -36,6 +36,17 @@ class ViewController: UIViewController {
     }
 
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToDetails" {
+            let detailsViewController = segue.destination as! DetailViewController
+            let selectedCell = sender
+            
+            let indexPath = tableView.indexPath(for: selectedCell as! UITableViewCell)
+            let row = indexPath!.row
+            
+            detailsViewController.recipeId = dishes[row].id
+        }
+    }
 }
 
 extension ViewController : UITableViewDataSource {
@@ -63,20 +74,7 @@ extension ViewController : UITableViewDelegate {
         performSegue(withIdentifier: "goToDetails", sender: selectedCell)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToDetails" {
-            let detailsViewController = segue.destination as! DetailViewController
-            let selectedCell = sender
-            
-            let indexPath = tableView.indexPath(for: selectedCell as! UITableViewCell)
-            let row = indexPath!.row
-            
-            detailsViewController.recipeId = dishes[row].id
-            
-            
-            
-        }
-    }
+ 
 }
 
 extension ViewController : RandomManagerDelegate {
