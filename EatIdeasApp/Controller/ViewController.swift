@@ -62,7 +62,6 @@ extension ViewController : UITableViewDataSource {
         cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         cell.textLabel?.numberOfLines = 0
         
-        
         return cell
     }
     
@@ -73,7 +72,6 @@ extension ViewController : UITableViewDelegate {
         let selectedCell = tableView.cellForRow(at: indexPath)
         performSegue(withIdentifier: "goToDetails", sender: selectedCell)
     }
-    
  
 }
 
@@ -95,8 +93,6 @@ extension ViewController : RandomManagerDelegate {
     func didFailWithError(error: Error) {
         print(error)
     }
-    
-    
-  
+     
 }
 

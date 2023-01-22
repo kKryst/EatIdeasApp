@@ -56,13 +56,9 @@ class DetailViewController : UIViewController {
 
     
     @IBAction func favouriteButtonPressed(_ sender: UIButton) {
+        //TODO: future coreData feature which saves the dish once user presses this button
         favouriteButton.currentBackgroundImage == UIImage(systemName: "heart") ? favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal) :   favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
-        
- 
-        
-        
     }
-    
 }
 extension DetailViewController : RandomManagerDelegate {
     func didRecieveSpecificDish(_ randomManager: RandomManager, returned: DishModel) {
@@ -74,9 +70,9 @@ extension DetailViewController : RandomManagerDelegate {
             self.veganLabel.text?.append(returned.veganString)
             self.vegetarianLabel.text?.append(returned.vegetarianString)
             
-            //TODO: data is provided, the problem is with displaying it on the screen
             for item in returned.extendedIngridientsString {
                 self.ingridients.append(item)
+                print(item)
             }
             
             self.tableView.reloadData()
@@ -107,7 +103,6 @@ extension DetailViewController : UITableViewDataSource, UITableViewDelegate {
         
         cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         cell.textLabel?.numberOfLines = 0
-        
         
         return cell
     }
