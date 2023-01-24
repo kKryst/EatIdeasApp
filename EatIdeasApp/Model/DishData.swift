@@ -18,11 +18,13 @@ import Foundation
 struct DishData: Codable {
     let id: Int
     let title: String
+    let image : String
     let readyInMinutes: Int
     let dairyFree: Bool
     let glutenFree: Bool
     let vegan, vegetarian : Bool
     let extendedIngredients: [ExtendedIngredient]
+    
 }
 
 // MARK: - ExtendedIngredient

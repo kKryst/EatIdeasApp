@@ -100,6 +100,7 @@ struct RandomManager{
             return DishModel(
                 id: decodedData.id,
                 title: decodedData.title,
+                image: decodedData.image,
                 readyInMinutes: decodedData.readyInMinutes,
                 diaryFree: decodedData.dairyFree,
                 glutenFree: decodedData.glutenFree,

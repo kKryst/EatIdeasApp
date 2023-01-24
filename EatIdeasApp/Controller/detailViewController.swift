@@ -27,7 +27,8 @@ class DetailViewController : UIViewController {
     
     @IBOutlet weak var extendedIngridientsLabel: UILabel!
     
-    //ExtendedIngridient
+    
+    @IBOutlet weak var dishImage: UIImageView!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -37,7 +38,6 @@ class DetailViewController : UIViewController {
     var randomManager = RandomManager()
     
     var ingridients : [String] = [String]()
-
     
     override func viewDidLoad() {
         
@@ -50,21 +50,43 @@ class DetailViewController : UIViewController {
         
         randomManager.fetchSpecificDisch(id: recipeId)
         
-        
     }
-    
-
     
     @IBAction func favouriteButtonPressed(_ sender: UIButton) {
         //TODO: future coreData feature which saves the dish once user presses this button
         favouriteButton.currentBackgroundImage == UIImage(systemName: "heart") ? favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal) :   favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
     }
+    
+    func getImageFromUrl( with url : String) -> Data? {
+        
+        var dataToReturn: Data?
+        
+        let url = URL(string: url)
+        let session = URLSession(configuration: .default)
+        let request = URLRequest(url: url!)
+        let task = session.dataTask(with: request) { data, response, error in
+            if let safeData = try? Data(contentsOf: url!) {
+                dataToReturn = safeData
+            }
+        }
+        task.resume()
+        
+        return dataToReturn
+    }
 }
 extension DetailViewController : RandomManagerDelegate {
     func didRecieveSpecificDish(_ randomManager: RandomManager, returned: DishModel) {
+        
+        
+        //TODO: NOT secure at all, fix that later
+        let url = URL(string: returned.image)
+        let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+        
+        
         DispatchQueue.main.async {
             self.idText.text = returned.title
             self.readyInLabel.text?.append(String(returned.readyInMinutes))
+            self.dishImage.image = UIImage(data: data!)
             self.lactoseFreeLabel.text?.append(returned.diaryFreeString)
             self.glutenFreeLabel.text?.append(returned.glutenFreeString)
             self.veganLabel.text?.append(returned.veganString)
@@ -72,7 +94,6 @@ extension DetailViewController : RandomManagerDelegate {
             
             for item in returned.extendedIngridientsString {
                 self.ingridients.append(item)
-                print(item)
             }
             
             self.tableView.reloadData()
