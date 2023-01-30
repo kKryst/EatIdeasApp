@@ -182,8 +182,8 @@ extension DetailViewController {
         
     }
     
-    func deleteFromDatabase (dish: DishRealmModel) {
-        
+    func deleteFromDatabase (id: Int) {
+        //TODO: delete functionality here
     }
     
 }
