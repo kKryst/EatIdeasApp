@@ -7,12 +7,14 @@
 
 import UIKit
 
+
+
 class ViewController: UIViewController {
     
     //TODO: zająć się tematem danych w systemie:
     //1. albo tworzymy mozliwie unikalna strukture ktora mozemy wykorzystac w kazdym zapytaniu
     //2. albo tworzymy drugi zestaw Manager,Data,Model dla drugiego zapytania i tak generujemy pierdyliard kodu
-    //3. 
+
 
     @IBOutlet weak var tableView: UITableView!
     

@@ -10,6 +10,9 @@
 		AF22F06B2974921D0097D36D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F06A2974921D0097D36D /* DetailViewController.swift */; };
 		AF22F06D2975EC260097D36D /* DishData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F06C2975EC260097D36D /* DishData.swift */; };
 		AF22F06F2975EFDD0097D36D /* DIshModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F06E2975EFDD0097D36D /* DIshModel.swift */; };
+		AF22F074298327DB0097D36D /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = AF22F073298327DB0097D36D /* Realm */; };
+		AF22F076298327DB0097D36D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AF22F075298327DB0097D36D /* RealmSwift */; };
+		AF22F0782983290A0097D36D /* DishRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F0772983290A0097D36D /* DishRealmModel.swift */; };
 		AF98A6B8295E184A00461E3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6B7295E184A00461E3D /* AppDelegate.swift */; };
 		AF98A6BA295E184A00461E3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6B9295E184A00461E3D /* SceneDelegate.swift */; };
 		AF98A6BC295E184A00461E3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6BB295E184A00461E3D /* ViewController.swift */; };
@@ -26,6 +29,7 @@
 		AF22F06A2974921D0097D36D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		AF22F06C2975EC260097D36D /* DishData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishData.swift; sourceTree = "<group>"; };
 		AF22F06E2975EFDD0097D36D /* DIshModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIshModel.swift; sourceTree = "<group>"; };
+		AF22F0772983290A0097D36D /* DishRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishRealmModel.swift; sourceTree = "<group>"; };
 		AF98A6B4295E184A00461E3D /* EatIdeasApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatIdeasApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF98A6B7295E184A00461E3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF98A6B9295E184A00461E3D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +49,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF22F076298327DB0097D36D /* RealmSwift in Frameworks */,
+				AF22F074298327DB0097D36D /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +97,7 @@
 				AF98A6D12961FE0E00461E3D /* RandomData.swift */,
 				AF22F06C2975EC260097D36D /* DishData.swift */,
 				AF22F06E2975EFDD0097D36D /* DIshModel.swift */,
+				AF22F0772983290A0097D36D /* DishRealmModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -128,6 +135,10 @@
 			dependencies = (
 			);
 			name = EatIdeasApp;
+			packageProductDependencies = (
+				AF22F073298327DB0097D36D /* Realm */,
+				AF22F075298327DB0097D36D /* RealmSwift */,
+			);
 			productName = EatIdeasApp;
 			productReference = AF98A6B4295E184A00461E3D /* EatIdeasApp.app */;
 			productType = "com.apple.product-type.application";
@@ -156,6 +167,9 @@
 				Base,
 			);
 			mainGroup = AF98A6AB295E184A00461E3D;
+			packageReferences = (
+				AF22F072298327DA0097D36D /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = AF98A6B5295E184A00461E3D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -191,6 +205,7 @@
 				AF22F06D2975EC260097D36D /* DishData.swift in Sources */,
 				AF98A6B8295E184A00461E3D /* AppDelegate.swift in Sources */,
 				AF22F06F2975EFDD0097D36D /* DIshModel.swift in Sources */,
+				AF22F0782983290A0097D36D /* DishRealmModel.swift in Sources */,
 				AF98A6BA295E184A00461E3D /* SceneDelegate.swift in Sources */,
 				AF22F06B2974921D0097D36D /* DetailViewController.swift in Sources */,
 			);
@@ -411,6 +426,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AF22F072298327DA0097D36D /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.34.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AF22F073298327DB0097D36D /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF22F072298327DA0097D36D /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		AF22F075298327DB0097D36D /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF22F072298327DA0097D36D /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		AF98A6C0295E184A00461E3D /* EatIdeasApp.xcdatamodeld */ = {

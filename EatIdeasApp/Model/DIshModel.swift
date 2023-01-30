@@ -55,6 +55,7 @@ struct DishModel {
         }
     }
     
+
     var extendedIngridientsString : [String] {
         var names : [String] = [String]()
         

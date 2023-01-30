@@ -7,9 +7,11 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 
-class DetailViewController : UIViewController {
+class DetailViewController: UIViewController {
+    
     @IBOutlet weak var idText: UILabel!
     
     var recipeId : Int = 0
@@ -39,6 +41,8 @@ class DetailViewController : UIViewController {
     
     var ingridients : [String] = [String]()
     
+    var displayedDishModel: DishRealmModel?
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -53,7 +57,7 @@ class DetailViewController : UIViewController {
     }
     
     @IBAction func favouriteButtonPressed(_ sender: UIButton) {
-        //TODO: future coreData feature which saves the dish once user presses this button
+        //TODO: for future coreData feature which saves the dish once user presses this button
         favouriteButton.currentBackgroundImage == UIImage(systemName: "heart") ? favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal) :   favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
     }
     
@@ -77,16 +81,22 @@ class DetailViewController : UIViewController {
 extension DetailViewController : RandomManagerDelegate {
     func didRecieveSpecificDish(_ randomManager: RandomManager, returned: DishModel) {
         
-        
-        //TODO: NOT secure at all, fix that later
+        var imageData: Data = Data()
         let url = URL(string: returned.image)
-        let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+        let duckUrl = URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCiKxne26dHR5WnPaJp3iIYqwgtH7a_d0So8it6JY&s")
         
+        if let data = try? Data(contentsOf: url!) {
+            imageData = data
+        } else {
+            imageData = try! Data(contentsOf: duckUrl!)
+        }
+        
+        //TODO: przepisanie danych do zmiennej displayedDishModel celem pozniejszego przeslania go do bazy danych
         
         DispatchQueue.main.async {
             self.idText.text = returned.title
             self.readyInLabel.text?.append(String(returned.readyInMinutes))
-            self.dishImage.image = UIImage(data: data!)
+            self.dishImage.image = UIImage(data: imageData)
             self.lactoseFreeLabel.text?.append(returned.diaryFreeString)
             self.glutenFreeLabel.text?.append(returned.glutenFreeString)
             self.veganLabel.text?.append(returned.veganString)
@@ -95,9 +105,27 @@ extension DetailViewController : RandomManagerDelegate {
             for item in returned.extendedIngridientsString {
                 self.ingridients.append(item)
             }
-            
             self.tableView.reloadData()
         }
+        
+        displayedDishModel = DishRealmModel()
+        displayedDishModel?.dishApiId = returned.id
+        displayedDishModel?.title = returned.title
+        displayedDishModel?.readyInMinutes = returned.readyInMinutes
+        displayedDishModel?.image = returned.image
+        displayedDishModel?.diaryFree = returned.diaryFreeString
+        displayedDishModel?.glutenFree = returned.glutenFreeString
+        displayedDishModel?.vegan = returned.veganString
+        displayedDishModel?.vegetarian = returned.vegetarianString
+        for item in returned.extendedIngridientsString {
+            print("current ingridients: \(ingridients)")
+            displayedDishModel?.extendedIngridients.append(item)
+            print("trying to add item: \(item)")
+        }
+        
+        
+        addToDatabase(dish: displayedDishModel!)
+        
         
     }
     
@@ -129,7 +157,33 @@ extension DetailViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //
+    }
+    
+}
+
+//MARK: Realm Database-related
+extension DetailViewController {
+    
+    func initializeDatabase() -> Realm {
+        return try! Realm()
+    }
+    
+    
+    
+    func addToDatabase (dish: DishRealmModel) {
+        let realm = initializeDatabase()
+        do {
+            try realm.write {
+                realm.add(dish)
+            }
+        } catch {
+            print("error trying to add object to database \(error)")
+        }
+        
+    }
+    
+    func deleteFromDatabase (dish: DishRealmModel) {
+        
     }
     
 }
