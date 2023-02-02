@@ -5,12 +5,21 @@
 //  Created by Krystian Konieczko on 15/01/2023.
 //
 
+
+// 1. dorzucic do tabeli wartosc bool w ktorej zapisane bedzie czy dany posilek jest zapisany w bazie
+// 2. ustawic obrazek podczas wczytywania w zaleznosci od tego czy posilek z danym id jest juz bazie czy nie
+
+
+
 import Foundation
 import UIKit
 import RealmSwift
 
+//TODO: "Can only delete an object from the Realm it belongs to". error while trying to delete object after reloading view, how to fix that shit
 
 class DetailViewController: UIViewController {
+    
+    let realm = try! Realm()
     
     @IBOutlet weak var idText: UILabel!
     
@@ -54,11 +63,21 @@ class DetailViewController: UIViewController {
         
         randomManager.fetchSpecificDisch(id: recipeId)
         
+        
+        
+        
     }
     
     @IBAction func favouriteButtonPressed(_ sender: UIButton) {
         //TODO: for future coreData feature which saves the dish once user presses this button
-        favouriteButton.currentBackgroundImage == UIImage(systemName: "heart") ? favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal) :   favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+        if favouriteButton.currentBackgroundImage == UIImage(systemName: "heart") {
+            favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+            addToDatabase(dish: displayedDishModel!)
+        } else {
+            favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+            deleteFromDatabase(id: displayedDishModel!.dishApiId)
+        }
+
     }
     
     func getImageFromUrl( with url : String) -> Data? {
@@ -117,14 +136,13 @@ extension DetailViewController : RandomManagerDelegate {
         displayedDishModel?.glutenFree = returned.glutenFreeString
         displayedDishModel?.vegan = returned.veganString
         displayedDishModel?.vegetarian = returned.vegetarianString
+        
         for item in returned.extendedIngridientsString {
-            print("current ingridients: \(ingridients)")
             displayedDishModel?.extendedIngridients.append(item)
-            print("trying to add item: \(item)")
         }
-        
-        
-        addToDatabase(dish: displayedDishModel!)
+        DispatchQueue.main.async {
+            self.objectSaved(id: self.displayedDishModel!.dishApiId) ? self.favouriteButton.setBackgroundImage(UIImage(systemName: "heart"),  for: .normal) : self.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+        }
         
         
     }
@@ -164,14 +182,10 @@ extension DetailViewController : UITableViewDataSource, UITableViewDelegate {
 //MARK: Realm Database-related
 extension DetailViewController {
     
-    func initializeDatabase() -> Realm {
-        return try! Realm()
-    }
     
     
     
     func addToDatabase (dish: DishRealmModel) {
-        let realm = initializeDatabase()
         do {
             try realm.write {
                 realm.add(dish)
@@ -183,7 +197,27 @@ extension DetailViewController {
     }
     
     func deleteFromDatabase (id: Int) {
-        //TODO: delete functionality here
+        do {
+            try realm.write {
+                let item = realm.objects(DishRealmModel.self).filter("dishApiId == \(id)").first
+                if let itemToDelete = item {
+                    realm.delete(itemToDelete)
+                }
+            }
+        } catch {
+                print ("error while trying to delete item \(error)")
+            }
+        }
+    
+    func objectSaved(id: Int) -> Bool{
+        let result = realm.objects(DishRealmModel.self).filter("dishApiId == \(id)").first
+
+        if result != nil {
+            return false
+        } else {
+            return true
+        }
+    }
     }
     
-}
+
