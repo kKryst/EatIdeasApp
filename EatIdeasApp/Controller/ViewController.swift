@@ -11,17 +11,11 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    //TODO: zająć się tematem danych w systemie:
-    //1. albo tworzymy mozliwie unikalna strukture ktora mozemy wykorzystac w kazdym zapytaniu
-    //2. albo tworzymy drugi zestaw Manager,Data,Model dla drugiego zapytania i tak generujemy pierdyliard kodu
-
-
     @IBOutlet weak var tableView: UITableView!
     
     var randomManager = RandomManager()
     
     
-    //TODO: odwolanie sie do api w celu pozyskania kilku randomowych posilkow 
     var dishes : [RandomModel] = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,15 +23,17 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        
         randomManager.delegate = self
         
         randomManager.fetchDishes()
         
         // Do any additional setup after loading the view.
     }
-
-
+    
+    @IBAction func reloadButtonPressed(_ sender: UIButton) {
+        randomManager.fetchDishes()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToDetails" {
             let detailsViewController = segue.destination as! DetailViewController
@@ -68,13 +64,13 @@ extension ViewController : UITableViewDataSource {
     }
     
 }
-//TODO: docelowo, po nacisnieciu danej pozycji nastepuje przejscie do innego okienka z wieksza liczba danych 9o wybranym produkcie
+
 extension ViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell = tableView.cellForRow(at: indexPath)
         performSegue(withIdentifier: "goToDetails", sender: selectedCell)
     }
- 
+    
 }
 
 extension ViewController : RandomManagerDelegate {
@@ -83,6 +79,7 @@ extension ViewController : RandomManagerDelegate {
     }
     
     func didRecieveDishes(_ randomManager: RandomManager, returned: [RandomModel]) {
+        self.dishes.removeAll()
         
         DispatchQueue.main.async {
             for item in returned {
@@ -95,6 +92,6 @@ extension ViewController : RandomManagerDelegate {
     func didFailWithError(error: Error) {
         print(error)
     }
-     
+    
 }
 

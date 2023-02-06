@@ -15,7 +15,6 @@ import Foundation
 import UIKit
 import RealmSwift
 
-//TODO: "Can only delete an object from the Realm it belongs to". error while trying to delete object after reloading view, how to fix that shit
 
 class DetailViewController: UIViewController {
     
@@ -65,11 +64,10 @@ class DetailViewController: UIViewController {
         
         
         
-        
     }
     
     @IBAction func favouriteButtonPressed(_ sender: UIButton) {
-        //TODO: for future coreData feature which saves the dish once user presses this button
+        
         if favouriteButton.currentBackgroundImage == UIImage(systemName: "heart") {
             favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
             addToDatabase(dish: displayedDishModel!)
@@ -77,7 +75,7 @@ class DetailViewController: UIViewController {
             favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
             deleteFromDatabase(id: displayedDishModel!.dishApiId)
         }
-
+        
     }
     
     func getImageFromUrl( with url : String) -> Data? {
@@ -110,7 +108,7 @@ extension DetailViewController : RandomManagerDelegate {
             imageData = try! Data(contentsOf: duckUrl!)
         }
         
-        //TODO: przepisanie danych do zmiennej displayedDishModel celem pozniejszego przeslania go do bazy danych
+        
         
         DispatchQueue.main.async {
             self.idText.text = returned.title
@@ -205,19 +203,19 @@ extension DetailViewController {
                 }
             }
         } catch {
-                print ("error while trying to delete item \(error)")
-            }
+            print ("error while trying to delete item \(error)")
         }
+    }
     
     func objectSaved(id: Int) -> Bool{
         let result = realm.objects(DishRealmModel.self).filter("dishApiId == \(id)").first
-
+        
         if result != nil {
             return false
         } else {
             return true
         }
     }
-    }
-    
+}
+
 

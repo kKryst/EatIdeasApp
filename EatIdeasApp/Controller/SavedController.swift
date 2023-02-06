@@ -25,7 +25,9 @@ class SavedController: UIViewController {
         
         fetchSaved()
         
-        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
     }
 }
 
@@ -46,18 +48,33 @@ extension SavedController: UITableViewDataSource, UITableViewDelegate {
         cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         cell.textLabel?.numberOfLines = 0
         
+        
+        
         return cell
         
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let selectedCell = tableView.cellForRow(at: indexPath)
+        performSegue(withIdentifier: "goToDetailsFromSaved", sender: selectedCell)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToDetailsFromSaved" {
+            let detailsViewController = segue.destination as! DetailViewController
+            let selectedCell = sender
+            
+            let indexPath = tableView.indexPath(for: selectedCell as! UITableViewCell)
+            let row = indexPath!.row
+            
+            detailsViewController.recipeId = dishes![row].dishApiId
+        }
     }
     
 }
 //MARK: Realm Database related
 extension SavedController {
-
+    
     func fetchSaved() {
         dishes = realm.objects(DishRealmModel.self)
     }
