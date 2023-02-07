@@ -27,7 +27,7 @@ struct RandomManager{
         performRequest(with: dishApi)
     }
     
-    func fetchSpecificDisch(id: Int){
+    func fetchSpecificDish(id: Int){
         //https://api.spoonacular.com/recipes/\(id)/information?apiKey=1b03f0f7b52f417597ff56a137c661cb
         performRequestForSpecificDish(with: "https://api.spoonacular.com/recipes/\(id)/information?apiKey=1b03f0f7b52f417597ff56a137c661cb")
         

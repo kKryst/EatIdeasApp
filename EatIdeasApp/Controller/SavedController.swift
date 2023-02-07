@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 import RealmSwift
 
+
+
 class SavedController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -29,6 +31,7 @@ class SavedController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
+    
 }
 
 extension SavedController: UITableViewDataSource, UITableViewDelegate {
@@ -68,6 +71,7 @@ extension SavedController: UITableViewDataSource, UITableViewDelegate {
             let row = indexPath!.row
             
             detailsViewController.recipeId = dishes![row].dishApiId
+            detailsViewController.segueIdentifier = segue.identifier
         }
     }
     
@@ -76,7 +80,7 @@ extension SavedController: UITableViewDataSource, UITableViewDelegate {
 extension SavedController {
     
     func fetchSaved() {
-        dishes = realm.objects(DishRealmModel.self)
+        dishes = realm.objects(DishRealmModel.self).sorted(byKeyPath: "title", ascending: true)
     }
     
     

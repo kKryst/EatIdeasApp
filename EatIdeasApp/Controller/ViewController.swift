@@ -43,7 +43,9 @@ class ViewController: UIViewController {
             let row = indexPath!.row
             
             detailsViewController.recipeId = dishes[row].id
+            detailsViewController.segueIdentifier = segue.identifier
         }
+        
     }
 }
 
@@ -94,4 +96,3 @@ extension ViewController : RandomManagerDelegate {
     }
     
 }
-

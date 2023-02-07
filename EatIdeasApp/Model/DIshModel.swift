@@ -66,5 +66,52 @@ struct DishModel {
         return names
     }
     
+    init(id: Int, title: String, image: String, readyInMinutes: Int, diaryFree: Bool, glutenFree: Bool, vegan: Bool, vegetarian: Bool, extendedIngredients: [ExtendedIngredient]) {
+        self.id = id
+        self.title = title
+        self.image = image
+        self.readyInMinutes = readyInMinutes
+        self.diaryFree = diaryFree
+        self.glutenFree = glutenFree
+        self.vegan = vegan
+        self.vegetarian = vegetarian
+        self.extendedIngredients = extendedIngredients
+    }
+    
+    init(databaseObject: DishRealmModel) {
+        self.id = databaseObject.dishApiId
+        self.title = databaseObject.title
+        self.readyInMinutes = databaseObject.readyInMinutes
+        if databaseObject.vegetarian == "yes" {
+            self.vegetarian = true
+        } else {
+            self.vegetarian = false
+        }
+        if databaseObject.vegan == "yes" {
+            self.vegan = true
+        } else {
+            self.vegan = false
+        }
+        if databaseObject.glutenFree == "yes" {
+            self.glutenFree = true
+        } else {
+            self.glutenFree = false
+        }
+        if databaseObject.diaryFree == "yes" {
+            self.diaryFree = true
+        } else {
+            self.diaryFree = false
+        }
+        self.image = databaseObject.image
+
+        var tableOfIngridients: [ExtendedIngredient] = []
+        for item in databaseObject.extendedIngridients {
+            let ingridient = ExtendedIngredient(id: 1, name: item)
+            tableOfIngridients.append(ingridient)
+        }
+        self.extendedIngredients = tableOfIngridients
+
+    }
+    
     
 }

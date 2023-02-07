@@ -6,15 +6,13 @@
 //
 
 
-// 1. dorzucic do tabeli wartosc bool w ktorej zapisane bedzie czy dany posilek jest zapisany w bazie
-// 2. ustawic obrazek podczas wczytywania w zaleznosci od tego czy posilek z danym id jest juz bazie czy nie
-
 
 
 import Foundation
 import UIKit
 import RealmSwift
 
+//TODO: Find a way to get the data from database if selected dish is saved
 
 class DetailViewController: UIViewController {
     
@@ -37,7 +35,6 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var extendedIngridientsLabel: UILabel!
     
-    
     @IBOutlet weak var dishImage: UIImageView!
     
     @IBOutlet weak var tableView: UITableView!
@@ -51,6 +48,11 @@ class DetailViewController: UIViewController {
     
     var displayedDishModel: DishRealmModel?
     
+    var segueIdentifier: String?
+    
+    var imageData: Data = Data()
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -59,12 +61,57 @@ class DetailViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        
-        randomManager.fetchSpecificDisch(id: recipeId)
-        
-        
+
+        determineSegueSource(segueName: segueIdentifier!)
         
     }
+    
+    func displayData(_ returned: DishModel, _ imageData: Data) {
+        DispatchQueue.main.async {
+            self.idText.text = returned.title
+            self.readyInLabel.text?.append(String(returned.readyInMinutes))
+            self.dishImage.image = UIImage(data: imageData)
+            self.lactoseFreeLabel.text?.append(returned.diaryFreeString)
+            self.glutenFreeLabel.text?.append(returned.glutenFreeString)
+            self.veganLabel.text?.append(returned.veganString)
+            self.vegetarianLabel.text?.append(returned.vegetarianString)
+            
+            for item in returned.extendedIngridientsString {
+                self.ingridients.append(item)
+            }
+            self.tableView.reloadData()
+        }
+    }
+    
+    func defineDisplayedDish(_ returned: DishModel, _ imageData: Data) {
+        
+        displayedDishModel = DishRealmModel()
+        displayedDishModel?.dishApiId = returned.id
+        displayedDishModel?.title = returned.title
+        displayedDishModel?.readyInMinutes = returned.readyInMinutes
+        displayedDishModel?.image = returned.image
+        displayedDishModel?.diaryFree = returned.diaryFreeString
+        displayedDishModel?.glutenFree = returned.glutenFreeString
+        displayedDishModel?.vegan = returned.veganString
+        displayedDishModel?.vegetarian = returned.vegetarianString
+        
+        for item in returned.extendedIngridientsString {
+            displayedDishModel?.extendedIngridients.append(item)
+        }
+        
+    }
+    
+    func determineSegueSource(segueName: String) {
+        if segueName == "goToDetails" {
+            print("called from api")
+            randomManager.fetchSpecificDish(id: recipeId)
+        }
+        else if segueName == "goToDetailsFromSaved"{
+            print("called from database")
+            readObjectFromDatabase(id: recipeId)
+        }
+    }
+    
     
     @IBAction func favouriteButtonPressed(_ sender: UIButton) {
         
@@ -75,6 +122,26 @@ class DetailViewController: UIViewController {
             favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
             deleteFromDatabase(id: displayedDishModel!.dishApiId)
         }
+        
+    }
+    
+    func readObjectFromDatabase(id: Int) {
+        //zapytaj baze danych o ten obiekt
+        let objectFromDatabase = fetchObject(id: id)
+        
+        let model = DishModel(databaseObject: objectFromDatabase)
+        
+        var imageData: Data = Data()
+        let url = URL(string: model.image)
+        let duckUrl = URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCiKxne26dHR5WnPaJp3iIYqwgtH7a_d0So8it6JY&s")
+        
+        if let data = try? Data(contentsOf: url!) {
+            imageData = data
+        } else {
+            imageData = try! Data(contentsOf: duckUrl!)
+        }
+        
+        displayData(model, imageData)
         
     }
     
@@ -94,8 +161,12 @@ class DetailViewController: UIViewController {
         
         return dataToReturn
     }
+    
 }
+
+
 extension DetailViewController : RandomManagerDelegate {
+    
     func didRecieveSpecificDish(_ randomManager: RandomManager, returned: DishModel) {
         
         var imageData: Data = Data()
@@ -108,38 +179,11 @@ extension DetailViewController : RandomManagerDelegate {
             imageData = try! Data(contentsOf: duckUrl!)
         }
         
+        displayData(returned, imageData)
         
-        
+        defineDisplayedDish(returned, imageData)
         DispatchQueue.main.async {
-            self.idText.text = returned.title
-            self.readyInLabel.text?.append(String(returned.readyInMinutes))
-            self.dishImage.image = UIImage(data: imageData)
-            self.lactoseFreeLabel.text?.append(returned.diaryFreeString)
-            self.glutenFreeLabel.text?.append(returned.glutenFreeString)
-            self.veganLabel.text?.append(returned.veganString)
-            self.vegetarianLabel.text?.append(returned.vegetarianString)
-            
-            for item in returned.extendedIngridientsString {
-                self.ingridients.append(item)
-            }
-            self.tableView.reloadData()
-        }
-        
-        displayedDishModel = DishRealmModel()
-        displayedDishModel?.dishApiId = returned.id
-        displayedDishModel?.title = returned.title
-        displayedDishModel?.readyInMinutes = returned.readyInMinutes
-        displayedDishModel?.image = returned.image
-        displayedDishModel?.diaryFree = returned.diaryFreeString
-        displayedDishModel?.glutenFree = returned.glutenFreeString
-        displayedDishModel?.vegan = returned.veganString
-        displayedDishModel?.vegetarian = returned.vegetarianString
-        
-        for item in returned.extendedIngridientsString {
-            displayedDishModel?.extendedIngridients.append(item)
-        }
-        DispatchQueue.main.async {
-            self.objectSaved(id: self.displayedDishModel!.dishApiId) ? self.favouriteButton.setBackgroundImage(UIImage(systemName: "heart"),  for: .normal) : self.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+            self.checkIfObjectIsSaved(id: self.displayedDishModel!.dishApiId) ? self.favouriteButton.setBackgroundImage(UIImage(systemName: "heart"),  for: .normal) : self.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
         }
         
         
@@ -180,9 +224,6 @@ extension DetailViewController : UITableViewDataSource, UITableViewDelegate {
 //MARK: Realm Database-related
 extension DetailViewController {
     
-    
-    
-    
     func addToDatabase (dish: DishRealmModel) {
         do {
             try realm.write {
@@ -207,7 +248,12 @@ extension DetailViewController {
         }
     }
     
-    func objectSaved(id: Int) -> Bool{
+    func fetchObject(id: Int) -> DishRealmModel{
+         return realm.objects(DishRealmModel.self).filter("dishApiId == \(id)").first!
+
+    }
+    
+    func checkIfObjectIsSaved(id: Int) -> Bool{
         let result = realm.objects(DishRealmModel.self).filter("dishApiId == \(id)").first
         
         if result != nil {
@@ -217,5 +263,3 @@ extension DetailViewController {
         }
     }
 }
-
-
