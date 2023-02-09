@@ -3,10 +3,6 @@
 //  EatIdeasApp
 //
 //  Created by Krystian Konieczko on 15/01/2023.
-//
-
-
-
 
 import Foundation
 import UIKit
@@ -70,7 +66,6 @@ class DetailViewController: UIViewController {
         DispatchQueue.main.async {
             self.idText.text = returned.title
             self.readyInLabel.text?.append(String(returned.readyInMinutes))
-            self.dishImage.image = UIImage(data: imageData)
             self.lactoseFreeLabel.text?.append(returned.diaryFreeString)
             self.glutenFreeLabel.text?.append(returned.glutenFreeString)
             self.veganLabel.text?.append(returned.veganString)
@@ -103,11 +98,9 @@ class DetailViewController: UIViewController {
     
     func determineSegueSource(segueName: String) {
         if segueName == "goToDetails" {
-            print("called from api")
             randomManager.fetchSpecificDish(id: recipeId)
         }
         else if segueName == "goToDetailsFromSaved"{
-            print("called from database")
             readObjectFromDatabase(id: recipeId)
         }
     }
@@ -131,41 +124,51 @@ class DetailViewController: UIViewController {
         
         let model = DishModel(databaseObject: objectFromDatabase)
         
-        var imageData: Data = Data()
         let url = URL(string: model.image)
         let duckUrl = URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCiKxne26dHR5WnPaJp3iIYqwgtH7a_d0So8it6JY&s")
+
+//        if let data = try? Data(contentsOf: url!) {
+//            imageData = data
+//        } else {
+//            imageData = try! Data(contentsOf: duckUrl!)
+//        }
+        setImageFromStringrURL(stringUrl: model.image)
         
-        if let data = try? Data(contentsOf: url!) {
-            imageData = data
-        } else {
-            imageData = try! Data(contentsOf: duckUrl!)
-        }
+        defineDisplayedDish(model, imageData)
         
         displayData(model, imageData)
         
+        DispatchQueue.main.async {
+            self.checkIfObjectIsSaved(id: self.displayedDishModel!.dishApiId) ? self.favouriteButton.setBackgroundImage(UIImage(systemName: "heart"),  for: .normal) : self.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+        }
+
+        
+        
     }
     
-    func getImageFromUrl( with url : String) -> Data? {
-        
-        var dataToReturn: Data?
-        
-        let url = URL(string: url)
-        let session = URLSession(configuration: .default)
-        let request = URLRequest(url: url!)
-        let task = session.dataTask(with: request) { data, response, error in
-            if let safeData = try? Data(contentsOf: url!) {
-                dataToReturn = safeData
+    func setImageFromStringrURL(stringUrl: String) {
+      if let url = URL(string: stringUrl) {
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+          // Error handling...
+          guard let imageDataLocal = data else { return }
+            DispatchQueue.main.async {
+                self.dishImage.image = UIImage(data: imageDataLocal)
+                self.imageData = imageDataLocal
             }
-        }
-        task.resume()
-        
-        return dataToReturn
+            
+          
+        }.resume()
+      }
     }
     
 }
 
 
 extension DetailViewController : RandomManagerDelegate {
+    func didRecieveDishes(_ randomManager: RandomManager, returned: [RandomModel]) {
+        
+    }
+    
     
     func didRecieveSpecificDish(_ randomManager: RandomManager, returned: DishModel) {
         
@@ -181,16 +184,18 @@ extension DetailViewController : RandomManagerDelegate {
         
         displayData(returned, imageData)
         
+        setImageFromStringrURL(stringUrl: returned.image)
+        
         defineDisplayedDish(returned, imageData)
+        
         DispatchQueue.main.async {
             self.checkIfObjectIsSaved(id: self.displayedDishModel!.dishApiId) ? self.favouriteButton.setBackgroundImage(UIImage(systemName: "heart"),  for: .normal) : self.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
         }
+ 
         
         
     }
     
-    func didRecieveDishes(_ randomManager: RandomManager, returned: [RandomModel]) {
-    }
     
     func didFailWithError(error: Error) {
         print("error")

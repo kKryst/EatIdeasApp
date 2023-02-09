@@ -9,5 +9,5 @@ import Foundation
 
 struct RandomModel {
     let id : Int
-    let name : String
+    let name : String 
 }
