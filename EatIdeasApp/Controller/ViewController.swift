@@ -23,9 +23,12 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        
         randomManager.delegate = self
         
         randomManager.fetchDishes()
+        
+        
         
         // Do any additional setup after loading the view.
     }
@@ -48,7 +51,7 @@ class ViewController: UIViewController {
         
     }
 }
-
+//MARK: tableView DataSource extension
 extension ViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dishes.count
@@ -66,7 +69,7 @@ extension ViewController : UITableViewDataSource {
     }
     
 }
-
+//MARK: Tableview delegate extension
 extension ViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell = tableView.cellForRow(at: indexPath)
@@ -74,13 +77,10 @@ extension ViewController : UITableViewDelegate {
     }
     
 }
-
+//MARK: ApiCallDelegate Extension
 extension ViewController : RandomManagerDelegate {
-    func didRecieveSpecificDish(_ randomManager: RandomManager, returned: DishModel) {
-        //
-    }
-    
     func didRecieveDishes(_ randomManager: RandomManager, returned: [RandomModel]) {
+        
         self.dishes.removeAll()
         
         DispatchQueue.main.async {
@@ -94,5 +94,6 @@ extension ViewController : RandomManagerDelegate {
     func didFailWithError(error: Error) {
         print(error)
     }
+    
     
 }

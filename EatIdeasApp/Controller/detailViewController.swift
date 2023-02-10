@@ -163,12 +163,7 @@ class DetailViewController: UIViewController {
     
 }
 
-
 extension DetailViewController : RandomManagerDelegate {
-    func didRecieveDishes(_ randomManager: RandomManager, returned: [RandomModel]) {
-        
-    }
-    
     
     func didRecieveSpecificDish(_ randomManager: RandomManager, returned: DishModel) {
         
