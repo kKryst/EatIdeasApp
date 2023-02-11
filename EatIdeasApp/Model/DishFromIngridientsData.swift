@@ -8,9 +8,6 @@
 import Foundation
 
 // MARK: - DishFromIngridientsData
-struct DishesFromIngridientsData: Codable {
-    let dishses: [DishFromIngridientsData]
-}
 struct DishFromIngridientsData: Codable {
     let id: Int
     let image: String

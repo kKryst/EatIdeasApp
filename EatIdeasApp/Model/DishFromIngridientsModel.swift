@@ -16,32 +16,35 @@ struct DishFromIngridientsModel {
     let unusedIngridients: [Ingridient]
     let usedIngridients: [Ingridient]
     
-    var missedIngridientsString: [String] {
-        var names: [String] = [String]()
-        
+    var missedIngridientsModel: [IngridientModel] {
+        var ingridients: [IngridientModel] = []
         for item in missedIngridients {
-            names.append(item.name)
+            ingridients.append(IngridientModel(name: item.name, amount: item.amount, unit: item.unit))
         }
-        return names
+        return ingridients
     }
     
-    var unusedIngridientsString: [String] {
-        var names: [String] = [String]()
-        
+    var unusedIngridientsModel: [IngridientModel] {
+        var ingridients: [IngridientModel] = []
         for item in unusedIngridients {
-            names.append(item.name)
+            ingridients.append(IngridientModel(name: item.name, amount: item.amount, unit: item.unit))
         }
-        return names
+        return ingridients
     }
     
-    var usedIngridientsString: [String] {
-        var names: [String] = [String]()
-        
+    var usedIngridientsModel: [IngridientModel] {
+        var ingridients: [IngridientModel] = []
         for item in usedIngridients {
-            names.append(item.name)
+            ingridients.append(IngridientModel(name: item.name, amount: item.amount, unit: item.unit))
         }
-        return names
+        return ingridients
     }
     
     
+}
+
+struct IngridientModel {
+    let name: String
+    let amount: Double
+    let unit: String
 }

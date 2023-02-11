@@ -15,10 +15,16 @@ class ViewController: UIViewController {
     
     var randomManager = RandomManager()
     
+    @IBOutlet weak var ingridientsTableView: UITableView!
+    
+    @IBOutlet weak var blurEffect: UIView!
+    
     
     var dishes : [RandomModel] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -27,6 +33,7 @@ class ViewController: UIViewController {
         randomManager.delegate = self
         
         randomManager.fetchDishes()
+//        randomManager.fetchDishesFromIngridients(ingridients: ["apples","flour","sugar"])
         
         
         
@@ -93,6 +100,13 @@ extension ViewController : RandomManagerDelegate {
     
     func didFailWithError(error: Error) {
         print(error)
+    }
+    
+    func didRecieveDishFromIngridients(_ randomManager: RandomManager, returned: [DishFromIngridientsModel]) {
+        //managed to catch all the items in here, what to do with that
+        
+            
+        
     }
     
     

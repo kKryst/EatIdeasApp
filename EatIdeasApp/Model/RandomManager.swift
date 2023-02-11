@@ -44,11 +44,12 @@ struct RandomManager{
     func fetchDishesFromIngridients(ingridients: [String]){
         var ingridientsAsString: String = ""
         for item in ingridients {
-            ingridientsAsString.append("\(item),")
+            ingridientsAsString.append("\(item),+")
         }
         ingridientsAsString.removeLast()
+        ingridientsAsString.removeLast()
         
-        let urlString = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=1b03f0f7b52f417597ff56a137c661cb&ingridients=\(ingridientsAsString)&ranking=2&ignorePantry=true"
+        let urlString = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=\(ingridientsAsString)&number=5&apiKey=1b03f0f7b52f417597ff56a137c661cb&ranking=2"
         
         performRequestWithIngridients(with: urlString)
     }
@@ -65,7 +66,6 @@ struct RandomManager{
                 }
                 if let safeData = data {
                     if let response = self.parseJSON(safeData){
-                        print("didRecieveDishes sent to its delegate's method")
                         self.delegate?.didRecieveDishes(self, returned: response)
                     }
                 }
@@ -158,17 +158,18 @@ struct RandomManager{
         let decoder = JSONDecoder()
         
         do {
-            let decodedData = try decoder.decode(DishesFromIngridientsData.self, from: dishFromIngridientsData)
+            let decodedData = try decoder.decode([DishFromIngridientsData].self, from: dishFromIngridientsData)
             
             var dishesFromIngridients: [DishFromIngridientsModel] = [DishFromIngridientsModel]()
             
-            for item in decodedData.dishses {
+            for item in decodedData {
                 dishesFromIngridients.append(DishFromIngridientsModel(id: item.id, image: item.image, missedIngridients: item.missedIngredients, title: item.title, unusedIngridients: item.unusedIngredients, usedIngridients: item.usedIngredients))
             }
+            
             return dishesFromIngridients
             // zwróć listę zwróconych posiłków
         } catch {
-            print ("error trying to parse dishes from ingridients \(error)")
+            delegate?.didFailWithError(error: error)
             return nil
         }
     }
