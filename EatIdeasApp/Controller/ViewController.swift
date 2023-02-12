@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwipeCellKit
 
 
 
@@ -32,24 +33,20 @@ class ViewController: UIViewController {
         
         ingridientsTableView.dataSource = self
         ingridientsTableView.delegate = self
+        ingridientsTableView.rowHeight = 80.0
         
         addTextField.delegate = self
-        
         
         tableView.dataSource = self
         tableView.delegate = self
         
-        
         randomManager.delegate = self
         
         randomManager.fetchDishes()
-//        randomManager.fetchDishesFromIngridients(ingridients: ["apples","flour","sugar"])
         
         
-        
-        // Do any additional setup after loading the view.
     }
-
+    
     
     @IBAction func reloadButtonPressed(_ sender: UIButton) {
         randomManager.fetchDishes()
@@ -89,7 +86,7 @@ extension ViewController : UITableViewDataSource {
         } else {
             return ingridients.count
         }
-
+        
     }
     // stworz cell i zwroc ja
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -102,14 +99,15 @@ extension ViewController : UITableViewDataSource {
             cell.textLabel?.numberOfLines = 0
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Ingridient", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Ingridient", for: indexPath) as! SwipeTableViewCell
+            cell.delegate = self
             cell.textLabel?.text = ingridients[indexPath.row]
             
             //zawijanie wierszy w komorce
             cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
             cell.textLabel?.numberOfLines = 0
             return cell
-
+            
         }
         
         
@@ -126,7 +124,7 @@ extension ViewController : UITableViewDelegate {
         } else {
             
         }
-       
+        
     }
     
 }
@@ -154,11 +152,7 @@ extension ViewController : RandomManagerDelegate {
         for item in returned {
             print(item.title)
         }
-        
-            
-        
     }
-    
     
 }
 //MARK: - PopUpWindow Animations
@@ -210,7 +204,7 @@ extension ViewController: UITextFieldDelegate {
         if addTextField.text != "" {
             ingridients.append(addTextField.text!)
         }
-            
+        
         ingridientsTableView.reloadData()
         
         addTextField.endEditing(true)
@@ -230,6 +224,31 @@ extension ViewController: UITextFieldDelegate {
             return false
         }
     }
+}
+
+
+//MARK: Swipe Cell Delegate
+extension ViewController: SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+            self.ingridients.remove(at: indexPath.row)
+//            self.ingridientsTableView.reloadData()
+        }
+        
+        // customize the action appearance
+        deleteAction.image = UIImage(named: "delete-icon")
+        
+        return [deleteAction]
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .destructive
+        return options
+    }
+    
 }
 
 
