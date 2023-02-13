@@ -14,8 +14,8 @@
             filePath = "EatIdeasApp/Controller/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "EatIdeasApp/Controller/DetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "setImageFromStringrURL(stringUrl:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,9 +78,9 @@
             filePath = "EatIdeasApp/Controller/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "didRecieveDishes(_:returned:)"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -94,8 +94,8 @@
             filePath = "EatIdeasApp/Controller/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "didRecieveDishes(_:returned:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,9 +110,9 @@
             filePath = "EatIdeasApp/Controller/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
-            landmarkName = "didRecieveDishes(_:returned:)"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

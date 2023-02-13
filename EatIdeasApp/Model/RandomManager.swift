@@ -49,7 +49,7 @@ struct RandomManager{
         ingridientsAsString.removeLast()
         ingridientsAsString.removeLast()
         
-        let urlString = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=\(ingridientsAsString)&number=5&apiKey=1b03f0f7b52f417597ff56a137c661cb&ranking=2"
+        let urlString = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=\(ingridientsAsString)&number=10&apiKey=1b03f0f7b52f417597ff56a137c661cb&ranking=2"
         
         performRequestWithIngridients(with: urlString)
     }

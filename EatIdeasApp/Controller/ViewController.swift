@@ -17,6 +17,9 @@ class ViewController: UIViewController {
     @IBOutlet var popUpView: UIView!
     @IBOutlet weak var ingridientsTableView: UITableView!
     @IBOutlet weak var addTextField: UITextField!
+    @IBOutlet var dishesFromIngridientsPopUpView: UIView!
+    
+    @IBOutlet weak var dishesFromIngridientsTableView: UITableView!
     
     var randomManager = RandomManager()
     
@@ -24,16 +27,22 @@ class ViewController: UIViewController {
     
     var dishes : [RandomModel] = []
     
+    var dishesFromIngridients: [DishFromIngridientsModel] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
         blurEffect.bounds = self.view.bounds
         popUpView.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width *  0.9, height: self.view.bounds.height * 0.4)
+        dishesFromIngridientsPopUpView.bounds = popUpView.bounds
         
         ingridientsTableView.dataSource = self
         ingridientsTableView.delegate = self
         ingridientsTableView.rowHeight = 80.0
+        
+        dishesFromIngridientsTableView.delegate = self
+        dishesFromIngridientsTableView.dataSource = self
         
         addTextField.delegate = self
         
@@ -62,19 +71,25 @@ class ViewController: UIViewController {
             
             detailsViewController.recipeId = dishes[row].id
             detailsViewController.segueIdentifier = segue.identifier
-        }
-    }
-    
-    //TODO: all works fine, next step is to add an option to allow users to delete ingridients if they want to
-    
-    @IBAction func searchByIngridientsButtonPressed(_ sender: UIButton) {
-        if ingridients.count != 0 {
-            randomManager.fetchDishesFromIngridients(ingridients: ingridients)
-            ingridients.removeAll()
-            ingridientsTableView.reloadData()
+            
+        } else if segue.identifier == "goToDetailsFromDishesByIngridients"{
+            let detailsViewController = segue.destination as! DetailViewController
+            let selectedCell = sender
+            
+            let indexPath = dishesFromIngridientsTableView.indexPath(for: selectedCell as! UITableViewCell)
+            let row = indexPath!.row
+            
+            detailsViewController.recipeId = dishesFromIngridients[row].id
+            detailsViewController.segueIdentifier = segue.identifier
         }
         
+        
     }
+    
+
+    //TODO: all works fine, next step is to add an option to allow users to delete ingridients if they want to
+    
+    
     
 }
 //MARK: tableView DataSource extension
@@ -83,8 +98,10 @@ extension ViewController : UITableViewDataSource {
         
         if tableView == self.tableView {
             return dishes.count
-        } else {
+        } else if tableView == self.ingridientsTableView{
             return ingridients.count
+        } else {
+            return dishesFromIngridients.count
         }
         
     }
@@ -98,7 +115,7 @@ extension ViewController : UITableViewDataSource {
             cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
             cell.textLabel?.numberOfLines = 0
             return cell
-        } else {
+        } else if tableView == self.ingridientsTableView{
             let cell = tableView.dequeueReusableCell(withIdentifier: "Ingridient", for: indexPath) as! SwipeTableViewCell
             cell.delegate = self
             cell.textLabel?.text = ingridients[indexPath.row]
@@ -108,6 +125,13 @@ extension ViewController : UITableViewDataSource {
             cell.textLabel?.numberOfLines = 0
             return cell
             
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DishFromIngridient", for: indexPath)
+            cell.textLabel?.text = dishesFromIngridients[indexPath.row].title
+            
+            cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+            cell.textLabel?.numberOfLines = 0
+            return cell
         }
         
         
@@ -118,11 +142,14 @@ extension ViewController : UITableViewDataSource {
 //MARK: Tableview delegate extension
 extension ViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == tableView {
+        if tableView == self.tableView {
             let selectedCell = tableView.cellForRow(at: indexPath)
             performSegue(withIdentifier: "goToDetails", sender: selectedCell)
-        } else {
-            
+        } else if tableView == self.dishesFromIngridientsTableView {
+            let selectedCell = tableView.cellForRow(at: indexPath)
+            performSegue(withIdentifier: "goToDetailsFromDishesByIngridients", sender: selectedCell)
+//            animateOut(desiredView: blurEffect)
+//            animateOut(desiredView: dishesFromIngridientsPopUpView)
         }
         
     }
@@ -150,13 +177,31 @@ extension ViewController : RandomManagerDelegate {
         //managed to catch all the items in here, what to do with that
         
         for item in returned {
-            print(item.title)
+            self.dishesFromIngridients.append(item)
         }
+        DispatchQueue.main.async {
+            self.dishesFromIngridientsTableView.reloadData()
+        }
+        
     }
     
 }
-//MARK: - PopUpWindow Animations
+//MARK: - Ingridients PopUpWindow
 extension ViewController {
+    
+    @IBAction func searchByIngridientsButtonPressed(_ sender: UIButton) {
+        if ingridients.count != 0 {
+            randomManager.fetchDishesFromIngridients(ingridients: ingridients)
+            ingridients.removeAll()
+            ingridientsTableView.reloadData()
+            
+            animateOut(desiredView: popUpView)
+            animateIn(desiredView: dishesFromIngridientsPopUpView)
+        }
+        
+        
+        
+    }
     
     @IBAction func searchButtonPressed(_ sender: UIButton) {
         
@@ -171,6 +216,9 @@ extension ViewController {
         animateOut(desiredView: blurEffect)
         
     }
+}
+//MARK: - Animations
+extension ViewController {
     
     func animateIn(desiredView: UIView) {
         let backgroundView = self.view
@@ -197,6 +245,17 @@ extension ViewController {
     }
     
 }
+
+//MARK: - dishesFromIngridientsPopUpView
+
+extension ViewController {
+    @IBAction func exitDishesPopUpViewButtonPressed(_ sender: UIButton) {
+        animateOut(desiredView: dishesFromIngridientsPopUpView)
+        animateOut(desiredView: blurEffect)
+    }
+}
+
+//MARK: textField Delegate
 
 extension ViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

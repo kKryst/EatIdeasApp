@@ -103,6 +103,9 @@ class DetailViewController: UIViewController {
         else if segueName == "goToDetailsFromSaved"{
             readObjectFromDatabase(id: recipeId)
         }
+        else if segueName == "goToDetailsFromDishesByIngridients" {
+            randomManager.fetchSpecificDish(id: recipeId)
+        }
     }
     
     
