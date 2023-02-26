@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kuR-VT-Uu9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DFu-sk-YEl">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -8,6 +8,25 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--SplashScreenViewController-->
+        <scene sceneID="MPT-Ts-y4a">
+            <objects>
+                <viewController id="yLg-dV-70m" userLabel="SplashScreenViewController" customClass="SplashScreenViewController" customModule="EatIdeasApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bzK-3z-YLl">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="jVl-fc-8iK"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.92941176469999998" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="H18-PT-P1h"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="segue" customClass="BottomCardSegue" customModule="EatIdeasApp" customModuleProvider="target" id="gUe-fs-Jxt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HdF-Wo-JSB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2797.709923664122" y="50"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -205,7 +224,7 @@
                     <blurEffect style="regular"/>
                 </visualEffectView>
             </objects>
-            <point key="canvasLocation" x="2913.740458015267" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="3840.4580152671756" y="3.5211267605633805"/>
         </scene>
         <!--Saved Controller-->
         <scene sceneID="UtK-oS-xXq">
@@ -396,25 +415,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kl5-rz-SBE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4002.2900763358775" y="-20.422535211267608"/>
+            <point key="canvasLocation" x="4929.0076335877857" y="-20.422535211267608"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="ycp-77-nib">
+        <scene sceneID="q7K-8b-uRC">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kuR-VT-Uu9" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DFu-sk-YEl" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hg5-aH-bLg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6Fv-r4-HSN">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="M1I-bu-ngc"/>
+                        <segue destination="yLg-dV-70m" kind="relationship" relationship="rootViewController" id="fuI-VW-OCu"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WZS-Zk-mQH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Epg-9m-ruO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1987.0229007633586" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="1870.9923664122136" y="50"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
