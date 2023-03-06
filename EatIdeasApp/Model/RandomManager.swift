@@ -111,7 +111,7 @@ struct RandomManager{
         }
         
     }
-    // funkcja odpowiadająca za przetworzenie JSONA otrzymanego z serwera na obiekt swift.class
+    // funkcja odpowiadająca za przetworzenie JSONA otrzymanego z serwera na obiekt swift
     func parseJSON(_ randomData: Data) -> [RandomModel]?{
         let decoder = JSONDecoder()
         do {
@@ -120,7 +120,7 @@ struct RandomManager{
             var recipesModels : [RandomModel] = [RandomModel]()
             
             for item in decodedData.recipes{
-                recipesModels.append(RandomModel(id: item.id, name: item.title))
+                recipesModels.append(RandomModel(id: item.id, name: item.title, image: item.image))
             }
             // tworzenie struktury przesyłając jej dane
              return recipesModels

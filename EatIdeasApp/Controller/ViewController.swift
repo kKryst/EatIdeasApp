@@ -9,6 +9,7 @@ import UIKit
 import SwipeCellKit
 
 
+#warning ("TODO: get dish's image into this view and display it on a cell")
 
 class ViewController: UIViewController {
     
@@ -21,18 +22,19 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var dishesFromIngridientsTableView: UITableView!
     
+    // An instance of RandomManager that is responsible for fetching data from an API
+
     var randomManager = RandomManager()
     
+    // Arrays that store data for table views
     var ingridients: [String] = [String]()
-    
     var dishes : [RandomModel] = []
-    
     var dishesFromIngridients: [DishFromIngridientsModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        // bounds
         blurEffect.bounds = self.view.bounds
         popUpView.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width *  0.9, height: self.view.bounds.height * 0.4)
         dishesFromIngridientsPopUpView.bounds = popUpView.bounds
@@ -48,6 +50,8 @@ class ViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(UINib(nibName: "TestTableViewCell", bundle: nil), forCellReuseIdentifier: "Dish")
+        tableView.rowHeight = 144
         
         randomManager.delegate = self
         
@@ -57,11 +61,13 @@ class ViewController: UIViewController {
     }
     
     
+    
     @IBAction func reloadButtonPressed(_ sender: UIButton) {
         randomManager.fetchDishes()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "goToDetails" {
             let detailsViewController = segue.destination as! DetailViewController
             let selectedCell = sender
@@ -86,41 +92,91 @@ class ViewController: UIViewController {
         
     }
     
-
-    //TODO: all works fine, next step is to add an option to allow users to delete ingridients if they want to
-    
-    
-    
+//    func setImageFromStringrURL(stringUrl: String) -> UIImage {
+//        var dataOfImage = Data()
+//      if let url = URL(string: stringUrl) {
+//          print(stringUrl)
+//        URLSession.shared.dataTask(with: url) { (data, response, error) in
+//          // Error handling...
+//            if let imageDataLocal = data {
+//                dataOfImage = imageDataLocal
+//            }
+//
+//
+//        }.resume()
+//      }
+//        return UIImage(data: dataOfImage)!
+//    }
+        
 }
 //MARK: tableView DataSource extension
-extension ViewController : UITableViewDataSource {
+
+extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if tableView == self.tableView {
+        switch tableView {
+        case self.tableView:
             return dishes.count
-        } else if tableView == self.ingridientsTableView{
+        case self.ingridientsTableView:
             return ingridients.count
-        } else {
+        case self.dishesFromIngridientsTableView:
             return dishesFromIngridients.count
+        default:
+            return 0
         }
         
     }
-    // stworz cell i zwroc ja
+    // set cell's image passing cell and url
+    fileprivate func setCellImage(_ imageUrlString: String, _ cell: TestTableViewCell) {
+        if let imageUrl = URL(string: imageUrlString) {
+            URLSession.shared.dataTask(with: imageUrl) { (data, response, error) in
+                guard let data = data, error == nil else { return }
+                DispatchQueue.main.async {
+                    let image = UIImage(data: data)
+                    cell.displayedImage.image = image
+                }
+            }.resume()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         if tableView == self.tableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Dish", for: indexPath)
-            cell.textLabel?.text = dishes[indexPath.row].name
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Dish", for: indexPath) as! TestTableViewCell
+            
+            var dishTitle =  dishes[indexPath.row].name
+            
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: 17),
+                .foregroundColor: UIColor.white,
+                .strokeColor: UIColor.black,
+                .strokeWidth: -0.5 // negative value to draw an outline
+            ]
+
+            // Create the attributed string with the attributes
+            let attributedString = NSAttributedString(string: dishTitle, attributes: attributes)
+
+            // Assign the attributed string to a label or other text view
+            cell.label.attributedText = attributedString
+            
+            
+            
+            
+            // no idea how to refactor that
+            let imageUrlString = dishes[indexPath.row].image
+            
+            //set cell's image
+            setCellImage(imageUrlString, cell)
             
             //zawijanie wierszy w komorce
             cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
             cell.textLabel?.numberOfLines = 0
+            
             return cell
         } else if tableView == self.ingridientsTableView{
             let cell = tableView.dequeueReusableCell(withIdentifier: "Ingridient", for: indexPath) as! SwipeTableViewCell
             cell.delegate = self
             cell.textLabel?.text = ingridients[indexPath.row]
             
-            //zawijanie wierszy w komorce
             cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
             cell.textLabel?.numberOfLines = 0
             return cell
@@ -148,8 +204,8 @@ extension ViewController : UITableViewDelegate {
         } else if tableView == self.dishesFromIngridientsTableView {
             let selectedCell = tableView.cellForRow(at: indexPath)
             performSegue(withIdentifier: "goToDetailsFromDishesByIngridients", sender: selectedCell)
-//            animateOut(desiredView: blurEffect)
-//            animateOut(desiredView: dishesFromIngridientsPopUpView)
+            //            animateOut(desiredView: blurEffect)
+            //            animateOut(desiredView: dishesFromIngridientsPopUpView)
         }
         
     }
@@ -293,7 +349,7 @@ extension ViewController: SwipeTableViewCellDelegate {
         
         let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
             self.ingridients.remove(at: indexPath.row)
-//            self.ingridientsTableView.reloadData()
+            //            self.ingridientsTableView.reloadData()
         }
         
         // customize the action appearance

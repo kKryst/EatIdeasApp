@@ -32,33 +32,28 @@ class SplashScreenViewController: UIViewController {
         // Center imageView
         backgroundEaten.center = view.center
         
+        // Define the completion handlers for each animation
         let completion2 = {
-            print("completion 2 executing...")
             self.animate(view: self.backgroundEaten, time: 0, soundName: "chrup 2", completion: self.goToAnotherView)
         }
         
-        // Define the completion handlers for each animation
         let completion1 = {
-            print("completion 1 executing...")
             self.animate(view: self.backgroundHalfEaten, time: 0, soundName: "chrup 1", completion: completion2)
         }
-        
         // Trigger the first animation with a delay of 0.5 seconds and execute completion1 when done
-        print("dispatch in viewdidload executing...")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: completion1)
     }
 
     func animate(view: UIView, time: Double, soundName: String, completion: @escaping () -> Void) {
         // Animate the view with the specified time
         UIView.animate(withDuration: TimeInterval(time)) {
-            print("animate executing...")
             self.playSound(soundName: soundName)
         } completion: { _ in
             // Add the view to the main view after the animation is complete
             self.view.addSubview(view)
             
             // Trigger the completion handler with a delay of 0.3 seconds
-            print("dispatch in aniation executing...")
+            // This is just a reference of completion value passed when invoking this method, so for the fist call of this method completion = completion2, and for the second completion = self.goToAnotherView()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: completion)
         }
     }
