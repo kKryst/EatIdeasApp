@@ -9,7 +9,7 @@ import UIKit
 import SwipeCellKit
 
 
-#warning ("TODO: get dish's image into this view and display it on a cell")
+
 
 class ViewController: UIViewController {
     
@@ -30,6 +30,8 @@ class ViewController: UIViewController {
     var ingridients: [String] = [String]()
     var dishes : [RandomModel] = []
     var dishesFromIngridients: [DishFromIngridientsModel] = []
+    
+    @IBOutlet weak var logoutBackground: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +58,8 @@ class ViewController: UIViewController {
         randomManager.delegate = self
         
         randomManager.fetchDishes()
+        
+        logoutBackground.layer.cornerRadius = 15.0
         
         
     }
@@ -143,7 +147,7 @@ extension ViewController: UITableViewDataSource {
         if tableView == self.tableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Dish", for: indexPath) as! TestTableViewCell
             
-            var dishTitle =  dishes[indexPath.row].name
+            let dishTitle =  dishes[indexPath.row].name
             
             let attributes: [NSAttributedString.Key: Any] = [
                 .font: UIFont.systemFont(ofSize: 17),
