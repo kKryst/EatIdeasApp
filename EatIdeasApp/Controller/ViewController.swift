@@ -33,6 +33,20 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var logoutBackground: UIView!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // hide navigation bar on this view
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        // display navigation bar when going to next view
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -95,22 +109,7 @@ class ViewController: UIViewController {
         
         
     }
-    
-//    func setImageFromStringrURL(stringUrl: String) -> UIImage {
-//        var dataOfImage = Data()
-//      if let url = URL(string: stringUrl) {
-//          print(stringUrl)
-//        URLSession.shared.dataTask(with: url) { (data, response, error) in
-//          // Error handling...
-//            if let imageDataLocal = data {
-//                dataOfImage = imageDataLocal
-//            }
-//
-//
-//        }.resume()
-//      }
-//        return UIImage(data: dataOfImage)!
-//    }
+
         
 }
 //MARK: tableView DataSource extension
