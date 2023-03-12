@@ -17,13 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
-//        print(Realm.Configuration.defaultConfiguration.fileURL)
-        
-        // realm related stuff
-//        let data = DishRealmModel()
-//
+        if #available(iOS 15, *) {
+                      
+                    
+                    let tabBarApperance = UITabBarAppearance()
+                    tabBarApperance.configureWithOpaqueBackground()
+                    tabBarApperance.backgroundColor = UIColor(named: "BarColor")
+                    UITabBar.appearance().scrollEdgeAppearance = tabBarApperance
+                    UITabBar.appearance().standardAppearance = tabBarApperance
+                }
+
         do {
             let realm = try Realm()
 //            try realm.write {

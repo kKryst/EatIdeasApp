@@ -11,7 +11,7 @@ import SwipeCellKit
 
 
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var blurEffect: UIVisualEffectView!
@@ -114,7 +114,7 @@ class ViewController: UIViewController {
 }
 //MARK: tableView DataSource extension
 
-extension ViewController: UITableViewDataSource {
+extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case self.tableView:
@@ -160,10 +160,7 @@ extension ViewController: UITableViewDataSource {
 
             // Assign the attributed string to a label or other text view
             cell.label.attributedText = attributedString
-            
-            
-            
-            
+        
             // no idea how to refactor that
             let imageUrlString = dishes[indexPath.row].image
             
@@ -199,7 +196,7 @@ extension ViewController: UITableViewDataSource {
     
 }
 //MARK: Tableview delegate extension
-extension ViewController : UITableViewDelegate {
+extension HomeViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.tableView {
             let selectedCell = tableView.cellForRow(at: indexPath)
@@ -215,7 +212,7 @@ extension ViewController : UITableViewDelegate {
     
 }
 //MARK: ApiCallDelegate Extension
-extension ViewController : RandomManagerDelegate {
+extension HomeViewController : RandomManagerDelegate {
     func didRecieveDishes(_ randomManager: RandomManager, returned: [RandomModel]) {
         
         self.dishes.removeAll()
@@ -246,7 +243,7 @@ extension ViewController : RandomManagerDelegate {
     
 }
 //MARK: - Ingridients PopUpWindow
-extension ViewController {
+extension HomeViewController {
     
     @IBAction func searchByIngridientsButtonPressed(_ sender: UIButton) {
         if ingridients.count != 0 {
@@ -277,7 +274,7 @@ extension ViewController {
     }
 }
 //MARK: - Animations
-extension ViewController {
+extension HomeViewController {
     
     func animateIn(desiredView: UIView) {
         let backgroundView = self.view
@@ -307,7 +304,7 @@ extension ViewController {
 
 //MARK: - dishesFromIngridientsPopUpView
 
-extension ViewController {
+extension HomeViewController {
     @IBAction func exitDishesPopUpViewButtonPressed(_ sender: UIButton) {
         animateOut(desiredView: dishesFromIngridientsPopUpView)
         animateOut(desiredView: blurEffect)
@@ -316,7 +313,7 @@ extension ViewController {
 
 //MARK: textField Delegate
 
-extension ViewController: UITextFieldDelegate {
+extension HomeViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if addTextField.text != "" {
@@ -346,7 +343,7 @@ extension ViewController: UITextFieldDelegate {
 
 
 //MARK: Swipe Cell Delegate
-extension ViewController: SwipeTableViewCellDelegate {
+extension HomeViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
         

@@ -20,7 +20,7 @@
 		AF836FA629ABC184000AA306 /* chrup 1.wav in Resources */ = {isa = PBXBuildFile; fileRef = AF836FA429ABC184000AA306 /* chrup 1.wav */; };
 		AF98A6B8295E184A00461E3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6B7295E184A00461E3D /* AppDelegate.swift */; };
 		AF98A6BA295E184A00461E3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6B9295E184A00461E3D /* SceneDelegate.swift */; };
-		AF98A6BC295E184A00461E3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6BB295E184A00461E3D /* ViewController.swift */; };
+		AF98A6BC295E184A00461E3D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6BB295E184A00461E3D /* HomeViewController.swift */; };
 		AF98A6BF295E184A00461E3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF98A6BD295E184A00461E3D /* Main.storyboard */; };
 		AF98A6C2295E184A00461E3D /* EatIdeasApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6C0295E184A00461E3D /* EatIdeasApp.xcdatamodeld */; };
 		AF98A6C4295E184C00461E3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF98A6C3295E184C00461E3D /* Assets.xcassets */; };
@@ -32,7 +32,10 @@
 		AFD75BA8299591E400DEEEAD /* DishFromIngridientsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD75BA7299591E400DEEEAD /* DishFromIngridientsModel.swift */; };
 		AFDD2E2D29B343D900E3DF23 /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDD2E2B29B343D900E3DF23 /* TestTableViewCell.swift */; };
 		AFDD2E2E29B343D900E3DF23 /* TestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFDD2E2C29B343D900E3DF23 /* TestTableViewCell.xib */; };
-		AFEAE8C9298C140200C7F311 /* SavedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEAE8C8298C140200C7F311 /* SavedController.swift */; };
+		AFDD2E3029BD0DA800E3DF23 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDD2E2F29BD0DA800E3DF23 /* Constants.swift */; };
+		AFDD2E3229BD1B6000E3DF23 /* CustomTabBarControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDD2E3129BD1B6000E3DF23 /* CustomTabBarControllerViewController.swift */; };
+		AFDD2E3429BD557600E3DF23 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDD2E3329BD557600E3DF23 /* DetailVC.swift */; };
+		AFEAE8C9298C140200C7F311 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEAE8C8298C140200C7F311 /* SavedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,7 +51,7 @@
 		AF98A6B4295E184A00461E3D /* EatIdeasApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatIdeasApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF98A6B7295E184A00461E3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF98A6B9295E184A00461E3D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		AF98A6BB295E184A00461E3D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AF98A6BB295E184A00461E3D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AF98A6BE295E184A00461E3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AF98A6C1295E184A00461E3D /* EatIdeasApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EatIdeasApp.xcdatamodel; sourceTree = "<group>"; };
 		AF98A6C3295E184C00461E3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,7 +64,10 @@
 		AFD75BA7299591E400DEEEAD /* DishFromIngridientsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishFromIngridientsModel.swift; sourceTree = "<group>"; };
 		AFDD2E2B29B343D900E3DF23 /* TestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
 		AFDD2E2C29B343D900E3DF23 /* TestTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestTableViewCell.xib; sourceTree = "<group>"; };
-		AFEAE8C8298C140200C7F311 /* SavedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedController.swift; sourceTree = "<group>"; };
+		AFDD2E2F29BD0DA800E3DF23 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		AFDD2E3129BD1B6000E3DF23 /* CustomTabBarControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarControllerViewController.swift; sourceTree = "<group>"; };
+		AFDD2E3329BD557600E3DF23 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
+		AFEAE8C8298C140200C7F311 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
 		BBE29ACCEF89A965E41C38AF /* Pods-EatIdeasApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EatIdeasApp.debug.xcconfig"; path = "Target Support Files/Pods-EatIdeasApp/Pods-EatIdeasApp.debug.xcconfig"; sourceTree = "<group>"; };
 		ED1A59DFDD7300B78AF46ABE /* Pods-EatIdeasApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EatIdeasApp.release.xcconfig"; path = "Target Support Files/Pods-EatIdeasApp/Pods-EatIdeasApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,6 +136,7 @@
 				AF98A6C8295E184C00461E3D /* Info.plist */,
 				AF98A6C0295E184A00461E3D /* EatIdeasApp.xcdatamodeld */,
 				AF836FA129ABC114000AA306 /* BottomCardSegue.swift */,
+				AFDD2E2F29BD0DA800E3DF23 /* Constants.swift */,
 			);
 			path = EatIdeasApp;
 			sourceTree = "<group>";
@@ -162,10 +169,12 @@
 		AF98A6D0295E278F00461E3D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				AF98A6BB295E184A00461E3D /* ViewController.swift */,
+				AFDD2E3129BD1B6000E3DF23 /* CustomTabBarControllerViewController.swift */,
+				AF98A6BB295E184A00461E3D /* HomeViewController.swift */,
 				AF22F06A2974921D0097D36D /* DetailViewController.swift */,
-				AFEAE8C8298C140200C7F311 /* SavedController.swift */,
+				AFEAE8C8298C140200C7F311 /* SavedViewController.swift */,
 				AF836F9F29ABC0ED000AA306 /* SplashScreenViewController.swift */,
+				AFDD2E3329BD557600E3DF23 /* DetailVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -296,10 +305,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF98A6D42962184500461E3D /* RandomManager.swift in Sources */,
-				AF98A6BC295E184A00461E3D /* ViewController.swift in Sources */,
+				AF98A6BC295E184A00461E3D /* HomeViewController.swift in Sources */,
 				AF98A6D6296221A500461E3D /* RandomModel.swift in Sources */,
 				AF98A6D22961FE0E00461E3D /* RandomData.swift in Sources */,
 				AFDD2E2D29B343D900E3DF23 /* TestTableViewCell.swift in Sources */,
+				AFDD2E3429BD557600E3DF23 /* DetailVC.swift in Sources */,
 				AF98A6C2295E184A00461E3D /* EatIdeasApp.xcdatamodeld in Sources */,
 				AF22F06D2975EC260097D36D /* DishData.swift in Sources */,
 				AF98A6B8295E184A00461E3D /* AppDelegate.swift in Sources */,
@@ -309,9 +319,11 @@
 				AF22F0782983290A0097D36D /* DishRealmModel.swift in Sources */,
 				AF98A6BA295E184A00461E3D /* SceneDelegate.swift in Sources */,
 				AFD75BA8299591E400DEEEAD /* DishFromIngridientsModel.swift in Sources */,
+				AFDD2E3229BD1B6000E3DF23 /* CustomTabBarControllerViewController.swift in Sources */,
 				AF22F06B2974921D0097D36D /* DetailViewController.swift in Sources */,
 				AFD75BA62995918800DEEEAD /* DishFromIngridientsData.swift in Sources */,
-				AFEAE8C9298C140200C7F311 /* SavedController.swift in Sources */,
+				AFEAE8C9298C140200C7F311 /* SavedViewController.swift in Sources */,
+				AFDD2E3029BD0DA800E3DF23 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
