@@ -105,8 +105,12 @@ struct DishModel {
         self.image = databaseObject.image
 
         var tableOfIngridients: [ExtendedIngredient] = []
-        for item in databaseObject.extendedIngridients {
-            let ingridient = ExtendedIngredient(id: 1, name: item)
+        for (index, item) in databaseObject.extendedIngridients.enumerated() {
+            let ingridient =
+            ExtendedIngredient(id: 1, name: item,
+                            measures: Measures(
+                                value: (tableOfIngridients[index + 1].measures.metric.amount),
+                                unit: (tableOfIngridients[index + 1].measures.metric.unitShort)))
             tableOfIngridients.append(ingridient)
         }
         self.extendedIngredients = tableOfIngridients

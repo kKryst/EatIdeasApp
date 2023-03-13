@@ -31,6 +31,31 @@ struct DishData: Codable {
 struct ExtendedIngredient: Codable {
     let id: Int
     let name: String
+    let measures: Measures
+    
+    init(id: Int, name: String, measures: Measures) {
+        self.id = id
+        self.name = name
+        self.measures = measures
+    }
     
 }
+struct Measures: Codable {
+    let metric, us: Metric
+    
+    init(metric: Metric, us: Metric) {
+        self.metric = metric
+        self.us = us
+    }
+    
+    //simplified constructor
+    init(value: Double, unit: String) {
+        self.metric = Metric(amount: value, unitLong: unit, unitShort: unit)
+        self.us = Metric(amount: value, unitLong: unit, unitShort: unit)
+    }
+}
 
+struct Metric: Codable {
+    let amount: Double
+    let unitLong, unitShort: String
+}
