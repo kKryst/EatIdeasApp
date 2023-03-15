@@ -1,8 +1,8 @@
 # EastIdeasApp
 
-# This is an iOS app written in Swift using UIKit for interface building. The app allows users to search for recipes by connecting to a third-party API that provides detailed information about ingredients, instructions, and more. The app also utilizes Realm for storing and displaying users' favorite recipes.
+This is an iOS app written in Swift using UIKit for interface building. The app allows users to search for recipes by connecting to a third-party API that provides detailed information about ingredients, instructions, and more. The app also utilizes Realm for storing and displaying users' favorite recipes.
 
-# eatures
+# Features
 
 Search for recipes based on ingridients (in progress due to interface changes)
 View detailed recipe information, including ingredients, instructions, and nutritional information
