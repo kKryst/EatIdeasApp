@@ -31,7 +31,7 @@ class SavedViewController: UIViewController {
         
         tableView.register(UINib(nibName: "TestTableViewCell", bundle: nil), forCellReuseIdentifier: "Saved")
         
-        fetchSaved()
+        dishes = DatabaseManager.shared.fetchSaved()
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -100,15 +100,14 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToDetailsFromSaved" {
-            #warning("zadania na jutro: stworzyć widok okna szczegółów i zaprogramować przejście do tego okna z tego miejsca oraz z homeVC, 1. stworzyc widok, 2. stworzyc segue")
-            let detailsViewController = segue.destination as! DetailViewController
+            let detailsViewController = segue.destination as! DetailVC
             let selectedCell = sender
             
             let indexPath = tableView.indexPath(for: selectedCell as! UITableViewCell)
             let row = indexPath!.row
             
             detailsViewController.recipeId = dishes![row].dishApiId
-            detailsViewController.segueIdentifier = segue.identifier
+            detailsViewController.segueIdentifier = segue.identifier!
         }
     }
     

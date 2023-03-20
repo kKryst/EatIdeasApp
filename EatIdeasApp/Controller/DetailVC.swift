@@ -8,9 +8,10 @@
 import UIKit
 import RealmSwift
 
+
 #warning("pamiętaj o dodaniu jednostek do składników!")
 class DetailVC: UIViewController {
-
+    
     @IBOutlet weak var cookNowButton: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
@@ -23,6 +24,7 @@ class DetailVC: UIViewController {
     @IBOutlet weak var timeToCookLabel: UILabel!
     @IBOutlet weak var ingridientsLabel: UILabel!
     @IBOutlet weak var dishNameLabel: UILabel!
+    @IBOutlet weak var favouriteButton: UIButton!
     
     var recipeId : Int = 0
     
@@ -32,18 +34,17 @@ class DetailVC: UIViewController {
     
     var displayedDishModel: DishRealmModel?
     
-    #warning("for testing puropuse - should be nillable")
+#warning("for testing puropuse - should be nillable")
     var segueIdentifier: String = K.Segues.fromMainToDetails
     
     var imageData: Data = Data()
     
     var randomManager = RandomManager()
-    //delegat dla protokołu randomProtocool
-    // delegat dla tableview
-    // rozpoczęcie działania aplikacji od metody determineSegueSource()
+    
+    var backgroundImageView = UIImageView()
+    
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         randomManager.delegate = self
@@ -60,19 +61,58 @@ class DetailVC: UIViewController {
     
     func determineSource(segue: String) {
         if segue == K.Segues.fromMainToDetails {
-            //gather info from api
-            randomManager.fetchSpecificDish(id: 716429)
+            randomManager.fetchSpecificDish(id: recipeId)
         } else if segue == K.Segues.fromSavedToDetails {
             //ask database for the object
+            displayedDishModel = DatabaseManager.shared.fetchObject(id: recipeId)
+            
+            // append items to ingridients tableView
+            setUpData()
+            
         }
     }
     
+    func setUpData(){
+        //safe casting the object
+        if let dish = displayedDishModel{
+            
+            // fill table with ingridients
+            for item in dish.extendedIngridients {
+                self.ingridients.append(ExtendedIngredient(databaseIngridient: item))
+            }
+            // interface changes
+            DispatchQueue.main.async {
+                
+                if dish.vegan == "yes" {
+                    self.veganIMV.isHidden = false
+                }
+                if dish.vegetarian == "yes"{
+                    self.vegetarianIMV.isHidden = false
+                }
+                if dish.glutenFree == "yes"{
+                    self.glutenFreeIMV.isHidden = false
+                }
+                if dish.diaryFree == "yes"{
+                    self.lactoseFreeIMV.isHidden = false
+                }
+                
+                self.timeToCookLabel.text = "\(String(dish.readyInMinutes)) min"
+                self.dishNameLabel.text = dish.title
+                self.tableView.reloadData()
+                
+            }
+        }
+        
+    }
+    
+    
+    
     fileprivate func setUpLayout() {
+        // create a container view
         let containerView = UIView(frame:  self.view.bounds)
         
-        let backgroundImageView = UIImageView(frame:  containerView.bounds)
         
-        backgroundImageView.image = UIImage(named: "mainImage")
+        backgroundImageView = UIImageView(frame:  containerView.bounds)
         backgroundImageView.contentMode = .scaleToFill
         
         containerView.addSubview(backgroundImageView)
@@ -91,7 +131,51 @@ class DetailVC: UIViewController {
         tableView.backgroundColor = UIColor.clear
         tableView.rowHeight = 35
         tableView.separatorStyle = .none
-
+        
+        lactoseFreeIMV.isHidden = true
+        glutenFreeIMV.isHidden = true
+        vegetarianIMV.isHidden = true
+        veganIMV.isHidden = true
+        
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        
+        backgroundImageView.image = UIImage(named: "recipeBackground")
+        
+        if DatabaseManager.shared.isObjectSaved(id: recipeId) {
+            favouriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        }
+        
+    }
+    
+    func getImageFromURL(_ url: URL) -> UIImage? {
+        do {
+            let data = try Data(contentsOf: url)
+            return UIImage(data: data)
+        } catch {
+            print("Error loading image from URL: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
+    @IBAction func addToFavouritesButtonPressed(_ sender: UIButton) {
+        // check for object in DB
+        if DatabaseManager.shared.isObjectSaved(id: recipeId) {
+            //delete the object
+            DatabaseManager.shared.deleteFromDatabase(id: recipeId)
+            DispatchQueue.main.async {
+                // change button's icon
+                self.favouriteButton.setImage(UIImage(named: "favourite"), for: .normal)
+            }
+        } else {
+            // create the object in DB
+            DatabaseManager.shared.createInDatabase(dish: displayedDishModel!)
+            DispatchQueue.main.async {
+                //change button's icon
+                self.favouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            }
+            
+        }
+        
     }
     
 }
@@ -104,34 +188,12 @@ extension DetailVC: RandomManagerDelegate {
         
         displayedDishModel = DishRealmModel(model: returned)
         
-        
-        for item in returned.extendedIngredients {
-            self.ingridients.append(item)
-        }
-        
-        DispatchQueue.main.async {
-            
-            
-            // TESTING PUROPUSE - SHOULD CHECK FOR VEGAN/GLUTENFREE ETC
-//            if true {
-//                self.lactoseFreeIMV.isHidden = true
-//                self.glutenFreeIMV.isHidden = true
-//                self.vegetarianIMV.isHidden = true
-//                self.veganIMV.isHidden = true
-//            }
-            
-            self.timeToCookLabel.text = "\(String(returned.readyInMinutes)) min"
-            self.dishNameLabel.text = returned.title
-
-           
-            
-            self.tableView.reloadData()
-            
-        }
+        //set up data
+        setUpData()
         
     }
+    
 }
-// TODO: tabela nie wyswietla danych - dane sa dobrze sciagane z api
 extension DetailVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ingridients.count
@@ -150,15 +212,12 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.textColor = UIColor.white
         cell.textLabel?.font = UIFont(name: "SF Pro", size: 15.0)
         
-        
         return cell
-        
         
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // nothing yet
+        // nothing here to be done
     }
-    
     
 }

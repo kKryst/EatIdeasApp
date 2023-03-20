@@ -38,6 +38,11 @@ struct ExtendedIngredient: Codable {
         self.name = name
         self.measures = measures
     }
+    init (databaseIngridient: RealmIngredient) {
+        self.id = databaseIngridient.id
+        self.name = databaseIngridient.name
+        self.measures = Measures(databaseMeasure: databaseIngridient.measures!)
+    }
     
 }
 struct Measures: Codable {
@@ -46,6 +51,12 @@ struct Measures: Codable {
     init(metric: Metric, us: Metric) {
         self.metric = metric
         self.us = us
+    }
+    
+    init(databaseMeasure: RealmMeasures) {
+        self.metric = Metric(databaseMetric: databaseMeasure.metric!)
+        #warning("Error in here")
+        self.us = Metric(databaseMetric: databaseMeasure.us!)
     }
     
     //simplified constructor
@@ -58,4 +69,19 @@ struct Measures: Codable {
 struct Metric: Codable {
     let amount: Double
     let unitLong, unitShort: String
+
+    init(databaseMetric: RealmMetric) {
+        self.amount = databaseMetric.amount
+        self.unitLong = databaseMetric.unitLong
+        self.unitShort = databaseMetric.unitShort
+    }
+    
+    init(amount: Double, unitLong: String, unitShort: String) {
+        self.amount = amount
+        self.unitLong = unitLong
+        self.unitShort = unitShort
+    }
+    
 }
+
+

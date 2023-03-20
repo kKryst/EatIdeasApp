@@ -90,9 +90,9 @@ class DetailViewController: UIViewController {
         displayedDishModel?.vegan = returned.veganString
         displayedDishModel?.vegetarian = returned.vegetarianString
         
-        for item in returned.extendedIngridientsString {
-            displayedDishModel?.extendedIngridients.append(item)
-        }
+//        for item in returned.extendedIngridientsString {
+//            displayedDishModel?.extendedIngridients.append(item)
+//        }
         
     }
     

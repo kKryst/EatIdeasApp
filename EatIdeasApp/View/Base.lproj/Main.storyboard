@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="G6D-cC-hD4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yLg-dV-70m">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -436,23 +436,23 @@
                                 </prototypes>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ybc-Td-oCi" userLabel="topInfo">
-                                <rect key="frame" x="20" y="155.66666666666666" width="353" height="95.666666666666657"/>
+                                <rect key="frame" x="20" y="225.33333333333334" width="353" height="46.000000000000028"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dish Name" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMe-nj-jaW">
-                                        <rect key="frame" x="125.33333333333334" y="0.0" width="102.33333333333334" height="27.333333333333332"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMe-nj-jaW">
+                                        <rect key="frame" x="176.66666666666666" y="0.0" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="25"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RFJ-Qb-L3R" userLabel="lineView">
-                                        <rect key="frame" x="0.0" y="42.666666666666686" width="353" height="4"/>
+                                        <rect key="frame" x="0.0" y="4" width="353" height="4"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="4" id="w4e-GQ-khf"/>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleAspectFill" distribution="fillEqually" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="li9-Or-LRc" userLabel="allergiesIcons">
-                                        <rect key="frame" x="60" y="61.666666666666686" width="233" height="34"/>
+                                        <rect key="frame" x="60" y="12" width="233" height="34"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" image="lactose" translatesAutoresizingMaskIntoConstraints="NO" id="TBM-bI-QTE" userLabel="lactoseImageView">
                                                 <rect key="frame" x="0.0" y="0.0" width="37.333333333333336" height="34"/>
@@ -493,13 +493,13 @@
                                 <rect key="frame" x="15" y="291.33333333333331" width="150" height="67.666666666666686"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="fEp-7A-ZOV" userLabel="timeNeeded">
-                                        <rect key="frame" x="0.0" y="0.0" width="118" height="20.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="111.33333333333333" height="20.333333333333332"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" translatesAutoresizingMaskIntoConstraints="NO" id="oOX-ic-gQK" userLabel="clockImageView">
                                                 <rect key="frame" x="0.0" y="0.0" width="33.333333333333336" height="20.333333333333332"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rtd-FI-UjG" userLabel="00 min">
-                                                <rect key="frame" x="61.333333333333329" y="0.0" width="56.666666666666671" height="20.333333333333332"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rtd-FI-UjG">
+                                                <rect key="frame" x="61.333333333333329" y="0.0" width="50" height="20.333333333333332"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -532,16 +532,19 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v1k-KU-KXY" userLabel="favouriteButton">
-                                <rect key="frame" x="346" y="103" width="31" height="28"/>
+                                <rect key="frame" x="346" y="172.66666666666666" width="31" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="eWp-VH-8QD"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="favourite"/>
+                                <connections>
+                                    <action selector="addToFavouritesButtonPressed:" destination="G6D-cC-hD4" eventType="touchUpInside" id="icM-OJ-97m"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ahj-Jc-Zv8"/>
-                        <color key="backgroundColor" systemColor="systemBrownColor"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="v1k-KU-KXY" firstAttribute="leading" secondItem="Ahj-Jc-Zv8" secondAttribute="leading" constant="346" id="4nW-OX-FX0"/>
                             <constraint firstItem="fiI-O8-q2V" firstAttribute="top" secondItem="ARg-ID-g1d" secondAttribute="bottom" constant="25" id="CSa-os-yix"/>
@@ -553,18 +556,19 @@
                             <constraint firstItem="fiI-O8-q2V" firstAttribute="leading" secondItem="Ahj-Jc-Zv8" secondAttribute="leading" constant="75" id="Qda-jD-Uzx"/>
                             <constraint firstItem="Ahj-Jc-Zv8" firstAttribute="trailing" secondItem="v1k-KU-KXY" secondAttribute="trailing" constant="16" id="UG1-ZH-KrW"/>
                             <constraint firstItem="Ahj-Jc-Zv8" firstAttribute="trailing" secondItem="ybc-Td-oCi" secondAttribute="trailing" constant="20" id="XKt-Ss-ig5"/>
-                            <constraint firstItem="lWK-Xh-ORX" firstAttribute="top" secondItem="ybc-Td-oCi" secondAttribute="bottom" constant="40" id="dGt-ZX-Qvl"/>
+                            <constraint firstItem="lWK-Xh-ORX" firstAttribute="top" secondItem="ybc-Td-oCi" secondAttribute="bottom" constant="20" id="dGt-ZX-Qvl"/>
                             <constraint firstAttribute="bottom" secondItem="fiI-O8-q2V" secondAttribute="bottom" constant="30" id="dt3-Jj-Xia"/>
-                            <constraint firstItem="v1k-KU-KXY" firstAttribute="top" secondItem="Ahj-Jc-Zv8" secondAttribute="top" constant="44" id="gc1-Mj-Ln6"/>
                             <constraint firstItem="lWK-Xh-ORX" firstAttribute="leading" secondItem="Ahj-Jc-Zv8" secondAttribute="leading" constant="15" id="iXY-Sa-Uh6"/>
                             <constraint firstItem="ybc-Td-oCi" firstAttribute="top" secondItem="v1k-KU-KXY" secondAttribute="bottom" constant="24.670000000000002" id="nxE-8d-m3E"/>
                             <constraint firstItem="ARg-ID-g1d" firstAttribute="trailing" secondItem="Ahj-Jc-Zv8" secondAttribute="trailing" id="vbu-Pf-HJD"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="z2N-Y7-6wh"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="cookNowButton" destination="fiI-O8-q2V" id="HrC-dv-gX0"/>
                         <outlet property="dishNameLabel" destination="cMe-nj-jaW" id="SgZ-vF-fGP"/>
+                        <outlet property="favouriteButton" destination="v1k-KU-KXY" id="5sp-E1-ZE8"/>
                         <outlet property="glutenFreeIMV" destination="xeb-CS-6nE" id="Oas-Dm-Yc2"/>
                         <outlet property="ingridientsLabel" destination="zE2-zS-JFK" id="sQT-MF-9Oy"/>
                         <outlet property="lactoseFreeIMV" destination="TBM-bI-QTE" id="Q50-4Z-Acj"/>
@@ -840,6 +844,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="Cws-nE-X52"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
     <resources>
         <image name="circle.slash" catalog="system" width="128" height="123"/>
         <image name="clock" width="33.333332061767578" height="32"/>

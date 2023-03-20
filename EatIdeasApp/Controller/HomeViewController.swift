@@ -87,14 +87,14 @@ class HomeViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "goToDetails" {
-            let detailsViewController = segue.destination as! DetailViewController
+            let detailsViewController = segue.destination as! DetailVC
             let selectedCell = sender
             
             let indexPath = tableView.indexPath(for: selectedCell as! UITableViewCell)
             let row = indexPath!.row
             
             detailsViewController.recipeId = dishes[row].id
-            detailsViewController.segueIdentifier = segue.identifier
+            detailsViewController.segueIdentifier = segue.identifier!
             
         } else if segue.identifier == "goToDetailsFromDishesByIngridients"{
             let detailsViewController = segue.destination as! DetailViewController

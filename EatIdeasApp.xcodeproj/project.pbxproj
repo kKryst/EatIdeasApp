@@ -11,8 +11,6 @@
 		AF22F06B2974921D0097D36D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F06A2974921D0097D36D /* DetailViewController.swift */; };
 		AF22F06D2975EC260097D36D /* DishData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F06C2975EC260097D36D /* DishData.swift */; };
 		AF22F06F2975EFDD0097D36D /* DIshModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F06E2975EFDD0097D36D /* DIshModel.swift */; };
-		AF22F074298327DB0097D36D /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = AF22F073298327DB0097D36D /* Realm */; };
-		AF22F076298327DB0097D36D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AF22F075298327DB0097D36D /* RealmSwift */; };
 		AF22F0782983290A0097D36D /* DishRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F0772983290A0097D36D /* DishRealmModel.swift */; };
 		AF836FA029ABC0ED000AA306 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF836F9F29ABC0ED000AA306 /* SplashScreenViewController.swift */; };
 		AF836FA229ABC114000AA306 /* BottomCardSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF836FA129ABC114000AA306 /* BottomCardSegue.swift */; };
@@ -28,6 +26,8 @@
 		AF98A6D22961FE0E00461E3D /* RandomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6D12961FE0E00461E3D /* RandomData.swift */; };
 		AF98A6D42962184500461E3D /* RandomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6D32962184500461E3D /* RandomManager.swift */; };
 		AF98A6D6296221A500461E3D /* RandomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6D5296221A500461E3D /* RandomModel.swift */; };
+		AFCA970D29C22ABD00176A63 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCA970C29C22ABD00176A63 /* DatabaseManager.swift */; };
+		AFCB1D2D29C7AB49003EAAA4 /* RealmIngridients.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCB1D2C29C7AB49003EAAA4 /* RealmIngridients.swift */; };
 		AFD75BA62995918800DEEEAD /* DishFromIngridientsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD75BA52995918800DEEEAD /* DishFromIngridientsData.swift */; };
 		AFD75BA8299591E400DEEEAD /* DishFromIngridientsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD75BA7299591E400DEEEAD /* DishFromIngridientsModel.swift */; };
 		AFDD2E2D29B343D900E3DF23 /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDD2E2B29B343D900E3DF23 /* TestTableViewCell.swift */; };
@@ -35,6 +35,8 @@
 		AFDD2E3029BD0DA800E3DF23 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDD2E2F29BD0DA800E3DF23 /* Constants.swift */; };
 		AFDD2E3229BD1B6000E3DF23 /* CustomTabBarControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDD2E3129BD1B6000E3DF23 /* CustomTabBarControllerViewController.swift */; };
 		AFDD2E3429BD557600E3DF23 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDD2E3329BD557600E3DF23 /* DetailVC.swift */; };
+		AFEAA9EB29C8A8DC0027CEC5 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = AFEAA9EA29C8A8DC0027CEC5 /* Realm */; };
+		AFEAA9ED29C8A8DC0027CEC5 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AFEAA9EC29C8A8DC0027CEC5 /* RealmSwift */; };
 		AFEAE8C9298C140200C7F311 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEAE8C8298C140200C7F311 /* SavedViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +62,8 @@
 		AF98A6D12961FE0E00461E3D /* RandomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomData.swift; sourceTree = "<group>"; };
 		AF98A6D32962184500461E3D /* RandomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomManager.swift; sourceTree = "<group>"; };
 		AF98A6D5296221A500461E3D /* RandomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomModel.swift; sourceTree = "<group>"; };
+		AFCA970C29C22ABD00176A63 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		AFCB1D2C29C7AB49003EAAA4 /* RealmIngridients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmIngridients.swift; sourceTree = "<group>"; };
 		AFD75BA52995918800DEEEAD /* DishFromIngridientsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishFromIngridientsData.swift; sourceTree = "<group>"; };
 		AFD75BA7299591E400DEEEAD /* DishFromIngridientsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishFromIngridientsModel.swift; sourceTree = "<group>"; };
 		AFDD2E2B29B343D900E3DF23 /* TestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
@@ -77,8 +81,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF22F076298327DB0097D36D /* RealmSwift in Frameworks */,
-				AF22F074298327DB0097D36D /* Realm in Frameworks */,
+				AFEAA9ED29C8A8DC0027CEC5 /* RealmSwift in Frameworks */,
+				AFEAA9EB29C8A8DC0027CEC5 /* Realm in Frameworks */,
 				3559B62F4E13C6CAAC13D9D2 /* Pods_EatIdeasApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,6 +141,7 @@
 				AF98A6C0295E184A00461E3D /* EatIdeasApp.xcdatamodeld */,
 				AF836FA129ABC114000AA306 /* BottomCardSegue.swift */,
 				AFDD2E2F29BD0DA800E3DF23 /* Constants.swift */,
+				AFCA970C29C22ABD00176A63 /* DatabaseManager.swift */,
 			);
 			path = EatIdeasApp;
 			sourceTree = "<group>";
@@ -145,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				AF22F0772983290A0097D36D /* DishRealmModel.swift */,
+				AFCB1D2C29C7AB49003EAAA4 /* RealmIngridients.swift */,
 				AF98A6D32962184500461E3D /* RandomManager.swift */,
 				AF98A6D12961FE0E00461E3D /* RandomData.swift */,
 				AF98A6D5296221A500461E3D /* RandomModel.swift */,
@@ -198,8 +204,8 @@
 			);
 			name = EatIdeasApp;
 			packageProductDependencies = (
-				AF22F073298327DB0097D36D /* Realm */,
-				AF22F075298327DB0097D36D /* RealmSwift */,
+				AFEAA9EA29C8A8DC0027CEC5 /* Realm */,
+				AFEAA9EC29C8A8DC0027CEC5 /* RealmSwift */,
 			);
 			productName = EatIdeasApp;
 			productReference = AF98A6B4295E184A00461E3D /* EatIdeasApp.app */;
@@ -230,7 +236,7 @@
 			);
 			mainGroup = AF98A6AB295E184A00461E3D;
 			packageReferences = (
-				AF22F072298327DA0097D36D /* XCRemoteSwiftPackageReference "realm-swift" */,
+				AFEAA9E929C8A8DC0027CEC5 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = AF98A6B5295E184A00461E3D /* Products */;
 			projectDirPath = "";
@@ -320,10 +326,12 @@
 				AF98A6BA295E184A00461E3D /* SceneDelegate.swift in Sources */,
 				AFD75BA8299591E400DEEEAD /* DishFromIngridientsModel.swift in Sources */,
 				AFDD2E3229BD1B6000E3DF23 /* CustomTabBarControllerViewController.swift in Sources */,
+				AFCB1D2D29C7AB49003EAAA4 /* RealmIngridients.swift in Sources */,
 				AF22F06B2974921D0097D36D /* DetailViewController.swift in Sources */,
 				AFD75BA62995918800DEEEAD /* DishFromIngridientsData.swift in Sources */,
 				AFEAE8C9298C140200C7F311 /* SavedViewController.swift in Sources */,
 				AFDD2E3029BD0DA800E3DF23 /* Constants.swift in Sources */,
+				AFCA970D29C22ABD00176A63 /* DatabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,25 +554,25 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AF22F072298327DA0097D36D /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+		AFEAA9E929C8A8DC0027CEC5 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.34.1;
+				kind = exactVersion;
+				version = 10.35.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AF22F073298327DB0097D36D /* Realm */ = {
+		AFEAA9EA29C8A8DC0027CEC5 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AF22F072298327DA0097D36D /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = AFEAA9E929C8A8DC0027CEC5 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = Realm;
 		};
-		AF22F075298327DB0097D36D /* RealmSwift */ = {
+		AFEAA9EC29C8A8DC0027CEC5 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AF22F072298327DA0097D36D /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = AFEAA9E929C8A8DC0027CEC5 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */

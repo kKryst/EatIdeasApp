@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 struct K {
@@ -21,5 +22,13 @@ extension Double {
     func rounded(toPlaces places: Int) -> Double {
         let divisor = pow(10.0, Double(places))
         return (self * divisor).rounded() / divisor
+    }
+}
+
+extension UIImage {
+    func imageResized(to size: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
+        }
     }
 }
