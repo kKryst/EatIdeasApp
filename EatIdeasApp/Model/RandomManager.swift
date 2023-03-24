@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 protocol RandomManagerDelegate {
     func didFailWithError(error: Error)
     func didRecieveSpecificDish(_ randomManager: RandomManager, returned: DishModel)
@@ -20,17 +18,14 @@ extension RandomManagerDelegate {
     func didRecieveSpecificDish(_ randomManager: RandomManager, returned: DishModel){}
     func didRecieveDishes(_ randomManager: RandomManager, returned: [RandomModel]){}
     func didRecieveDishFromIngridients(_ randomManager: RandomManager, returned: [DishFromIngridientsModel]){}
-    
-    
+       
 }
 
 struct RandomManager{
     // sciezka do api
-    let dishApi = "https://api.spoonacular.com/recipes/random?apiKey=1b03f0f7b52f417597ff56a137c661cb&number=6"
+    let dishApi = "https://api.spoonacular.com/recipes/random?apiKey=1b03f0f7b52f417597ff56a137c661cb&number=2"
     
     var delegate: RandomManagerDelegate?
-    
-    
     
     func fetchDishes() {
         performRequest(with: dishApi)
@@ -53,7 +48,6 @@ struct RandomManager{
         
         performRequestWithIngridients(with: urlString)
     }
-    
     
     func performRequest (with urlString: String) {
         if let url = URL(string: urlString) {

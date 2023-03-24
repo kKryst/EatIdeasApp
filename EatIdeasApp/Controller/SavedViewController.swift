@@ -10,7 +10,6 @@ import UIKit
 import RealmSwift
 
 
-
 class SavedViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -18,8 +17,6 @@ class SavedViewController: UIViewController {
     @IBOutlet weak var logoutBackground: UIView!
     
     var dishes: Results<DishRealmModel>?
-    
-    let realm = try! Realm()
     
     
     override func viewDidLoad() {
@@ -110,14 +107,5 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
             detailsViewController.segueIdentifier = segue.identifier!
         }
     }
-    
-}
-//MARK: Realm Database related
-extension SavedViewController {
-    
-    func fetchSaved() {
-        dishes = realm.objects(DishRealmModel.self).sorted(byKeyPath: "title", ascending: true)
-    }
-    
     
 }

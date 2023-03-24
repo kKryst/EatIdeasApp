@@ -32,3 +32,13 @@ extension UIImage {
         }
     }
 }
+
+
+extension UILabel {
+    func hideSkeletonFixed(label: UILabel) {
+        let textToPersist = label.text!
+        label.hideSkeleton()
+        label.text! = textToPersist
+    }
+    
+}

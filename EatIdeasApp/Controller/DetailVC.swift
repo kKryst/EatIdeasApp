@@ -7,9 +7,8 @@
 
 import UIKit
 import RealmSwift
+import SkeletonView
 
-
-#warning("pamiętaj o dodaniu jednostek do składników!")
 class DetailVC: UIViewController {
     
     @IBOutlet weak var cookNowButton: UIButton!
@@ -34,7 +33,7 @@ class DetailVC: UIViewController {
     
     var displayedDishModel: DishRealmModel?
     
-#warning("for testing puropuse - should be nillable")
+//#warning("for testing puropuse - should be nillable")
     var segueIdentifier: String = K.Segues.fromMainToDetails
     
     var imageData: Data = Data()
@@ -43,12 +42,12 @@ class DetailVC: UIViewController {
     
     var backgroundImageView = UIImageView()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         randomManager.delegate = self
         
+        #warning("TODO: sketeton view on both tableview and ready in minutes label")
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -98,19 +97,36 @@ class DetailVC: UIViewController {
                 
                 self.timeToCookLabel.text = "\(String(dish.readyInMinutes)) min"
                 self.dishNameLabel.text = dish.title
+                
+                //hide all Skeleton Views
+                self.tableView.hideSkeleton()
+                //saving the label in a variable to place it later on in the label due to framework's bug which clears up the label's text
+                var timeToCookLabelTextValue : String = ""
+                var dishNameLabelTextValue : String = ""
+                if let safelabelTextValue = self.timeToCookLabel.text {
+                    timeToCookLabelTextValue = safelabelTextValue
+                }
+                
+                if let safeDishNameLabelTextValue = self.dishNameLabel.text {
+                    dishNameLabelTextValue = safeDishNameLabelTextValue
+                }
+                
+                self.timeToCookLabel.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                self.dishNameLabel.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                self.timeToCookLabel.text = timeToCookLabelTextValue
+                self.dishNameLabel.text = dishNameLabelTextValue
+                //reload data in tableView
                 self.tableView.reloadData()
                 
+                       
             }
         }
-        
     }
     
-    
-    
     fileprivate func setUpLayout() {
+        
         // create a container view
         let containerView = UIView(frame:  self.view.bounds)
-        
         
         backgroundImageView = UIImageView(frame:  containerView.bounds)
         backgroundImageView.contentMode = .scaleToFill
@@ -129,6 +145,8 @@ class DetailVC: UIViewController {
         cookNowButton.setTitleColor(UIColor.white, for: .normal)
         
         tableView.backgroundColor = UIColor.clear
+
+        
         tableView.rowHeight = 35
         tableView.separatorStyle = .none
         
@@ -145,6 +163,9 @@ class DetailVC: UIViewController {
             favouriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         }
         
+        setUpAndPresentSkeletonViews()
+
+        
     }
     
     func getImageFromURL(_ url: URL) -> UIImage? {
@@ -155,6 +176,26 @@ class DetailVC: UIViewController {
             print("Error loading image from URL: \(error.localizedDescription)")
             return nil
         }
+    }
+    
+    func setUpAndPresentSkeletonViews() {
+        
+        timeToCookLabel.isSkeletonable = true
+        tableView.isSkeletonable = true
+        dishNameLabel.isSkeletonable = true
+        
+        dishNameLabel.linesCornerRadius = 5
+        dishNameLabel.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
+        
+        
+        timeToCookLabel.linesCornerRadius = 5
+        timeToCookLabel.skeletonTextNumberOfLines = 2
+        timeToCookLabel.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
+        
+        tableView.skeletonCornerRadius = 15.0
+        tableView.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
+        
+        
     }
     
     @IBAction func addToFavouritesButtonPressed(_ sender: UIButton) {
@@ -179,6 +220,7 @@ class DetailVC: UIViewController {
     }
     
 }
+
 extension DetailVC: RandomManagerDelegate {
     func didFailWithError(error: Error) {
         print("error occured \(error)")
@@ -194,7 +236,8 @@ extension DetailVC: RandomManagerDelegate {
     }
     
 }
-extension DetailVC: UITableViewDelegate, UITableViewDataSource {
+
+extension DetailVC: UITableViewDelegate, SkeletonTableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ingridients.count
     }
@@ -220,4 +263,10 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
         // nothing here to be done
     }
     
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "Ingridient"
+    }
+    
 }
+
+

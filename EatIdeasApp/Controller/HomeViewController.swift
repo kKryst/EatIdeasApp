@@ -13,6 +13,8 @@ import SwipeCellKit
 
 class HomeViewController: UIViewController {
     
+    
+    #warning("TODO: sketelonView on the main tableView")
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var blurEffect: UIVisualEffectView!
     @IBOutlet var popUpView: UIView!

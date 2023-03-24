@@ -77,6 +77,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="displayedImage" destination="MxG-D7-xl3" id="GtJ-dF-mIB"/>
                 <outlet property="greenImageBackground" destination="Sp8-re-i43" id="eiK-8e-Ziz"/>

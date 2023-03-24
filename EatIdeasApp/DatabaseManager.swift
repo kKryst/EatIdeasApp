@@ -32,17 +32,29 @@ class DatabaseManager {
         }
 
     }
-//
+
+    #warning("TODO: inside this function check for data deduplication")
+    // sample code:
+    // Check if a person with the same email already exists in the database
+//    if let existingPerson = realm.objects(Person.self).filter("email = %@", person.email).first {
+//        // A person with the same email already exists, so use the existing object
+//        person = existingPerson
+//    } else {
+//        // No matching person found, so save the new object to the database
+//        try! realm.write {
+//            realm.add(person)
+//        }
+//    }
     func createInDatabase(dish: DishRealmModel) {
         do {
             try realm.write {
                 realm.create(type(of: dish), value: dish)
             }
         } catch {
-            print("error trying to add object to database \(error)")
+            print("error trying to create an object in database \(error)")
         }
     }
-//
+    
     func deleteFromDatabase (id: Int) {
         do {
             try realm.write {
@@ -55,7 +67,7 @@ class DatabaseManager {
             print ("error while trying to delete item \(error)")
         }
     }
-    #warning("should return nil in case there is no such item")
+//   should return nil in case there is no such item"
     func fetchObject(id: Int) -> DishRealmModel{
          return realm.objects(DishRealmModel.self).filter("dishApiId == \(id)").first!
 
