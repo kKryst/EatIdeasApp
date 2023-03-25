@@ -25,6 +25,19 @@ class DetailVC: UIViewController {
     @IBOutlet weak var dishNameLabel: UILabel!
     @IBOutlet weak var favouriteButton: UIButton!
     
+    @IBOutlet weak var recipeButton: UIButton!
+    
+    @IBOutlet weak var additionalInfoStackView: UIStackView!
+    
+    //recipeView IBOutlets
+    @IBOutlet weak var recipeView: UIView!
+    @IBOutlet weak var ingridientsView: UIView!
+    
+    @IBOutlet weak var recipeDescriptionLabel: UILabel!
+    @IBOutlet weak var listIngridientsLabel: UILabel!
+    
+    
+    
     var recipeId : Int = 0
     
     let realm = try! Realm()
@@ -47,7 +60,6 @@ class DetailVC: UIViewController {
         
         randomManager.delegate = self
         
-        #warning("TODO: sketeton view on both tableview and ready in minutes label")
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -127,41 +139,56 @@ class DetailVC: UIViewController {
         
         // create a container view
         let containerView = UIView(frame:  self.view.bounds)
-        
+        // set up background's image size
         backgroundImageView = UIImageView(frame:  containerView.bounds)
         backgroundImageView.contentMode = .scaleToFill
-        
+        // add container view to the main view
         containerView.addSubview(backgroundImageView)
-        
+        // create and present overlay view which makes background image darker
         let overlayView = UIView(frame: containerView.bounds)
         overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         containerView.addSubview(overlayView)
         
         self.view.addSubview(containerView)
+        // send the view to the back so it doesnt cover up other parts of the view
         view.sendSubviewToBack(containerView)
         
+        // cook button's design
         cookNowButton.backgroundColor = UIColor(named: "pinkCellColor")
         cookNowButton.layer.cornerRadius = 15.0
         cookNowButton.setTitleColor(UIColor.white, for: .normal)
         
+        // tableview design
         tableView.backgroundColor = UIColor.clear
-
-        
         tableView.rowHeight = 35
         tableView.separatorStyle = .none
         
+        // hide alergies info
         lactoseFreeIMV.isHidden = true
         glutenFreeIMV.isHidden = true
         vegetarianIMV.isHidden = true
         veganIMV.isHidden = true
         
-        navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        // hide recipe view
+        recipeView.isHidden = true
+        ingridientsView.isHidden = true
         
+        // change back button's color
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        // set background image
         backgroundImageView.image = UIImage(named: "recipeBackground")
         
+        // set favourite button's image
         if DatabaseManager.shared.isObjectSaved(id: recipeId) {
             favouriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         }
+        
+        //recipeView design
+        recipeView.layer.cornerRadius = 15.0
+        ingridientsView.layer.cornerRadius = 15
+        ingridientsView.backgroundColor = UIColor.clear
+        ingridientsView.layer.borderWidth = 2
+        ingridientsView.layer.borderColor = UIColor.white.cgColor
         
         setUpAndPresentSkeletonViews()
 
@@ -218,6 +245,26 @@ class DetailVC: UIViewController {
         }
         
     }
+    
+    @IBAction func recipeButtonPressed(_ sender: UIButton) {
+        
+        //hide unnecessary objects (REQUIRES REFACTORING)
+        tableView.isHidden = true
+        additionalInfoStackView.isHidden = true
+        favouriteButton.isHidden = true
+        recipeView.isHidden = false
+        
+        
+        
+        
+    }
+    @IBAction func showIngridientsButtonPressed(_ sender: UIButton) {
+        // show if hidden, hide if shown
+        ingridientsView.isHidden = !ingridientsView.isHidden
+    }
+    
+    
+    
     
 }
 
