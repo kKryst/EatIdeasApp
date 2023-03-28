@@ -6,10 +6,7 @@
 //
 
 import UIKit
-import SwipeCellKit
 import SkeletonView
-
-
 
 
 class HomeViewController: UIViewController {
@@ -23,7 +20,6 @@ class HomeViewController: UIViewController {
     var randomManager = RandomManager()
     
     // Arrays that store data for table views
-    var ingridients: [String] = [String]()
     var dishes : [RandomModel] = []
     
     @IBOutlet weak var logoutBackground: UIView!
