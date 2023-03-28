@@ -35,8 +35,10 @@ class DetailVC: UIViewController {
     
     @IBOutlet weak var recipeDescriptionLabel: UILabel!
     @IBOutlet weak var listIngridientsLabel: UILabel!
+    @IBOutlet weak var stepLabel: UILabel!
     
-    
+    @IBOutlet weak var goLeftButton: UIButton!
+    @IBOutlet weak var goRightButton: UIButton!
     
     var recipeId : Int = 0
     
@@ -55,6 +57,10 @@ class DetailVC: UIViewController {
     
     var backgroundImageView = UIImageView()
     
+    var stepCounter = 1
+    
+    var recipeDescriptions : [RecipeInstructionModel] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,6 +74,14 @@ class DetailVC: UIViewController {
         //check from which view we're coming
         determineSource(segue: segueIdentifier)
         
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch: UITouch? = touches.first
+        //location is relative to the current view
+        // do something with the touched point
+        if touch?.view != recipeView && touch?.view != ingridientsView{
+            hideRecipe()
+        }
     }
     
     func determineSource(segue: String) {
@@ -84,6 +98,10 @@ class DetailVC: UIViewController {
     }
     
     func setUpData(){
+        
+        //set up data for the description
+        randomManager.fetchRecipe(id: recipeId)
+        
         //safe casting the object
         if let dish = displayedDishModel{
             
@@ -180,7 +198,7 @@ class DetailVC: UIViewController {
         
         // set favourite button's image
         if DatabaseManager.shared.isObjectSaved(id: recipeId) {
-            favouriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
         }
         
         //recipeView design
@@ -232,36 +250,21 @@ class DetailVC: UIViewController {
             DatabaseManager.shared.deleteFromDatabase(id: recipeId)
             DispatchQueue.main.async {
                 // change button's icon
-                self.favouriteButton.setImage(UIImage(named: "favourite"), for: .normal)
+                self.favouriteButton.setBackgroundImage(UIImage(named: "favourite"), for: .normal)
             }
         } else {
             // create the object in DB
             DatabaseManager.shared.createInDatabase(dish: displayedDishModel!)
             DispatchQueue.main.async {
                 //change button's icon
-                self.favouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                self.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
             }
             
         }
         
     }
     
-    @IBAction func recipeButtonPressed(_ sender: UIButton) {
-        
-        //hide unnecessary objects (REQUIRES REFACTORING)
-        tableView.isHidden = true
-        additionalInfoStackView.isHidden = true
-        favouriteButton.isHidden = true
-        recipeView.isHidden = false
-        
-        
-        
-        
-    }
-    @IBAction func showIngridientsButtonPressed(_ sender: UIButton) {
-        // show if hidden, hide if shown
-        ingridientsView.isHidden = !ingridientsView.isHidden
-    }
+
     
     
     
@@ -269,6 +272,7 @@ class DetailVC: UIViewController {
 }
 
 extension DetailVC: RandomManagerDelegate {
+    
     func didFailWithError(error: Error) {
         print("error occured \(error)")
     }
@@ -280,6 +284,13 @@ extension DetailVC: RandomManagerDelegate {
         //set up data
         setUpData()
         
+    }
+    
+    func didRecieveRecipe(_ randomManager: RandomManager, returned: [RecipeInstructionModel]) {
+        for item in returned {
+            recipeDescriptions.append(item)
+        }
+        presentDescription()
     }
     
 }
@@ -315,5 +326,96 @@ extension DetailVC: UITableViewDelegate, SkeletonTableViewDataSource {
     }
     
 }
+
+//MARK: -- RecipeView logic
+extension DetailVC {
+    
+    @IBAction func recipeButtonPressed(_ sender: UIButton) {
+        
+        presentRecipe()
+    }
+    
+    func presentRecipe(){
+        //hide unnecessary objects
+        tableView.isHidden = true
+        additionalInfoStackView.isHidden = true
+        favouriteButton.isHidden = true
+        recipeButton.isHidden = true
+        
+        // show recipeView on the screen
+        recipeView.isHidden = false
+    }
+    
+    func hideRecipe(){
+        //hide unnecessary objects
+        tableView.isHidden = false
+        additionalInfoStackView.isHidden = false
+        favouriteButton.isHidden = false
+        recipeButton.isHidden = false
+        
+        
+        // show recipeView on the screen
+        recipeView.isHidden = true
+        
+    }
+    
+    func presentDescription() {
+        // build a coma-separated list of ingridients as one string
+        var listOfIngridientsAsString = ""
+        for item in self.recipeDescriptions[self.stepCounter - 1].ingridients {
+            listOfIngridientsAsString.append("\(item), ")
+        }
+        if listOfIngridientsAsString.last == " " || listOfIngridientsAsString == "," {
+            listOfIngridientsAsString.removeLast()
+            listOfIngridientsAsString.removeLast()
+        }
+        
+        
+        if stepCounter == 1 {
+            DispatchQueue.main.async {
+                self.goLeftButton.isHidden = true
+            }
+            
+
+        } else if stepCounter == recipeDescriptions.count{
+            DispatchQueue.main.async {
+                self.goRightButton.isHidden = true
+            }
+        
+            
+        } else {
+            DispatchQueue.main.async {
+                self.goRightButton.isHidden = false
+                self.goLeftButton.isHidden = false
+            }
+        }
+        DispatchQueue.main.async {
+            self.recipeDescriptionLabel.text = self.recipeDescriptions[self.stepCounter - 1].description
+            self.listIngridientsLabel.text = listOfIngridientsAsString
+            self.stepLabel.text = "Step \(self.stepCounter)"
+            
+        }
+        
+        
+    }
+    
+    @IBAction func showIngridientsButtonPressed(_ sender: UIButton) {
+        // show if hidden, hide if shown
+        ingridientsView.isHidden = !ingridientsView.isHidden
+        
+    }
+    
+    @IBAction func goRightButtonPressed(_ sender: UIButton) {
+        stepCounter += 1
+        presentDescription()
+    }
+    
+    @IBAction func goLeftButtonPressed(_ sender: UIButton) {
+        stepCounter -= 1
+        presentDescription()
+    }
+    
+}
+
 
 

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class TestTableViewCell: UITableViewCell {
 
@@ -34,4 +35,6 @@ class TestTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
 }
+

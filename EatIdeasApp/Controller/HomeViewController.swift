@@ -7,6 +7,7 @@
 
 import UIKit
 import SwipeCellKit
+import SkeletonView
 
 
 
@@ -70,9 +71,10 @@ class HomeViewController: UIViewController {
         tableView.delegate = self
         tableView.register(UINib(nibName: "TestTableViewCell", bundle: nil), forCellReuseIdentifier: "Dish")
         tableView.rowHeight = 144
+        tableView.isSkeletonable = true
+        tableView.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
         
         randomManager.delegate = self
-        
         randomManager.fetchDishes()
         
         logoutBackground.layer.cornerRadius = 15.0
@@ -80,11 +82,6 @@ class HomeViewController: UIViewController {
         
     }
     
-    
-    
-    @IBAction func reloadButtonPressed(_ sender: UIButton) {
-        randomManager.fetchDishes()
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -116,7 +113,7 @@ class HomeViewController: UIViewController {
 }
 //MARK: tableView DataSource extension
 
-extension HomeViewController: UITableViewDataSource {
+extension HomeViewController: SkeletonTableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case self.tableView:
@@ -196,6 +193,10 @@ extension HomeViewController: UITableViewDataSource {
         
     }
     
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "Dish"
+    }
+    
 }
 //MARK: Tableview delegate extension
 extension HomeViewController : UITableViewDelegate {
@@ -213,7 +214,7 @@ extension HomeViewController : UITableViewDelegate {
     }
     
 }
-//MARK: ApiCallDelegate Extension
+//MARK: RandomManagerDelegate Extension
 extension HomeViewController : RandomManagerDelegate {
     func didRecieveDishes(_ randomManager: RandomManager, returned: [RandomModel]) {
         
@@ -223,6 +224,7 @@ extension HomeViewController : RandomManagerDelegate {
             for item in returned {
                 self.dishes.append(item)
             }
+            self.tableView.hideSkeleton()
             self.tableView.reloadData()
         }
     }

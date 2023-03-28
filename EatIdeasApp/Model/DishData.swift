@@ -55,7 +55,6 @@ struct Measures: Codable {
     
     init(databaseMeasure: RealmMeasures) {
         self.metric = Metric(databaseMetric: databaseMeasure.metric!)
-        #warning("Error in here")
         self.us = Metric(databaseMetric: databaseMeasure.us!)
     }
     

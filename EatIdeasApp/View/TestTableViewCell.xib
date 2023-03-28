@@ -25,6 +25,9 @@
                                 <fontDescription key="fontDescription" name="KohinoorDevanagari-Regular" family="Kohinoor Devanagari" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.13725490200000001" green="0.63921568630000003" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -34,6 +37,9 @@
                             <constraint firstItem="FoA-E1-OXs" firstAttribute="leading" secondItem="CIq-dq-tjr" secondAttribute="leading" constant="26" id="qRB-RF-0IP"/>
                             <constraint firstAttribute="bottom" secondItem="FoA-E1-OXs" secondAttribute="bottom" id="s4Q-kx-y1e"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sp8-re-i43" userLabel="Green">
                         <rect key="frame" x="10" y="22" width="105" height="105"/>
@@ -43,6 +49,9 @@
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="files_schematic.jpg" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MxG-D7-xl3">
                                         <rect key="frame" x="3" y="4" width="95" height="93"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -52,6 +61,9 @@
                                     <constraint firstItem="MxG-D7-xl3" firstAttribute="centerX" secondItem="KaX-vJ-tjC" secondAttribute="centerX" id="c6a-Dz-vFW"/>
                                     <constraint firstItem="MxG-D7-xl3" firstAttribute="top" secondItem="KaX-vJ-tjC" secondAttribute="top" constant="4.0000000000000018" id="mfN-IP-j7O"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.13725490196078433" green="0.63921568627450975" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -64,6 +76,9 @@
                             <constraint firstItem="KaX-vJ-tjC" firstAttribute="leading" secondItem="Sp8-re-i43" secondAttribute="leading" constant="2" id="csI-OM-1FI"/>
                             <constraint firstItem="KaX-vJ-tjC" firstAttribute="centerX" secondItem="Sp8-re-i43" secondAttribute="centerX" id="hFs-dc-18S"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <constraints>
@@ -75,6 +90,9 @@
                     <constraint firstItem="CIq-dq-tjr" firstAttribute="leading" secondItem="Sp8-re-i43" secondAttribute="trailing" constant="-15" id="wfi-Fu-YGu"/>
                     <constraint firstAttribute="bottom" secondItem="Sp8-re-i43" secondAttribute="bottom" constant="17" id="yYh-0m-mnH"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <userDefinedRuntimeAttributes>

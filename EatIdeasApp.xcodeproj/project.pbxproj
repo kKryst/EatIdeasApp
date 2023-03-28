@@ -26,6 +26,8 @@
 		AF98A6D22961FE0E00461E3D /* RandomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6D12961FE0E00461E3D /* RandomData.swift */; };
 		AF98A6D42962184500461E3D /* RandomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6D32962184500461E3D /* RandomManager.swift */; };
 		AF98A6D6296221A500461E3D /* RandomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6D5296221A500461E3D /* RandomModel.swift */; };
+		AFB308D829D0959C003730A2 /* RecipeInstrucrionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB308D729D0959C003730A2 /* RecipeInstrucrionData.swift */; };
+		AFB308DA29D0E301003730A2 /* RecipeInstructionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB308D929D0E301003730A2 /* RecipeInstructionModel.swift */; };
 		AFCA970D29C22ABD00176A63 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCA970C29C22ABD00176A63 /* DatabaseManager.swift */; };
 		AFCB1D2D29C7AB49003EAAA4 /* RealmIngridients.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCB1D2C29C7AB49003EAAA4 /* RealmIngridients.swift */; };
 		AFD75BA62995918800DEEEAD /* DishFromIngridientsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD75BA52995918800DEEEAD /* DishFromIngridientsData.swift */; };
@@ -62,6 +64,8 @@
 		AF98A6D12961FE0E00461E3D /* RandomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomData.swift; sourceTree = "<group>"; };
 		AF98A6D32962184500461E3D /* RandomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomManager.swift; sourceTree = "<group>"; };
 		AF98A6D5296221A500461E3D /* RandomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomModel.swift; sourceTree = "<group>"; };
+		AFB308D729D0959C003730A2 /* RecipeInstrucrionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstrucrionData.swift; sourceTree = "<group>"; };
+		AFB308D929D0E301003730A2 /* RecipeInstructionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionModel.swift; sourceTree = "<group>"; };
 		AFCA970C29C22ABD00176A63 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		AFCB1D2C29C7AB49003EAAA4 /* RealmIngridients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmIngridients.swift; sourceTree = "<group>"; };
 		AFD75BA52995918800DEEEAD /* DishFromIngridientsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishFromIngridientsData.swift; sourceTree = "<group>"; };
@@ -158,6 +162,8 @@
 				AF22F06E2975EFDD0097D36D /* DIshModel.swift */,
 				AFD75BA52995918800DEEEAD /* DishFromIngridientsData.swift */,
 				AFD75BA7299591E400DEEEAD /* DishFromIngridientsModel.swift */,
+				AFB308D729D0959C003730A2 /* RecipeInstrucrionData.swift */,
+				AFB308D929D0E301003730A2 /* RecipeInstructionModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -320,6 +326,7 @@
 				AF22F06D2975EC260097D36D /* DishData.swift in Sources */,
 				AF98A6B8295E184A00461E3D /* AppDelegate.swift in Sources */,
 				AF22F06F2975EFDD0097D36D /* DIshModel.swift in Sources */,
+				AFB308DA29D0E301003730A2 /* RecipeInstructionModel.swift in Sources */,
 				AF836FA229ABC114000AA306 /* BottomCardSegue.swift in Sources */,
 				AF836FA029ABC0ED000AA306 /* SplashScreenViewController.swift in Sources */,
 				AF22F0782983290A0097D36D /* DishRealmModel.swift in Sources */,
@@ -327,6 +334,7 @@
 				AFD75BA8299591E400DEEEAD /* DishFromIngridientsModel.swift in Sources */,
 				AFDD2E3229BD1B6000E3DF23 /* CustomTabBarControllerViewController.swift in Sources */,
 				AFCB1D2D29C7AB49003EAAA4 /* RealmIngridients.swift in Sources */,
+				AFB308D829D0959C003730A2 /* RecipeInstrucrionData.swift in Sources */,
 				AF22F06B2974921D0097D36D /* DetailViewController.swift in Sources */,
 				AFD75BA62995918800DEEEAD /* DishFromIngridientsData.swift in Sources */,
 				AFEAE8C9298C140200C7F311 /* SavedViewController.swift in Sources */,

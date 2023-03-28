@@ -12,12 +12,16 @@ protocol RandomManagerDelegate {
     func didRecieveSpecificDish(_ randomManager: RandomManager, returned: DishModel)
     func didRecieveDishes(_ randomManager: RandomManager, returned: [RandomModel])
     func didRecieveDishFromIngridients(_ randomManager: RandomManager, returned: [DishFromIngridientsModel])
+    func didRecieveRecipe(_ randomManager: RandomManager, returned: [RecipeInstructionModel])
+    
 }
 
+// list of default implementations of the protocool's functions to make them non-mandatory
 extension RandomManagerDelegate {
     func didRecieveSpecificDish(_ randomManager: RandomManager, returned: DishModel){}
     func didRecieveDishes(_ randomManager: RandomManager, returned: [RandomModel]){}
     func didRecieveDishFromIngridients(_ randomManager: RandomManager, returned: [DishFromIngridientsModel]){}
+    func didRecieveRecipe(_ randomManager: RandomManager, returned: [RecipeInstructionModel]){}
        
 }
 
@@ -47,6 +51,30 @@ struct RandomManager{
         let urlString = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=\(ingridientsAsString)&number=10&apiKey=1b03f0f7b52f417597ff56a137c661cb&ranking=2"
         
         performRequestWithIngridients(with: urlString)
+    }
+    
+    func fetchRecipe(id: Int) {
+        let urlString = "https://api.spoonacular.com/recipes/\(id)/analyzedInstructions?apiKey=1b03f0f7b52f417597ff56a137c661cb"
+        performRequestForRecipe(with: urlString)
+    }
+    
+    func performRequestForRecipe (with urlString: String) {
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { data, response, error in
+                if error != nil {
+                    self.delegate?.didFailWithError(error: error!)
+                    return
+                }
+                if let safeData = data{
+                    if let response = self.parseJSONForRecipe(safeData){
+                        self.delegate?.didRecieveRecipe(self, returned: response)
+                    }
+                }
+            }
+            
+            task.resume()
+        }
     }
     
     func performRequest (with urlString: String) {
@@ -162,6 +190,28 @@ struct RandomManager{
             
             return dishesFromIngridients
             // zwróć listę zwróconych posiłków
+        } catch {
+            delegate?.didFailWithError(error: error)
+            return nil
+        }
+    }
+    func parseJSONForRecipe(_ recipe: Data) -> [RecipeInstructionModel]? {
+        //create a json decoder
+        let decoder = JSONDecoder()
+        
+        do {
+            //try to decode from data
+            let decodedData = try decoder.decode([RecipeInstrucrionData].self, from: recipe)
+            
+            var recipes: [RecipeInstructionModel] = [RecipeInstructionModel]()
+            
+            for item in decodedData {
+                for step in item.steps {
+                    recipes.append(RecipeInstructionModel(stepData: step))
+                }
+            }
+            
+            return recipes
         } catch {
             delegate?.didFailWithError(error: error)
             return nil
