@@ -222,7 +222,7 @@ class DetailVC: UIViewController {
             return nil
         }
     }
-    // helper function to display skeletonView
+    // new
     func setUpAndPresentSkeletonViews() {
         
         timeToCookLabel.isSkeletonable = true
