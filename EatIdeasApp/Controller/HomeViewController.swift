@@ -15,9 +15,8 @@ import SkeletonView
 class HomeViewController: UIViewController {
     
     
-#warning("TODO: sketelonView on the main tableView")
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var dishesFromIngridientsTableView: UITableView!
+    
     
     // An instance of RandomManager that is responsible for fetching data from an API
     
@@ -137,13 +136,10 @@ extension HomeViewController : UITableViewDelegate {
         if tableView == self.tableView {
             let selectedCell = tableView.cellForRow(at: indexPath)
             performSegue(withIdentifier: "goToDetails", sender: selectedCell)
-        } else if tableView == self.dishesFromIngridientsTableView {
-            let selectedCell = tableView.cellForRow(at: indexPath)
-            performSegue(withIdentifier: "goToDetailsFromDishesByIngridients", sender: selectedCell)
+            
         }
         
     }
-    
 }
 //MARK: RandomManagerDelegate Extension
 extension HomeViewController : RandomManagerDelegate {
