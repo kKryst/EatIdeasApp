@@ -198,7 +198,7 @@ class DetailVC: UIViewController {
         
         // set favourite button's image
         if DatabaseManager.shared.isObjectSaved(id: recipeId) {
-            favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+            favouriteButton.setBackgroundImage(UIImage(named: "favouriteColored"), for: .normal)
         }
         
         //recipeView design
@@ -257,7 +257,7 @@ class DetailVC: UIViewController {
             DatabaseManager.shared.createInDatabase(dish: displayedDishModel!)
             DispatchQueue.main.async {
                 //change button's icon
-                self.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+                self.favouriteButton.setBackgroundImage(UIImage(named: "favouriteColored"), for: .normal)
             }
             
         }
