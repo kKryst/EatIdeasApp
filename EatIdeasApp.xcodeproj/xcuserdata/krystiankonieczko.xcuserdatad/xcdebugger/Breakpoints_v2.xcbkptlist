@@ -30,8 +30,8 @@
             filePath = "EatIdeasApp/Controller/DetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "setImageFromStringrURL(stringUrl:)"
             landmarkType = "7">
          </BreakpointContent>

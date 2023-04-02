@@ -12,6 +12,9 @@ import RealmSwift
 
 class SavedViewController: UIViewController {
     
+    
+    @IBOutlet weak var topImage: UIImageView!
+    
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var logoutBackground: UIView!
@@ -29,6 +32,9 @@ class SavedViewController: UIViewController {
         tableView.register(UINib(nibName: "TestTableViewCell", bundle: nil), forCellReuseIdentifier: "Saved")
         
         dishes = DatabaseManager.shared.fetchSaved()
+        
+        topImage.image = UIImage(named: "savedImage")
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -61,7 +67,8 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Saved", for: indexPath) as! TestTableViewCell
         
         // checks if object has saved title and image
-        if let dishTitle = dishes?[indexPath.row].title {
+        if let dish = dishes?[indexPath.row] {
+            print("HERE!!!!!!")
             let attributes: [NSAttributedString.Key: Any] = [
                 .font: UIFont.systemFont(ofSize: 17),
                 .foregroundColor: UIColor.white,
@@ -70,12 +77,13 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
             ]
 
             // Create the attributed string with the attributes
-            let attributedString = NSAttributedString(string: dishTitle, attributes: attributes)
+            let attributedString = NSAttributedString(string: dish.title, attributes: attributes)
             
             cell.label.attributedText = attributedString
             cell.label.font = UIFont.systemFont(ofSize: 16)
             
             cell.textBackgroundView.backgroundColor = UIColor(named: "pinkCellColor")
+            cell.greenImageBackground.backgroundColor = UIColor(named: "pinkCellColor")
             
 
             cell.label.numberOfLines = 0
@@ -84,8 +92,13 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
             if let imageString = dishes?[indexPath.row].image {
                 setCellImage(imageString, cell)
             }
+        } else {
+            cell.label.text = "No dishes saved"
+            cell.textBackgroundView.backgroundColor = UIColor(named: "pinkCellColor")
+            cell.displayedImage.image = UIImage(systemName: "questionmark.circle")
+            print("NO ITEMS!!!!!!!!!")
         }
-        
+        print("RETURNING CELL")
         return cell
         
     }

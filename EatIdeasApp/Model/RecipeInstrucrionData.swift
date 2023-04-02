@@ -3,9 +3,7 @@
 //  EatIdeasApp
 //
 //  Created by Krystian Konieczko on 26/03/2023.
-//
 
-#warning("TODO: create this structure and later on call an api to fill recipe instructions")
 
 import Foundation
 

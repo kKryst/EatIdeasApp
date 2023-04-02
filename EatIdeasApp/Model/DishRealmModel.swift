@@ -19,6 +19,8 @@ class DishRealmModel: Object {
     @Persisted var vegetarian: String
     @Persisted var extendedIngridients: List<RealmIngredient>
     
+    
+    
     init(dishApiId: Int, title: String, image: String, readyInMinutes: Int, diaryFree: String, glutenFree: String, vegan: String, vegetarian: String, extendedIngridients: List<RealmIngredient>) {
         self.dishApiId = dishApiId
         self.title = title
@@ -29,6 +31,9 @@ class DishRealmModel: Object {
         self.vegan = vegan
         self.vegetarian = vegetarian
         self.extendedIngridients = extendedIngridients
+        
+        
+        
         
     }
     
@@ -52,6 +57,6 @@ class DishRealmModel: Object {
         }
         self.extendedIngridients = ingridients
     }
-       
-}
     
+}
+

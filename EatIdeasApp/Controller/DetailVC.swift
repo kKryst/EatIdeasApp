@@ -21,7 +21,6 @@ class DetailVC: UIViewController {
     @IBOutlet weak var vegetarianIMV: UIImageView!
     
     @IBOutlet weak var timeToCookLabel: UILabel!
-    @IBOutlet weak var ingridientsLabel: UILabel!
     @IBOutlet weak var dishNameLabel: UILabel!
     @IBOutlet weak var favouriteButton: UIButton!
     
@@ -46,6 +45,7 @@ class DetailVC: UIViewController {
     
     var ingridients : [ExtendedIngredient] = []
     
+    // to consider: i think it would be better if this was a DishModel instead of DishRealmModel, that might fix the issue with adding deleted object
     var displayedDishModel: DishRealmModel?
     
 //#warning("for testing puropuse - should be nillable")
@@ -59,7 +59,9 @@ class DetailVC: UIViewController {
     
     var stepCounter = 1
     
-    var recipeDescriptions : [RecipeInstructionModel] = []
+    var recipeDescriptions : [RecipeInstructionModel] = [RecipeInstructionModel]()
+    
+    var recipiesDB: List<RecipeInstructionRealmModel> = List()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,20 +89,27 @@ class DetailVC: UIViewController {
     func determineSource(segue: String) {
         if segue == K.Segues.fromMainToDetails {
             randomManager.fetchSpecificDish(id: recipeId)
+            randomManager.fetchRecipe(id: recipeId)
         } else if segue == K.Segues.fromSavedToDetails {
             //ask database for the object
-            displayedDishModel = DatabaseManager.shared.fetchObject(id: recipeId)
-            
+            displayedDishModel = DatabaseManager.shared.fetchObject(id: recipeId).dish
             // append items to ingridients tableView
-            setUpData()
+            recipiesDB = DatabaseManager.shared.fetchRecipes(recipeId: recipeId)
             
+            var tempRecipe: [RecipeInstructionModel] = []
+            
+            for item in recipiesDB {
+                tempRecipe.append(RecipeInstructionModel(dbModel: item))
+            }
+            
+            recipeDescriptions = tempRecipe
+            setUpData()
+            presentDescription()
         }
     }
     
     func setUpData(){
         
-        //set up data for the description
-        randomManager.fetchRecipe(id: recipeId)
         
         //safe casting the object
         if let dish = displayedDishModel{
@@ -210,7 +219,6 @@ class DetailVC: UIViewController {
         
         setUpAndPresentSkeletonViews()
 
-        
     }
     
     func getImageFromURL(_ url: URL) -> UIImage? {
@@ -232,14 +240,12 @@ class DetailVC: UIViewController {
         dishNameLabel.linesCornerRadius = 5
         dishNameLabel.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
         
-        
         timeToCookLabel.linesCornerRadius = 5
         timeToCookLabel.skeletonTextNumberOfLines = 2
         timeToCookLabel.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
         
         tableView.skeletonCornerRadius = 15.0
         tableView.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
-        
         
     }
     
@@ -254,21 +260,13 @@ class DetailVC: UIViewController {
             }
         } else {
             // create the object in DB
-            DatabaseManager.shared.createInDatabase(dish: displayedDishModel!)
+            DatabaseManager.shared.addToDatabase(food: FoodRealmModel(recipeID: recipeId, dish: displayedDishModel!, recipes: recipiesDB))
             DispatchQueue.main.async {
                 //change button's icon
                 self.favouriteButton.setBackgroundImage(UIImage(named: "favouriteColored"), for: .normal)
             }
-            
         }
-        
     }
-    
-
-    
-    
-    
-    
 }
 
 extension DetailVC: RandomManagerDelegate {
@@ -289,6 +287,10 @@ extension DetailVC: RandomManagerDelegate {
     func didRecieveRecipe(_ randomManager: RandomManager, returned: [RecipeInstructionModel]) {
         for item in returned {
             recipeDescriptions.append(item)
+        }
+        
+        for item in recipeDescriptions {
+            recipiesDB.append(RecipeInstructionRealmModel(model: item))
         }
         presentDescription()
     }
@@ -318,7 +320,7 @@ extension DetailVC: UITableViewDelegate, SkeletonTableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // nothing here to be done
+        
     }
     
     func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
@@ -395,7 +397,6 @@ extension DetailVC {
             self.stepLabel.text = "Step \(self.stepCounter)"
             
         }
-        
         
     }
     

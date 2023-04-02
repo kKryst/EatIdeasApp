@@ -14,13 +14,18 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    //view represents window which should be displayed when iphone is not connected to the internet
+    @IBOutlet var noInternetView: UIView!
+    
     
     // An instance of RandomManager that is responsible for fetching data from an API
     
     var randomManager = RandomManager()
     
+    let networkManager = NetworkManager()
+    
     // Arrays that store data for table views
-    var dishes : [RandomModel] = []
+    var dishes : [RandomModel]? = []
     
     @IBOutlet weak var logoutBackground: UIView!
     
@@ -49,31 +54,56 @@ class HomeViewController: UIViewController {
         tableView.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
         
         randomManager.delegate = self
-        randomManager.fetchDishes()
+        
+        noInternetView.frame = tableView.frame
+        
+        checkInternetConnection()
+        
         
         logoutBackground.layer.cornerRadius = 15.0
+        
+        noInternetView.layer.cornerRadius = 15.0
+        
         
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let detailsViewController = segue.destination as! DetailVC
-        let selectedCell = sender
-        
-        let indexPath = tableView.indexPath(for: selectedCell as! UITableViewCell)
-        let row = indexPath!.row
-        
-        detailsViewController.recipeId = dishes[row].id
-        detailsViewController.segueIdentifier = segue.identifier!
-        
+    func checkInternetConnection() {
+        // check for internet connection and proceed with fetching dishes if the connection is avilable
+        if networkManager.isConnectedToInternet() {
+            noInternetView.isHidden = true
+            randomManager.fetchDishes()
+            
+        } else {
+            view.addSubview(noInternetView)
+            noInternetView.isHidden = false
+        }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let safeDishes = dishes {
+            let detailsViewController = segue.destination as! DetailVC
+            let selectedCell = sender
+            
+            let indexPath = tableView.indexPath(for: selectedCell as! UITableViewCell)
+            let row = indexPath!.row
+            
+            detailsViewController.recipeId = safeDishes[row].id
+            detailsViewController.segueIdentifier = segue.identifier!
+        }
+
+    }
+    
+    @IBAction func tryAgainButtonPressed(_ sender: UIButton) {
+        checkInternetConnection()
+    }
+    
 }
 //MARK: tableView DataSource extension
 
 extension HomeViewController: SkeletonTableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dishes.count
+        return dishes?.count ?? 1
         
     }
     // set cell's image passing cell and url
@@ -93,30 +123,39 @@ extension HomeViewController: SkeletonTableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Dish", for: indexPath) as! TestTableViewCell
         
-        let dishTitle =  dishes[indexPath.row].name
+        if let safeDishes = dishes?[indexPath.row] {
+            
+            let dishTitle =  safeDishes.name
+            
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: 17),
+                .foregroundColor: UIColor.white,
+                .strokeColor: UIColor.black,
+                .strokeWidth: -0.5 // negative value to draw an outline
+            ]
+            
+            // Create the attributed string with the attributes
+            let attributedString = NSAttributedString(string: dishTitle, attributes: attributes)
+            
+            // Assign the attributed string to a label or other text view
+            cell.label.attributedText = attributedString
+            
+            // no idea how to refactor that
+            let imageUrlString = safeDishes.image
+            
+            //set cell's image
+            setCellImage(imageUrlString, cell)
+            
+            //zawijanie wierszy w komorce
+            cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+            cell.textLabel?.numberOfLines = 0
+            
+            
+        } else {
+            cell.label.text = "No internet connection"
+            
+        }
         
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 17),
-            .foregroundColor: UIColor.white,
-            .strokeColor: UIColor.black,
-            .strokeWidth: -0.5 // negative value to draw an outline
-        ]
-        
-        // Create the attributed string with the attributes
-        let attributedString = NSAttributedString(string: dishTitle, attributes: attributes)
-        
-        // Assign the attributed string to a label or other text view
-        cell.label.attributedText = attributedString
-        
-        // no idea how to refactor that
-        let imageUrlString = dishes[indexPath.row].image
-        
-        //set cell's image
-        setCellImage(imageUrlString, cell)
-        
-        //zawijanie wierszy w komorce
-        cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-        cell.textLabel?.numberOfLines = 0
         
         return cell
     }
@@ -132,6 +171,7 @@ extension HomeViewController : UITableViewDelegate {
         if tableView == self.tableView {
             let selectedCell = tableView.cellForRow(at: indexPath)
             performSegue(withIdentifier: "goToDetails", sender: selectedCell)
+            tableView.deselectRow(at: indexPath, animated: true)
             
         }
         
@@ -140,13 +180,14 @@ extension HomeViewController : UITableViewDelegate {
 //MARK: RandomManagerDelegate Extension
 extension HomeViewController : RandomManagerDelegate {
     func didRecieveDishes(_ randomManager: RandomManager, returned: [RandomModel]) {
-        
-        self.dishes.removeAll()
-        
+    
+        var safeDishes: [RandomModel] = []
         DispatchQueue.main.async {
             for item in returned {
-                self.dishes.append(item)
+                safeDishes.append(item)
             }
+            
+            self.dishes = safeDishes
             self.tableView.hideSkeleton()
             self.tableView.reloadData()
         }

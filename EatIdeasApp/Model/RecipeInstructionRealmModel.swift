@@ -1,33 +1,26 @@
 //
-//  RecipeInstructionModel.swift
+//  RecipeInstructionRealmModel.swift
 //  EatIdeasApp
 //
-//  Created by Krystian Konieczko on 26/03/2023.
+//  Created by Krystian Konieczko on 30/03/2023.
 //
 
 import Foundation
+import RealmSwift
 
-
-struct RecipeInstructionModel{
+class RecipeInstructionRealmModel: Object {
     // step's description
-    let description: String
+    @Persisted var descriptionString: String
     // number of given step
-    let step: Int
+    @Persisted var step: Int
     // list of ingridients
-    let ingridients: [String]
+    @Persisted var ingridients: List<String>
     
-    
-    
-    init(description: String, step: Int, ingridients: [String]) {
-        self.description = description
-        self.step = step
-        self.ingridients = ingridients
-    }
     init(stepData: Step) {
-        self.description = stepData.step
+        self.descriptionString = stepData.step
         self.step = stepData.number
         // table of ingridients from data
-        var ingridients: [String] = [String]()
+        var ingridients: List<String> = List<String>()
         // if given data is not nil
         if let safeIngridients = stepData.ingredients {
             // for each ingridient add step's name into the array of strings
@@ -37,23 +30,37 @@ struct RecipeInstructionModel{
         }
         // if table created to contain ingridient's name from the Data is empty, return an empty array of string
         if ingridients.isEmpty {
-            self.ingridients = [String]()
+            self.ingridients = List<String>()
         // if not, return the array of recieved ingridients
         } else {
             self.ingridients = ingridients
         }
+
+
+
     }
     
-    init(dbModel: RecipeInstructionRealmModel) {
-        self.description = dbModel.descriptionString
-        self.step = dbModel.step
+    init(descriptionString: String, step: Int, ingridients: List<String>) {
+        self.descriptionString = descriptionString
+        self.step = step
+        self.ingridients = ingridients
+    }
+    
+    init(model: RecipeInstructionModel) {
+        self.descriptionString = model.description
+        self.step = model.step
+        var tempIng: List<String> = List<String>()
         
-        var tempIng: [String] = [String]()
-        
-        for item in dbModel.ingridients {
+        for item in model.ingridients {
             tempIng.append(item)
         }
         
         self.ingridients = tempIng
     }
+    
+    override init() {
+        super.init()
+    }
+    
+    
 }
