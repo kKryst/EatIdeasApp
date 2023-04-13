@@ -150,8 +150,8 @@ class DetailVC: UIViewController {
                     dishNameLabelTextValue = safeDishNameLabelTextValue
                 }
                 
-                self.timeToCookLabel.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-                self.dishNameLabel.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+//                self.timeToCookLabel.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+//                self.dishNameLabel.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
                 self.timeToCookLabel.text = timeToCookLabelTextValue
                 self.dishNameLabel.text = dishNameLabelTextValue
                 //reload data in tableView
@@ -238,11 +238,13 @@ class DetailVC: UIViewController {
         dishNameLabel.isSkeletonable = true
         
         dishNameLabel.linesCornerRadius = 5
-        dishNameLabel.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
+//        dishNameLabel.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
+        dishNameLabel.showAnimatedSkeleton(usingColor:.silver, transition: .crossDissolve(0.25))
         
         timeToCookLabel.linesCornerRadius = 5
         timeToCookLabel.skeletonTextNumberOfLines = 2
-        timeToCookLabel.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
+//        timeToCookLabel.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
+        timeToCookLabel.showAnimatedSkeleton(usingColor:.silver, transition: .crossDissolve(0.25))
         
         tableView.skeletonCornerRadius = 15.0
         tableView.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
@@ -314,6 +316,7 @@ extension DetailVC: UITableViewDelegate, SkeletonTableViewDataSource {
         cell.backgroundColor = UIColor.clear
         cell.textLabel?.textColor = UIColor.white
         cell.textLabel?.font = UIFont(name: "SF Pro", size: 15.0)
+        //cell.textLabel.text.linesCornerRadius - set in storyboard
         
         return cell
         

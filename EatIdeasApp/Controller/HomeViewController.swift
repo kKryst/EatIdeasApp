@@ -46,12 +46,15 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "TestTableViewCell", bundle: nil), forCellReuseIdentifier: "Dish")
         tableView.rowHeight = 144
         tableView.isSkeletonable = true
         tableView.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
+        
         
         randomManager.delegate = self
         
@@ -69,11 +72,11 @@ class HomeViewController: UIViewController {
     }
     
     func checkInternetConnection() {
-        // check for internet connection and proceed with fetching dishes if the connection is avilable
+        // check for internet connection and proceed with fetching dishes if the connection is avilable, if not, show view with information
         if networkManager.isConnectedToInternet() {
             noInternetView.isHidden = true
             randomManager.fetchDishes()
-            
+
         } else {
             view.addSubview(noInternetView)
             noInternetView.isHidden = false

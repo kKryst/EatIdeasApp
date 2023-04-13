@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import RealmSwift
+import FirebaseCore
 
 
 
@@ -39,8 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         
-        
-        
+        // Firebase configuration
+        FirebaseApp.configure()
         
         return true
     }

@@ -68,7 +68,6 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
         
         // checks if object has saved title and image
         if let dish = dishes?[indexPath.row] {
-            print("HERE!!!!!!")
             let attributes: [NSAttributedString.Key: Any] = [
                 .font: UIFont.systemFont(ofSize: 17),
                 .foregroundColor: UIColor.white,
@@ -96,9 +95,7 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
             cell.label.text = "No dishes saved"
             cell.textBackgroundView.backgroundColor = UIColor(named: "pinkCellColor")
             cell.displayedImage.image = UIImage(systemName: "questionmark.circle")
-            print("NO ITEMS!!!!!!!!!")
         }
-        print("RETURNING CELL")
         return cell
         
     }

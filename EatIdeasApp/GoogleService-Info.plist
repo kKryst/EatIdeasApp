@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>201885844362-i62paecohd1lfukjjuvvhsjqtp5mrn72.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.201885844362-i62paecohd1lfukjjuvvhsjqtp5mrn72</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCB7XE1x4W5vXXGVY0rN-sXSeRcRcpYksw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>201885844362</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.krystiankonieczko.EatIdeasApp</string>
+	<key>PROJECT_ID</key>
+	<string>eatsideasapp</string>
+	<key>STORAGE_BUCKET</key>
+	<string>eatsideasapp.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:201885844362:ios:1cb2af5690aab86c0f3e73</string>
+</dict>
+</plist>

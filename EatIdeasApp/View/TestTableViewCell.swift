@@ -26,6 +26,10 @@ class TestTableViewCell: UITableViewCell {
         whiteImageBackground.layer.cornerRadius = cornerRadius
         displayedImage.layer.cornerRadius = cornerRadius
         
+        // set skeleton's corner radius for text
+        label.linesCornerRadius = 7
+        
+        
         // Initialization code
     }
 
