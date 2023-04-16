@@ -84,16 +84,19 @@ class HomeViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let safeDishes = dishes {
-            let detailsViewController = segue.destination as! DetailVC
-            let selectedCell = sender
-            
-            let indexPath = tableView.indexPath(for: selectedCell as! UITableViewCell)
-            let row = indexPath!.row
-            
-            detailsViewController.recipeId = safeDishes[row].id
-            detailsViewController.segueIdentifier = segue.identifier!
+        if segue.identifier == "goToDetails" {
+            if let safeDishes = dishes {
+                let detailsViewController = segue.destination as! DetailVC
+                let selectedCell = sender
+                
+                let indexPath = tableView.indexPath(for: selectedCell as! UITableViewCell)
+                let row = indexPath!.row
+                
+                detailsViewController.recipeId = safeDishes[row].id
+                detailsViewController.segueIdentifier = segue.identifier!
+            }
         }
+        
 
     }
     
