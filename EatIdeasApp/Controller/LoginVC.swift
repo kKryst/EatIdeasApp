@@ -14,8 +14,12 @@ import FirebaseAuth
 class LoginVC: UIViewController {
     
     
+    let authenticator = FirebaseAuthenticator()
+    
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var errorLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +38,7 @@ class LoginVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.tintColor = UIColor(named: "BarColor")
+        errorLabel.isHidden = true
         
         
     }
@@ -48,19 +53,15 @@ class LoginVC: UIViewController {
     
     
     @IBAction func loginButtonPressed(_ sender: UIButton) {
-        if let email = emailTextField.text, let password = passwordTextField.text {
-            Auth.auth().signIn(withEmail: email, password: password) {authResult, error in
-                if let e = error {
-                    print(e.localizedDescription)
-                } else {
-                    print("succesfully logged in \(authResult?.user.email)")
-                    self.dismiss(animated: true)
-                }
-                
+        authenticator.logInUser(email: emailTextField.text, password: passwordTextField.text) { response in
+            if response.authResult {
+                self.dismiss(animated: true)
+                print("logged in succesfully")
+            } else {
+                self.errorLabel.text = response.error
+                self.errorLabel.isHidden = false
             }
         }
-        
-        
     }
     
     

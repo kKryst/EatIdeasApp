@@ -8,21 +8,25 @@
 import Foundation
 import UIKit
 import RealmSwift
+import FirebaseAuth
 
 
 class SavedViewController: UIViewController {
     
     
     @IBOutlet weak var topImage: UIImageView!
-    
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var logoutBackground: UIView!
     
     var dishes: Results<DishRealmModel>?
     
+    let authenticator = FirebaseAuthenticator()
+    
+    //object SOMEHOW needed for listeninig if an user is logged in, provided by Firebase docs
+    var handle: AuthStateDidChangeListenerHandle?
     
     override func viewDidLoad() {
+        
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -35,10 +39,13 @@ class SavedViewController: UIViewController {
         
         topImage.image = UIImage(named: "savedImage")
         
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(true)
         self.tableView.reloadData()
+        
     }
     
     // set cell's image passing cell and url
@@ -53,7 +60,6 @@ class SavedViewController: UIViewController {
             }.resume()
         }
     }
-    
 }
 
 extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
@@ -83,7 +89,6 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
             
             cell.textBackgroundView.backgroundColor = UIColor(named: "pinkCellColor")
             cell.greenImageBackground.backgroundColor = UIColor(named: "pinkCellColor")
-            
 
             cell.label.numberOfLines = 0
             cell.label.lineBreakMode = NSLineBreakMode.byWordWrapping

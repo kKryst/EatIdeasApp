@@ -12,6 +12,9 @@ class RegisterVC: UIViewController {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var errorLabel: UILabel!
+    
+    let authenticator = FirebaseAuthenticator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,24 +22,24 @@ class RegisterVC: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        errorLabel.isHidden = true
+    }
     
     @IBAction func registerButtonPressed(_ sender: UIButton) {
         
-        if let email = emailTextField.text, let password = passwordTextField.text {
-            Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                if let e = error {
-                    print("ERROR OCCURED: \(e.localizedDescription)")
-                } else {
-                    self.dismiss(animated: true)
-                }
-                
-                
-                
+        authenticator.registerNewUser(email: emailTextField.text, password: passwordTextField.text) { response in
+            if response.authResult {
+                self.dismiss(animated: true)
+                print("account created")
+            } else {
+                self.errorLabel.text = response.error
+                self.errorLabel.isHidden = false
             }
         }
         
         
     }
-    
-
 }
+
+

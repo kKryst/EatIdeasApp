@@ -24,6 +24,8 @@ class HomeViewController: UIViewController {
     
     let networkManager = NetworkManager()
     
+    let authenticator = FirebaseAuthenticator()
+    
     // Arrays that store data for table views
     var dishes : [RandomModel]? = []
     
@@ -96,12 +98,20 @@ class HomeViewController: UIViewController {
                 detailsViewController.segueIdentifier = segue.identifier!
             }
         }
-        
-
     }
     
     @IBAction func tryAgainButtonPressed(_ sender: UIButton) {
         checkInternetConnection()
+    }
+    
+    
+    @IBAction func logButtonPressed(_ sender: UIButton) {
+        if authenticator.isAnyUserIsLoggedIn() {
+            authenticator.logOutUser()
+            print("user logged out")
+        } else {
+            performSegue(withIdentifier: "goToLogin", sender: self)
+        }
     }
     
 }

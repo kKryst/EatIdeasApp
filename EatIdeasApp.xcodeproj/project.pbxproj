@@ -10,6 +10,7 @@
 		3559B62F4E13C6CAAC13D9D2 /* Pods_EatIdeasApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A66625278B51E838D5AAFB0A /* Pods_EatIdeasApp.framework */; };
 		AF044BBA29E8515C00839806 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF044BB929E8515C00839806 /* LoginVC.swift */; };
 		AF044BBC29E88B0800839806 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF044BBB29E88B0800839806 /* RegisterVC.swift */; };
+		AF044BC029EC7C2200839806 /* FirebaseAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF044BBF29EC7C2200839806 /* FirebaseAuthenticator.swift */; };
 		AF1B55D729E84D330020C948 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF1B55D629E84D320020C948 /* GoogleService-Info.plist */; };
 		AF22F06D2975EC260097D36D /* DishData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F06C2975EC260097D36D /* DishData.swift */; };
 		AF22F06F2975EFDD0097D36D /* DIshModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F06E2975EFDD0097D36D /* DIshModel.swift */; };
@@ -51,6 +52,7 @@
 		A66625278B51E838D5AAFB0A /* Pods_EatIdeasApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EatIdeasApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF044BB929E8515C00839806 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		AF044BBB29E88B0800839806 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		AF044BBF29EC7C2200839806 /* FirebaseAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticator.swift; sourceTree = "<group>"; };
 		AF1B55D629E84D320020C948 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF22F06C2975EC260097D36D /* DishData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishData.swift; sourceTree = "<group>"; };
 		AF22F06E2975EFDD0097D36D /* DIshModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIshModel.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				AF98A6C0295E184A00461E3D /* EatIdeasApp.xcdatamodeld */,
 				AF836FA129ABC114000AA306 /* BottomCardSegue.swift */,
 				AFDD2E2F29BD0DA800E3DF23 /* Constants.swift */,
+				AF044BBF29EC7C2200839806 /* FirebaseAuthenticator.swift */,
 				AFCA970C29C22ABD00176A63 /* DatabaseManager.swift */,
 				AF39513F29D9FDA300EC2F7A /* NetworkManager.swift */,
 			);
@@ -337,6 +340,7 @@
 				AFAD26DA29D62EB800A2A617 /* FoodRealmModel.swift in Sources */,
 				AF98A6BC295E184A00461E3D /* HomeViewController.swift in Sources */,
 				AF98A6D6296221A500461E3D /* RandomModel.swift in Sources */,
+				AF044BC029EC7C2200839806 /* FirebaseAuthenticator.swift in Sources */,
 				AF98A6D22961FE0E00461E3D /* RandomData.swift in Sources */,
 				AFDD2E2D29B343D900E3DF23 /* TestTableViewCell.swift in Sources */,
 				AFDD2E3429BD557600E3DF23 /* DetailVC.swift in Sources */,
