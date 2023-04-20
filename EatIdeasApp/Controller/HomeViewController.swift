@@ -36,6 +36,7 @@ class HomeViewController: UIViewController {
         
         // hide navigation bar on this view
         navigationController?.setNavigationBarHidden(true, animated: false)
+        print("IS ANY USER LOGGED IN? \(authenticator.isAnyUserIsLoggedIn())")
     }
     
     override func viewDidDisappear(_ animated: Bool) {

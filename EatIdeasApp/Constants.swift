@@ -42,3 +42,15 @@ extension UILabel {
     }
     
 }
+// functionality to hide keyboard when touching outside of it
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}

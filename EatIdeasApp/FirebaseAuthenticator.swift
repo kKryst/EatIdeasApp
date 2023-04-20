@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  FirebaseAuthenticator.swift
 //  EatIdeasApp
 //
 //  Created by Krystian Konieczko on 16/04/2023.
@@ -59,6 +59,7 @@ struct FirebaseAuthenticator {
           print("Error signing out: %@", signOutError)
         }
     }
+    
     func isAnyUserIsLoggedIn() -> Bool {
         // Check if there's a logged in user
         if Auth.auth().currentUser != nil {

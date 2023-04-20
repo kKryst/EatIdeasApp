@@ -13,6 +13,9 @@ import FirebaseAuth
 
 class LoginVC: UIViewController {
     
+    #warning("TODO: add functionality that dismissed keyboard when clicking 'return' or not on the keyboard. ")
+    #warning("TODO: scroll the view to the top when keyboard appears (lesson 196.!")
+    
     
     let authenticator = FirebaseAuthenticator()
     
@@ -21,33 +24,38 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
     
+    var passedEmail, passedPassword: String?
+    var error: String?
+    var accountCreated: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        
         
         
     }
     
     
     @IBAction func registerHereButtonPressed(_ sender: UIButton) {
-//        let presentedView = self
-//        presentedView.dismiss(animated: true)
         performSegue(withIdentifier: "goFromLoginToRegister", sender: self)
     }
     
     
+    
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: true)
+        super.viewWillAppear(animated)
         self.navigationController?.navigationBar.tintColor = UIColor(named: "BarColor")
         errorLabel.isHidden = true
-        
-        
     }
+
     
     
     override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.tabBarController?.tabBar.isHidden = false
     }
     
     
@@ -55,15 +63,24 @@ class LoginVC: UIViewController {
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         authenticator.logInUser(email: emailTextField.text, password: passwordTextField.text) { response in
             if response.authResult {
-                self.dismiss(animated: true)
-                print("logged in succesfully")
+                self.navigationController?.popViewController(animated: true)
             } else {
                 self.errorLabel.text = response.error
                 self.errorLabel.isHidden = false
             }
         }
     }
+}
+
+
+extension LoginVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
     
-    
-    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
 }

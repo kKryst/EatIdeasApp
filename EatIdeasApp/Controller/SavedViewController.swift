@@ -44,8 +44,19 @@ class SavedViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(true)
-        self.tableView.reloadData()
+        // hide navigation bar on this view
+        navigationController?.setNavigationBarHidden(true, animated: false)
         
+        navigationController?.tabBarController?.tabBar.isHidden = false
+        
+        self.tableView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // display navigation bar when going to next view
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     // set cell's image passing cell and url
