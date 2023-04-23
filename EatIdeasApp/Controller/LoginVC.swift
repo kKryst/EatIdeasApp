@@ -13,9 +13,6 @@ import FirebaseAuth
 
 class LoginVC: UIViewController {
     
-    #warning("TODO: add functionality that dismissed keyboard when clicking 'return' or not on the keyboard. ")
-    #warning("TODO: scroll the view to the top when keyboard appears (lesson 196.!")
-    
     
     let authenticator = FirebaseAuthenticator()
     

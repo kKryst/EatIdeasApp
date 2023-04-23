@@ -11,6 +11,9 @@ import RealmSwift
 import FirebaseAuth
 
 
+#warning("cover the tableview with a 'No logged in' view if the user is not logged in")
+
+
 class SavedViewController: UIViewController {
     
     
@@ -18,12 +21,15 @@ class SavedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var logoutBackground: UIView!
     
+    
+    @IBOutlet weak var logoutButton: LogOutUIButton!
+    
     var dishes: Results<DishRealmModel>?
     
     let authenticator = FirebaseAuthenticator()
     
     //object SOMEHOW needed for listeninig if an user is logged in, provided by Firebase docs
-    var handle: AuthStateDidChangeListenerHandle?
+    
     
     override func viewDidLoad() {
         
@@ -71,6 +77,18 @@ class SavedViewController: UIViewController {
             }.resume()
         }
     }
+    
+    
+    @IBAction func logoutButtonPressed(_ sender: LogOutUIButton) {
+        if authenticator.isAnyUserIsLoggedIn() {
+            logoutButton.presentLogoutAlert(authenticator: authenticator, view: self)
+        }
+        
+        else {
+            performSegue(withIdentifier: "goToLoginFromSaved", sender: self)
+        }
+    }
+    
 }
 
 extension SavedViewController: UITableViewDataSource, UITableViewDelegate {

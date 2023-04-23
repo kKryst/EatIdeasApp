@@ -31,12 +31,14 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var logoutBackground: UIView!
     
+    @IBOutlet weak var logoutButton: LogOutUIButton!
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // hide navigation bar on this view
         navigationController?.setNavigationBarHidden(true, animated: false)
-        print("IS ANY USER LOGGED IN? \(authenticator.isAnyUserIsLoggedIn())")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -108,11 +110,14 @@ class HomeViewController: UIViewController {
     
     @IBAction func logButtonPressed(_ sender: UIButton) {
         if authenticator.isAnyUserIsLoggedIn() {
-            authenticator.logOutUser()
-            print("user logged out")
+            logoutButton.presentLogoutAlert(authenticator: authenticator, view: self)
+            
         } else {
+            // go to Login screens
             performSegue(withIdentifier: "goToLogin", sender: self)
         }
+        
+        
     }
     
 }

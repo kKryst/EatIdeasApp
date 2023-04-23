@@ -150,8 +150,8 @@ class DetailVC: UIViewController {
                     dishNameLabelTextValue = safeDishNameLabelTextValue
                 }
                 
-//                self.timeToCookLabel.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-//                self.dishNameLabel.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                self.timeToCookLabel.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                self.dishNameLabel.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
                 self.timeToCookLabel.text = timeToCookLabelTextValue
                 self.dishNameLabel.text = dishNameLabelTextValue
                 //reload data in tableView
