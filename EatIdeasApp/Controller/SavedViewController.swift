@@ -28,16 +28,25 @@ class SavedViewController: UIViewController {
     
     let authenticator = FirebaseAuthenticator()
     
-    //object SOMEHOW needed for listeninig if an user is logged in, provided by Firebase docs
+    @IBOutlet var userLoggedOutView: UIView!
+    
+    @IBOutlet weak var logoutInLoggedOutViewButton: UIButton!
     
     
     override func viewDidLoad() {
         
-        
         tableView.delegate = self
         tableView.dataSource = self
         
+        userLoggedOutView.frame = tableView.frame
+        
+        userLoggedOutView.isHidden = true
+        
         logoutBackground.layer.cornerRadius = 15.0
+        
+        logoutInLoggedOutViewButton.layer.cornerRadius = 8.0
+        
+        
         
         tableView.register(UINib(nibName: "TestTableViewCell", bundle: nil), forCellReuseIdentifier: "Saved")
         
@@ -45,11 +54,24 @@ class SavedViewController: UIViewController {
         
         topImage.image = UIImage(named: "savedImage")
         
+        
+        
+    }
+    
+    func checkForAuthentication () {
+        if !authenticator.isAnyUserIsLoggedIn() {
+            self.view.addSubview(userLoggedOutView)
+            userLoggedOutView.isHidden = false
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(true)
+        
+        checkForAuthentication()
+        print("checked for authentication in view")
+        
         // hide navigation bar on this view
         navigationController?.setNavigationBarHidden(true, animated: false)
         
@@ -81,12 +103,16 @@ class SavedViewController: UIViewController {
     
     @IBAction func logoutButtonPressed(_ sender: LogOutUIButton) {
         if authenticator.isAnyUserIsLoggedIn() {
-            logoutButton.presentLogoutAlert(authenticator: authenticator, view: self)
+            logoutButton.presentLogoutAlert(authenticator: authenticator, view: self) {
+                self.checkForAuthentication()
+            }
         }
         
         else {
             performSegue(withIdentifier: "goToLoginFromSaved", sender: self)
         }
+        
+        
     }
     
 }
@@ -150,6 +176,15 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
             detailsViewController.recipeId = dishes![row].dishApiId
             detailsViewController.segueIdentifier = segue.identifier!
         }
+    }
+    
+}
+//MARK: logoutView functions
+extension SavedViewController {
+    
+    @IBAction func loginFromLogoutViewButtonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToLoginFromSaved", sender: self)
+        userLoggedOutView.isHidden = true
     }
     
 }

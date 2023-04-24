@@ -58,10 +58,11 @@ extension UIViewController {
 
 class LogOutUIButton: UIButton {
     
-    func presentLogoutAlert (authenticator: FirebaseAuthenticator, view: UIViewController) {
+    func presentLogoutAlert (authenticator: FirebaseAuthenticator, view: UIViewController, completion: @escaping () -> Void) {
         let alert = UIAlertController(title: "Do you want to log out?", message: "", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Yes", comment: "Yes, I want to log out"), style:.default, handler: { _ in
             authenticator.logOutUser()
+            completion()
         }))
         
         alert.addAction(UIAlertAction(title: NSLocalizedString("No", comment: "No, I do not want to log out"), style:.default, handler: { _ in

@@ -51,8 +51,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "TestTableViewCell", bundle: nil), forCellReuseIdentifier: "Dish")
@@ -67,12 +65,9 @@ class HomeViewController: UIViewController {
         
         checkInternetConnection()
         
-        
         logoutBackground.layer.cornerRadius = 15.0
         
         noInternetView.layer.cornerRadius = 15.0
-        
-        
         
     }
     
@@ -110,7 +105,9 @@ class HomeViewController: UIViewController {
     
     @IBAction func logButtonPressed(_ sender: UIButton) {
         if authenticator.isAnyUserIsLoggedIn() {
-            logoutButton.presentLogoutAlert(authenticator: authenticator, view: self)
+            logoutButton.presentLogoutAlert(authenticator: authenticator, view: self) {
+                
+            }
             
         } else {
             // go to Login screens
