@@ -63,6 +63,12 @@ class DetailVC: UIViewController {
     
     var recipiesDB: List<RecipeInstructionRealmModel> = List()
     
+    let networkManager = NetworkManager()
+    
+    @IBOutlet var noInternetView: UIView!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,8 +79,8 @@ class DetailVC: UIViewController {
         
         setUpLayout()
         
-        //check from which view we're coming
         determineSource(segue: segueIdentifier)
+        
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -86,10 +92,29 @@ class DetailVC: UIViewController {
         }
     }
     
+    func verifyInternetConnection() -> Bool{
+        
+        if networkManager.isConnectedToInternet() {
+             noInternetView.isHidden = true
+            return true
+        } else {
+            noInternetView.isHidden = false
+            //check if the view is already added as subview
+            if !noInternetView.isDescendant(of: view) {
+                // noInternetView is already added as a subview of this view
+                view.addSubview(noInternetView)
+            }
+            return false
+        }
+    }
+    
     func determineSource(segue: String) {
         if segue == K.Segues.fromMainToDetails {
-            randomManager.fetchSpecificDish(id: recipeId)
-            randomManager.fetchRecipe(id: recipeId)
+            //if there's internet connection proceed with fetching info from API
+            if verifyInternetConnection() {
+                randomManager.fetchSpecificDish(id: recipeId)
+                randomManager.fetchRecipe(id: recipeId)
+            }
         } else if segue == K.Segues.fromSavedToDetails {
             //ask database for the object
             displayedDishModel = DatabaseManager.shared.fetchObject(id: recipeId).dish
@@ -163,6 +188,8 @@ class DetailVC: UIViewController {
     }
     
     fileprivate func setUpLayout() {
+        
+        noInternetView.frame = view.frame
         
         // create a container view
         let containerView = UIView(frame:  self.view.bounds)
@@ -249,6 +276,11 @@ class DetailVC: UIViewController {
         tableView.skeletonCornerRadius = 15.0
         tableView.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
         
+    }
+    
+    
+    @IBAction func tryAgainButtonPressed(_ sender: UIButton) {
+        verifyInternetConnection()
     }
     
     @IBAction func addToFavouritesButtonPressed(_ sender: UIButton) {
@@ -396,7 +428,12 @@ extension DetailVC {
         }
         DispatchQueue.main.async {
             self.recipeDescriptionLabel.text = self.recipeDescriptions[self.stepCounter - 1].description
-            self.listIngridientsLabel.text = listOfIngridientsAsString
+            if !(listOfIngridientsAsString == "") {
+                self.listIngridientsLabel.text = listOfIngridientsAsString
+            } else {
+                self.listIngridientsLabel.text = "No ingridients in this step"
+            }
+            
             self.stepLabel.text = "Step \(self.stepCounter)"
             
         }

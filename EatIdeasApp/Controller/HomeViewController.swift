@@ -17,9 +17,7 @@ class HomeViewController: UIViewController {
     //view represents window which should be displayed when iphone is not connected to the internet
     @IBOutlet var noInternetView: UIView!
     
-    
-    // An instance of RandomManager that is responsible for fetching data from an API
-    
+    // An instance of RandomManager responsible for fetching data from an API
     var randomManager = RandomManager()
     
     let networkManager = NetworkManager()
@@ -31,11 +29,13 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var logoutBackground: UIView!
     
-    @IBOutlet weak var logoutButton: LogOutUIButton!
+    @IBOutlet weak var logoutButton: LogoutUIButton!
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        verifyUserStatus()
         
         // hide navigation bar on this view
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -54,21 +54,29 @@ class HomeViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "TestTableViewCell", bundle: nil), forCellReuseIdentifier: "Dish")
-        tableView.rowHeight = 144
-        tableView.isSkeletonable = true
-        tableView.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
-        
         
         randomManager.delegate = self
         
-        noInternetView.frame = tableView.frame
+        setUpLayout()
         
         checkInternetConnection()
+    }
+    
+    func setUpLayout(){
         
         logoutBackground.layer.cornerRadius = 15.0
         
         noInternetView.layer.cornerRadius = 15.0
+        noInternetView.frame = tableView.frame
         
+        tableView.rowHeight = 144
+        tableView.isSkeletonable = true
+        tableView.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
+        
+    }
+    func verifyUserStatus () {
+        let status = authenticator.isAnyUserIsLoggedIn()
+        logoutButton.setImageBasedOnStatus(isLogged: status)
     }
     
     func checkInternetConnection() {
@@ -76,7 +84,7 @@ class HomeViewController: UIViewController {
         if networkManager.isConnectedToInternet() {
             noInternetView.isHidden = true
             randomManager.fetchDishes()
-
+            
         } else {
             view.addSubview(noInternetView)
             noInternetView.isHidden = false
@@ -106,16 +114,15 @@ class HomeViewController: UIViewController {
     @IBAction func logButtonPressed(_ sender: UIButton) {
         if authenticator.isAnyUserIsLoggedIn() {
             logoutButton.presentLogoutAlert(authenticator: authenticator, view: self) {
-                
+                self.verifyUserStatus()
             }
             
         } else {
             // go to Login screens
             performSegue(withIdentifier: "goToLogin", sender: self)
         }
-        
-        
     }
+    
     
 }
 //MARK: tableView DataSource extension
@@ -125,7 +132,7 @@ extension HomeViewController: SkeletonTableViewDataSource {
         return dishes?.count ?? 1
         
     }
-    // set cell's image passing cell and url
+    // set cell's image by passing cell and url
     fileprivate func setCellImage(_ imageUrlString: String, _ cell: TestTableViewCell) {
         if let imageUrl = URL(string: imageUrlString) {
             URLSession.shared.dataTask(with: imageUrl) { (data, response, error) in
@@ -199,7 +206,7 @@ extension HomeViewController : UITableViewDelegate {
 //MARK: RandomManagerDelegate Extension
 extension HomeViewController : RandomManagerDelegate {
     func didRecieveDishes(_ randomManager: RandomManager, returned: [RandomModel]) {
-    
+        
         var safeDishes: [RandomModel] = []
         DispatchQueue.main.async {
             for item in returned {
@@ -215,7 +222,7 @@ extension HomeViewController : RandomManagerDelegate {
     func didFailWithError(error: Error) {
         print(error)
     }
-        
+    
 }
 
 

@@ -8,8 +8,6 @@
 import Foundation
 import Alamofire
 
-
-#warning("TODO: read documentation to check if theres a delegate protocool to call out when internet connection is back")
 class NetworkManager {
     
     

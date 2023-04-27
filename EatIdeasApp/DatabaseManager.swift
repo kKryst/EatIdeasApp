@@ -8,7 +8,11 @@
 import Foundation
 import RealmSwift
 
+
+
 class DatabaseManager {
+    
+    //singleton that controls talking to the database
     static let shared = DatabaseManager()
     
     private let realm: Realm

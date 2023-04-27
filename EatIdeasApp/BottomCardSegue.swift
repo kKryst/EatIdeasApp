@@ -7,9 +7,10 @@
 
 import UIKit
 
+
 class BottomCardSegue: UIStoryboardSegue {
-private var selfRetainer: BottomCardSegue? = nil
-override func perform() {
+    private var selfRetainer: BottomCardSegue? = nil
+    override func perform() {
         destination.transitioningDelegate = self
         selfRetainer = self
         destination.modalPresentationStyle = .overCurrentContext
@@ -17,27 +18,27 @@ override func perform() {
     }
 }
 extension BottomCardSegue: UIViewControllerTransitioningDelegate {
-public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-return TransitioningAnimatorIn()
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return TransitioningAnimatorIn()
     }
-public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         selfRetainer = nil
-return TransitioningAnimatorOut()
+        return TransitioningAnimatorOut()
     }
 }
 class TransitioningAnimatorIn: NSObject, UIViewControllerAnimatedTransitioning {
-func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-return 0.5
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return 0.5
     }
-func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-guard
-let toViewController = transitionContext.viewController(forKey: .to)
-else {
-return
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        guard
+            let toViewController = transitionContext.viewController(forKey: .to)
+        else {
+            return
         }
         transitionContext.containerView.addSubview(toViewController.view)
         toViewController.view.alpha = 0
-let duration = self.transitionDuration(using: transitionContext)
+        let duration = self.transitionDuration(using: transitionContext)
         UIView.animate(withDuration: duration, animations: {
             toViewController.view.alpha = 1
         }, completion: { _ in
@@ -46,16 +47,16 @@ let duration = self.transitionDuration(using: transitionContext)
     }
 }
 class TransitioningAnimatorOut: NSObject, UIViewControllerAnimatedTransitioning {
-func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-return 0.5
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return 0.5
     }
-func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-guard
-let fromViewController = transitionContext.viewController(forKey: .from)
-else {
-return
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        guard
+            let fromViewController = transitionContext.viewController(forKey: .from)
+        else {
+            return
         }
-let duration = self.transitionDuration(using: transitionContext)
+        let duration = self.transitionDuration(using: transitionContext)
         UIView.animate(withDuration: duration, animations: {
             fromViewController.view.alpha = 0
         }, completion: { _ in

@@ -8,6 +8,8 @@
 import Foundation
 import FirebaseAuth
 
+
+//class to communicate with firebase authentication
 struct FirebaseAuthenticator {
     
     func registerNewUser(email: String?, password: String?, completion: @escaping (AuthenticationResponse) -> Void) {

@@ -20,6 +20,11 @@
 		AF836FA229ABC114000AA306 /* BottomCardSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF836FA129ABC114000AA306 /* BottomCardSegue.swift */; };
 		AF836FA529ABC184000AA306 /* chrup 2.wav in Resources */ = {isa = PBXBuildFile; fileRef = AF836FA329ABC184000AA306 /* chrup 2.wav */; };
 		AF836FA629ABC184000AA306 /* chrup 1.wav in Resources */ = {isa = PBXBuildFile; fileRef = AF836FA429ABC184000AA306 /* chrup 1.wav */; };
+		AF85F96929FAEB9C00D06860 /* ViewController+HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85F96829FAEB9C00D06860 /* ViewController+HideKeyboard.swift */; };
+		AF85F96B29FAEC0900D06860 /* LogoutUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85F96A29FAEC0900D06860 /* LogoutUIButton.swift */; };
+		AF85F96D29FAEC4C00D06860 /* UILabel+HideSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85F96C29FAEC4C00D06860 /* UILabel+HideSkeletonView.swift */; };
+		AF85F96F29FAEC7400D06860 /* Double+Rounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85F96E29FAEC7400D06860 /* Double+Rounding.swift */; };
+		AF85F97129FAEC8F00D06860 /* UIImage+ResizeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85F97029FAEC8F00D06860 /* UIImage+ResizeImage.swift */; };
 		AF98A6B8295E184A00461E3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6B7295E184A00461E3D /* AppDelegate.swift */; };
 		AF98A6BA295E184A00461E3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6B9295E184A00461E3D /* SceneDelegate.swift */; };
 		AF98A6BC295E184A00461E3D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF98A6BB295E184A00461E3D /* HomeViewController.swift */; };
@@ -62,6 +67,11 @@
 		AF836FA129ABC114000AA306 /* BottomCardSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCardSegue.swift; sourceTree = "<group>"; };
 		AF836FA329ABC184000AA306 /* chrup 2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "chrup 2.wav"; sourceTree = "<group>"; };
 		AF836FA429ABC184000AA306 /* chrup 1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "chrup 1.wav"; sourceTree = "<group>"; };
+		AF85F96829FAEB9C00D06860 /* ViewController+HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+HideKeyboard.swift"; sourceTree = "<group>"; };
+		AF85F96A29FAEC0900D06860 /* LogoutUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUIButton.swift; sourceTree = "<group>"; };
+		AF85F96C29FAEC4C00D06860 /* UILabel+HideSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+HideSkeletonView.swift"; sourceTree = "<group>"; };
+		AF85F96E29FAEC7400D06860 /* Double+Rounding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounding.swift"; sourceTree = "<group>"; };
+		AF85F97029FAEC8F00D06860 /* UIImage+ResizeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+ResizeImage.swift"; sourceTree = "<group>"; };
 		AF98A6B4295E184A00461E3D /* EatIdeasApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatIdeasApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF98A6B7295E184A00461E3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF98A6B9295E184A00461E3D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +171,11 @@
 				AF044BBF29EC7C2200839806 /* FirebaseAuthenticator.swift */,
 				AFCA970C29C22ABD00176A63 /* DatabaseManager.swift */,
 				AF39513F29D9FDA300EC2F7A /* NetworkManager.swift */,
+				AF85F96829FAEB9C00D06860 /* ViewController+HideKeyboard.swift */,
+				AF85F96A29FAEC0900D06860 /* LogoutUIButton.swift */,
+				AF85F96C29FAEC4C00D06860 /* UILabel+HideSkeletonView.swift */,
+				AF85F96E29FAEC7400D06860 /* Double+Rounding.swift */,
+				AF85F97029FAEC8F00D06860 /* UIImage+ResizeImage.swift */,
 			);
 			path = EatIdeasApp;
 			sourceTree = "<group>";
@@ -342,6 +357,7 @@
 				AF98A6D6296221A500461E3D /* RandomModel.swift in Sources */,
 				AF044BC029EC7C2200839806 /* FirebaseAuthenticator.swift in Sources */,
 				AF98A6D22961FE0E00461E3D /* RandomData.swift in Sources */,
+				AF85F97129FAEC8F00D06860 /* UIImage+ResizeImage.swift in Sources */,
 				AFDD2E2D29B343D900E3DF23 /* TestTableViewCell.swift in Sources */,
 				AFDD2E3429BD557600E3DF23 /* DetailVC.swift in Sources */,
 				AF98A6C2295E184A00461E3D /* EatIdeasApp.xcdatamodeld in Sources */,
@@ -350,6 +366,8 @@
 				AF22F06F2975EFDD0097D36D /* DIshModel.swift in Sources */,
 				AFB308DA29D0E301003730A2 /* RecipeInstructionModel.swift in Sources */,
 				AF836FA229ABC114000AA306 /* BottomCardSegue.swift in Sources */,
+				AF85F96B29FAEC0900D06860 /* LogoutUIButton.swift in Sources */,
+				AF85F96929FAEB9C00D06860 /* ViewController+HideKeyboard.swift in Sources */,
 				AF836FA029ABC0ED000AA306 /* SplashScreenViewController.swift in Sources */,
 				AFAD26D629D60A4900A2A617 /* RecipeInstructionRealmModel.swift in Sources */,
 				AF22F0782983290A0097D36D /* DishRealmModel.swift in Sources */,
@@ -360,7 +378,9 @@
 				AFB308D829D0959C003730A2 /* RecipeInstrucrionData.swift in Sources */,
 				AFD75BA62995918800DEEEAD /* DishFromIngridientsData.swift in Sources */,
 				AF044BBA29E8515C00839806 /* LoginVC.swift in Sources */,
+				AF85F96F29FAEC7400D06860 /* Double+Rounding.swift in Sources */,
 				AFEAE8C9298C140200C7F311 /* SavedViewController.swift in Sources */,
+				AF85F96D29FAEC4C00D06860 /* UILabel+HideSkeletonView.swift in Sources */,
 				AF044BBC29E88B0800839806 /* RegisterVC.swift in Sources */,
 				AFDD2E3029BD0DA800E3DF23 /* Constants.swift in Sources */,
 				AFCA970D29C22ABD00176A63 /* DatabaseManager.swift in Sources */,

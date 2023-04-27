@@ -22,7 +22,7 @@ class SavedViewController: UIViewController {
     @IBOutlet weak var logoutBackground: UIView!
     
     
-    @IBOutlet weak var logoutButton: LogOutUIButton!
+    @IBOutlet weak var logoutButton: LogoutUIButton!
     
     var dishes: Results<DishRealmModel>?
     
@@ -57,12 +57,19 @@ class SavedViewController: UIViewController {
         
         
     }
-    
+    // method checks if theres an user logged in
     func checkForAuthentication () {
-        if !authenticator.isAnyUserIsLoggedIn() {
+        let status = authenticator.isAnyUserIsLoggedIn()
+        if !status {
+//           displays extra view that covers tableview with info that there's no logged in user
             self.view.addSubview(userLoggedOutView)
             userLoggedOutView.isHidden = false
+        } else {
+//            hides the view
+            userLoggedOutView.isHidden = true
         }
+        // set logoutbutton's image based on status
+        logoutButton.setImageBasedOnStatus(isLogged: status)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,7 +77,6 @@ class SavedViewController: UIViewController {
         super.viewWillAppear(true)
         
         checkForAuthentication()
-        print("checked for authentication in view")
         
         // hide navigation bar on this view
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -101,14 +107,15 @@ class SavedViewController: UIViewController {
     }
     
     
-    @IBAction func logoutButtonPressed(_ sender: LogOutUIButton) {
+    @IBAction func logoutButtonPressed(_ sender: LogoutUIButton) {
         if authenticator.isAnyUserIsLoggedIn() {
+            //show logout alert
             logoutButton.presentLogoutAlert(authenticator: authenticator, view: self) {
                 self.checkForAuthentication()
             }
         }
-        
         else {
+            // jump to login VC
             performSegue(withIdentifier: "goToLoginFromSaved", sender: self)
         }
         
