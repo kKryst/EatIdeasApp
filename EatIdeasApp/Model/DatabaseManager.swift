@@ -20,6 +20,7 @@ class DatabaseManager {
     private init() {
         do {
             realm = try Realm()
+            print(realm.configuration.fileURL?.absoluteURL)
         } catch {
             fatalError("Failed to create Realm instance: \(error)")
         }

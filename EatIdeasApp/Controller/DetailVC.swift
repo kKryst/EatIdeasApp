@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import RealmSwift
 import SkeletonView
+import RealmSwift
 
 #warning("MAM POMYSŁ: STWÓRZ ZMIENNĄ, KTÓRA BĘDZIE REPREZENTOWAŁA STATUS POSIŁKU: DODANY ALBO NIEDODANY, KTÓRĄ WRAZ Z NACISKANIEM PRZYCISU BĘDZIE SIĘ ZMIENIAC. OPERACJE NA BAZIE WYKONUJ PRZY WYCHODZENIU Z WIDOKU")
 class DetailVC: UIViewController {
@@ -42,8 +42,6 @@ class DetailVC: UIViewController {
     
     var recipeId : Int = 0
     
-    let realm = try! Realm()
-    
     var ingridients : [ExtendedIngredient] = []
     
     // to consider: i think it would be better if this was a DishModel instead of DishRealmModel, that might fix the issue with adding deleted object
@@ -70,7 +68,10 @@ class DetailVC: UIViewController {
     
     var representedFoodObject: FoodRealmModel? = FoodRealmModel()
     
-    
+    //variables determines if dish needs to be added / deleted from database
+    var favoriteStatusChanged = false
+    var shouldDishBeInDatabase = false
+    var isDishAlreadySaved = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +85,30 @@ class DetailVC: UIViewController {
         
         determineSource(segue: segueIdentifier)
         
+    }
+#warning("powinno działać")
+    override func viewWillDisappear(_ animated: Bool) {
         
+        if favoriteStatusChanged {
+            print("STATUS SIE ZMIENIL")
+            // create the object in DB
+            if shouldDishBeInDatabase && !isDishAlreadySaved {
+                if let safeRepresentedFoodObject = representedFoodObject {
+                    DatabaseManager.shared.addToDatabase(food: safeRepresentedFoodObject)
+                    print("DODAJE DO BAZY DANYCH PONIEWAZ POWINIEN BYC W BAZIE I NIE BYL BAZOWO ZAPISANY")
+                }
+            } else if (!shouldDishBeInDatabase && isDishAlreadySaved){
+                //delete the object
+                DatabaseManager.shared.deleteFromDatabase(id: recipeId)
+                print("USUWAM Z BAZY DANYCH POWNIEWAZ ZMIENIL SIE STATUS, NIE POWINNO GO BYC W BAZIE DANYCH A JEST BAZOWO ZAPISANY ")
+            } else if (shouldDishBeInDatabase && isDishAlreadySaved) {
+                print("STATUS SIE ZMIENIL, POWINIEN BYC W BAZIE I JEST BAZOWO ZAPISANY")
+            } else {
+                print("STATUS SIE ZMIENIL, NIE POWINNO GO BYC W BAZIE I NIE BYL BAZOWO ZAPISANY")
+            }
+        } else {
+            print("STATUS SIE NIE ZMIENIL")
+        }
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch? = touches.first
@@ -138,6 +162,7 @@ class DetailVC: UIViewController {
     
     func setUpData(){
         
+       
         
         //safe casting the object
         if let dish = displayedDishModel{
@@ -187,7 +212,6 @@ class DetailVC: UIViewController {
                 self.rebuildRepresentedFood()
                 
                 self.tableView.reloadData()
-                
                 
             }
         }
@@ -241,7 +265,13 @@ class DetailVC: UIViewController {
         // set favourite button's image
         if DatabaseManager.shared.isObjectSaved(id: recipeId) {
             favoriteButton.setBackgroundImage(UIImage(named: "favouriteColored"), for: .normal)
+            shouldDishBeInDatabase = true
+            isDishAlreadySaved = true
+        } else {
+            shouldDishBeInDatabase = false
         }
+        
+        
         
         //recipeView design
         recipeView.layer.cornerRadius = 15.0
@@ -252,13 +282,11 @@ class DetailVC: UIViewController {
         
         favoriteButton.addTarget(self, action: #selector(addToFavouritesButtonPressed), for: .touchUpInside)
         
-        
         setUpAndPresentSkeletonViews()
         
     }
     
     func rebuildRepresentedFood() {
-        
         representedFoodObject = nil
         
         representedFoodObject = FoodRealmModel()
@@ -298,37 +326,30 @@ class DetailVC: UIViewController {
         
     }
     
-    
     @IBAction func tryAgainButtonPressed(_ sender: UIButton) {
         verifyInternetConnection()
     }
     
     @IBAction func addToFavouritesButtonPressed(_ sender: UIButton) {
-        // zbudowanie nowego obiektu reprezentujacego posilek!
         
-        // check for object in DB
-        if DatabaseManager.shared.isObjectSaved(id: recipeId) {
-            
-            //delete the object
-            DatabaseManager.shared.deleteFromDatabase(id: recipeId)
+        favoriteStatusChanged = true
+        shouldDishBeInDatabase = !shouldDishBeInDatabase
+        
+        if shouldDishBeInDatabase {
             DispatchQueue.main.async {
-                // change button's icon
-                self.favoriteButton.setBackgroundImage(UIImage(named: "favourite"), for: .normal)
+                //change button's icon
+                self.favoriteButton.setBackgroundImage(UIImage(named: "favouriteColored"), for: .normal)
             }
         } else {
-            // create the object in DB
-            rebuildRepresentedFood()
-            if let safeRepresentedFoodObject = representedFoodObject {
-                DatabaseManager.shared.addToDatabase(food: safeRepresentedFoodObject)
-                DispatchQueue.main.async {
-                    //change button's icon
-                    self.favoriteButton.setBackgroundImage(UIImage(named: "favouriteColored"), for: .normal)
-                }
+            DispatchQueue.main.async {
+                self.favoriteButton.setBackgroundImage(UIImage(named: "favourite"), for: .normal)
             }
-            
         }
         
-        let animationScale: CGFloat = 1.5 // This value determines how much bigger the button gets
+        
+        
+        //      determines how much bigger the button gets
+        let animationScale: CGFloat = 1.5
         let animationDuration: TimeInterval = 0.2
         
         UIView.animate(withDuration: animationDuration, animations: {
@@ -353,7 +374,6 @@ extension DetailVC: RandomManagerDelegate {
         
         //set up data
         setUpData()
-        
     }
     
     func didRecieveRecipe(_ randomManager: RandomManager, returned: [RecipeInstructionModel]) {
@@ -366,7 +386,6 @@ extension DetailVC: RandomManagerDelegate {
         }
         presentDescription(pushDirection: .fromBottom)
     }
-    
 }
 
 extension DetailVC: UITableViewDelegate, SkeletonTableViewDataSource {

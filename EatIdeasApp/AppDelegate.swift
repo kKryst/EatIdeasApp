@@ -25,12 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     UITabBar.appearance().standardAppearance = tabBarApperance
                 }
 
-        do {
-            let realm = try Realm()
-            print(realm.configuration.fileURL)
-        } catch {
-            print("error trying to initalise Realm database \(error)")
-        }
+//        do {
+//            let realm = try Realm()
+//            print(realm.configuration.fileURL)
+//        } catch {
+//            print("error trying to initalise Realm database \(error)")
+//        }
         
         
         // Firebase configuration
