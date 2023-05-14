@@ -11,17 +11,13 @@ import RealmSwift
 import FirebaseCore
 
 
-
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         if #available(iOS 15, *) {
                       
-                    
                     let tabBarApperance = UITabBarAppearance()
                     tabBarApperance.configureWithOpaqueBackground()
                     tabBarApperance.backgroundColor = UIColor(named: "BarColor")
@@ -32,9 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             let realm = try Realm()
             print(realm.configuration.fileURL)
-//            try realm.write {
-//                realm.add(data)
-//            }
         } catch {
             print("error trying to initalise Realm database \(error)")
         }

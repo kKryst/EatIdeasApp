@@ -17,7 +17,7 @@ struct RecipeInstrucrionData: Codable {
 }
 
 // MARK: - Step
-// step represents each step in the recipe including ingridients required for given step
+// step represents e ach step in the recipe including ingridients required for given step
 struct Step: Codable {
     // equipment for current step and ingridients required
     let equipment, ingredients: [Ent]?

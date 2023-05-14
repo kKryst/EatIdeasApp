@@ -26,7 +26,7 @@ class SavedViewController: UIViewController {
     
     var dishes: Results<DishRealmModel>?
     
-    let authenticator = FirebaseAuthenticator()
+    let authenticator = FirebaseAuthenticatorManager()
     
     @IBOutlet var userLoggedOutView: UIView!
     

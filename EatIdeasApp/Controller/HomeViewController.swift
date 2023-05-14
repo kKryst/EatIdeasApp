@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
     
     let networkManager = NetworkManager()
     
-    let authenticator = FirebaseAuthenticator()
+    let authenticator = FirebaseAuthenticatorManager()
     
     // Arrays that store data for table views
     var dishes : [RandomModel]? = []

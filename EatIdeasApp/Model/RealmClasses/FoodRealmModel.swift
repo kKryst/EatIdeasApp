@@ -7,6 +7,8 @@
 import Foundation
 import RealmSwift
 
+
+#warning("do kazdego elementu dodac dishApiId, by powiązać ze sobą elementy i móc je później usuwać / PODODAWAĆ ID do każdego elementu kurwa jego mac")
 class FoodRealmModel: Object {
     @Persisted var dishApiId: Int
     @Persisted var dish: DishRealmModel?

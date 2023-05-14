@@ -14,7 +14,7 @@ import FirebaseAuth
 class LoginVC: UIViewController {
     
     
-    let authenticator = FirebaseAuthenticator()
+    let authenticator = FirebaseAuthenticatorManager()
     
     
     @IBOutlet weak var emailTextField: UITextField!

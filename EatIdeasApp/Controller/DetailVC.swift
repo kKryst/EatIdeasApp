@@ -67,6 +67,8 @@ class DetailVC: UIViewController {
     
     @IBOutlet var noInternetView: UIView!
     
+    var representedFoodObject: FoodRealmModel? = FoodRealmModel()
+    
     
     
     override func viewDidLoad() {
@@ -129,7 +131,7 @@ class DetailVC: UIViewController {
             
             recipeDescriptions = tempRecipe
             setUpData()
-            presentDescription()
+            presentDescription(pushDirection: .fromBottom)
         }
     }
     
@@ -180,6 +182,9 @@ class DetailVC: UIViewController {
                 self.timeToCookLabel.text = timeToCookLabelTextValue
                 self.dishNameLabel.text = dishNameLabelTextValue
                 //reload data in tableView
+                
+                self.rebuildRepresentedFood()
+                
                 self.tableView.reloadData()
                 
                        
@@ -248,6 +253,17 @@ class DetailVC: UIViewController {
 
     }
     
+    func rebuildRepresentedFood() {
+        
+        representedFoodObject = nil
+        
+        representedFoodObject = FoodRealmModel()
+        
+        representedFoodObject!.dishApiId = recipeId
+        representedFoodObject!.dish = displayedDishModel
+        representedFoodObject!.recipes = recipiesDB
+    }
+    
     func getImageFromURL(_ url: URL) -> UIImage? {
         do {
             let data = try Data(contentsOf: url)
@@ -284,8 +300,11 @@ class DetailVC: UIViewController {
     }
     
     @IBAction func addToFavouritesButtonPressed(_ sender: UIButton) {
+        // zbudowanie nowego obiektu reprezentujacego posilek!
+        
         // check for object in DB
         if DatabaseManager.shared.isObjectSaved(id: recipeId) {
+            
             //delete the object
             DatabaseManager.shared.deleteFromDatabase(id: recipeId)
             DispatchQueue.main.async {
@@ -294,11 +313,15 @@ class DetailVC: UIViewController {
             }
         } else {
             // create the object in DB
-            DatabaseManager.shared.addToDatabase(food: FoodRealmModel(recipeID: recipeId, dish: displayedDishModel!, recipes: recipiesDB))
-            DispatchQueue.main.async {
-                //change button's icon
-                self.favouriteButton.setBackgroundImage(UIImage(named: "favouriteColored"), for: .normal)
+            rebuildRepresentedFood()
+            if let safeRepresentedFoodObject = representedFoodObject {
+                DatabaseManager.shared.addToDatabase(food: safeRepresentedFoodObject)
+                DispatchQueue.main.async {
+                    //change button's icon
+                    self.favouriteButton.setBackgroundImage(UIImage(named: "favouriteColored"), for: .normal)
+                }
             }
+            
         }
     }
 }
@@ -324,9 +347,9 @@ extension DetailVC: RandomManagerDelegate {
         }
         
         for item in recipeDescriptions {
-            recipiesDB.append(RecipeInstructionRealmModel(model: item))
+            recipiesDB.append(RecipeInstructionRealmModel(model: item, dishApiId: recipeId))
         }
-        presentDescription()
+        presentDescription(pushDirection: .fromBottom)
     }
     
 }
@@ -371,7 +394,7 @@ extension DetailVC {
         
         presentRecipe()
     }
-    
+    // present the view with recipe
     func presentRecipe(){
         //hide unnecessary objects
         tableView.isHidden = true
@@ -396,12 +419,13 @@ extension DetailVC {
         
     }
     
-    func presentDescription() {
+    func presentDescription(pushDirection: CATransitionSubtype) {
         // build a coma-separated list of ingridients as one string
         var listOfIngridientsAsString = ""
         for item in self.recipeDescriptions[self.stepCounter - 1].ingridients {
             listOfIngridientsAsString.append("\(item), ")
         }
+        // delete extra comas or spaces if such exist
         if listOfIngridientsAsString.last == " " || listOfIngridientsAsString == "," {
             listOfIngridientsAsString.removeLast()
             listOfIngridientsAsString.removeLast()
@@ -427,6 +451,7 @@ extension DetailVC {
             }
         }
         DispatchQueue.main.async {
+            self.recipeView.pushTransition(0.25, direction: pushDirection)
             self.recipeDescriptionLabel.text = self.recipeDescriptions[self.stepCounter - 1].description
             if !(listOfIngridientsAsString == "") {
                 self.listIngridientsLabel.text = listOfIngridientsAsString
@@ -448,12 +473,12 @@ extension DetailVC {
     
     @IBAction func goRightButtonPressed(_ sender: UIButton) {
         stepCounter += 1
-        presentDescription()
+        presentDescription(pushDirection: .fromRight)
     }
     
     @IBAction func goLeftButtonPressed(_ sender: UIButton) {
         stepCounter -= 1
-        presentDescription()
+        presentDescription(pushDirection: .fromLeft)
     }
     
 }

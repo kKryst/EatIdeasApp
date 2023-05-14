@@ -10,7 +10,7 @@ import UIKit
 
 class LogoutUIButton: UIButton {
     
-    func presentLogoutAlert (authenticator: FirebaseAuthenticator, view: UIViewController, completion: @escaping () -> Void) {
+    func presentLogoutAlert (authenticator: FirebaseAuthenticatorManager, view: UIViewController, completion: @escaping () -> Void) {
         let alert = UIAlertController(title: "Do you want to log out?", message: "", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Yes", comment: "Yes, I want to log out"), style:.default, handler: { _ in
             authenticator.logOutUser()
