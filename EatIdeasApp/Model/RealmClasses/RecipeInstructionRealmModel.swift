@@ -38,9 +38,6 @@ class RecipeInstructionRealmModel: Object {
         } else {
             self.ingridients = ingridients
         }
-
-
-
     }
     
     init(descriptionString: String, step: Int, ingridients: List<String>, dishApiId: Int) {

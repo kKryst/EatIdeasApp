@@ -232,10 +232,10 @@
 				AFCA970C29C22ABD00176A63 /* DatabaseManager.swift */,
 				AF39513F29D9FDA300EC2F7A /* NetworkManager.swift */,
 				AF85F96A29FAEC0900D06860 /* LogoutUIButton.swift */,
+				AF98A6D32962184500461E3D /* RandomManager.swift */,
 				AF3AFB0E2A0FA0B1008B42EA /* SwiftModels */,
 				AF3AFB0D2A0FA088008B42EA /* ApiResponseData */,
 				AF3AFB082A0ED2DC008B42EA /* RealmClasses */,
-				AF98A6D32962184500461E3D /* RandomManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -244,7 +244,6 @@
 			isa = PBXGroup;
 			children = (
 				AF98A6BD295E184A00461E3D /* Main.storyboard */,
-				AFDD2E2B29B343D900E3DF23 /* TestTableViewCell.swift */,
 				AFDD2E2C29B343D900E3DF23 /* TestTableViewCell.xib */,
 				AF98A6C5295E184C00461E3D /* LaunchScreen.storyboard */,
 			);
@@ -261,6 +260,7 @@
 				AFDD2E3329BD557600E3DF23 /* DetailVC.swift */,
 				AF044BB929E8515C00839806 /* LoginVC.swift */,
 				AF044BBB29E88B0800839806 /* RegisterVC.swift */,
+				AFDD2E2B29B343D900E3DF23 /* TestTableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
