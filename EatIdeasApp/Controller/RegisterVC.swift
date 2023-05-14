@@ -14,7 +14,7 @@ class RegisterVC: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
     
-    let authenticator = FirebaseAuthenticator()
+    let authenticator = FirebaseAuthenticatorManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
