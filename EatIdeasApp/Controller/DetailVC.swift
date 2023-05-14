@@ -9,6 +9,7 @@ import UIKit
 import RealmSwift
 import SkeletonView
 
+#warning("MAM POMYSŁ: STWÓRZ ZMIENNĄ, KTÓRA BĘDZIE REPREZENTOWAŁA STATUS POSIŁKU: DODANY ALBO NIEDODANY, KTÓRĄ WRAZ Z NACISKANIEM PRZYCISU BĘDZIE SIĘ ZMIENIAC. OPERACJE NA BAZIE WYKONUJ PRZY WYCHODZENIU Z WIDOKU")
 class DetailVC: UIViewController {
     
     @IBOutlet weak var cookNowButton: UIButton!
@@ -22,7 +23,7 @@ class DetailVC: UIViewController {
     
     @IBOutlet weak var timeToCookLabel: UILabel!
     @IBOutlet weak var dishNameLabel: UILabel!
-    @IBOutlet weak var favouriteButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
     
     @IBOutlet weak var recipeButton: UIButton!
     
@@ -48,7 +49,7 @@ class DetailVC: UIViewController {
     // to consider: i think it would be better if this was a DishModel instead of DishRealmModel, that might fix the issue with adding deleted object
     var displayedDishModel: DishRealmModel?
     
-//#warning("for testing puropuse - should be nillable")
+    //#warning("for testing puropuse - should be nillable")
     var segueIdentifier: String = K.Segues.fromMainToDetails
     
     var imageData: Data = Data()
@@ -97,7 +98,7 @@ class DetailVC: UIViewController {
     func verifyInternetConnection() -> Bool{
         
         if networkManager.isConnectedToInternet() {
-             noInternetView.isHidden = true
+            noInternetView.isHidden = true
             return true
         } else {
             noInternetView.isHidden = false
@@ -187,7 +188,7 @@ class DetailVC: UIViewController {
                 
                 self.tableView.reloadData()
                 
-                       
+                
             }
         }
     }
@@ -239,7 +240,7 @@ class DetailVC: UIViewController {
         
         // set favourite button's image
         if DatabaseManager.shared.isObjectSaved(id: recipeId) {
-            favouriteButton.setBackgroundImage(UIImage(named: "favouriteColored"), for: .normal)
+            favoriteButton.setBackgroundImage(UIImage(named: "favouriteColored"), for: .normal)
         }
         
         //recipeView design
@@ -249,8 +250,11 @@ class DetailVC: UIViewController {
         ingridientsView.layer.borderWidth = 2
         ingridientsView.layer.borderColor = UIColor.white.cgColor
         
+        favoriteButton.addTarget(self, action: #selector(addToFavouritesButtonPressed), for: .touchUpInside)
+        
+        
         setUpAndPresentSkeletonViews()
-
+        
     }
     
     func rebuildRepresentedFood() {
@@ -281,12 +285,12 @@ class DetailVC: UIViewController {
         dishNameLabel.isSkeletonable = true
         
         dishNameLabel.linesCornerRadius = 5
-//        dishNameLabel.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
+        //        dishNameLabel.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
         dishNameLabel.showAnimatedSkeleton(usingColor:.silver, transition: .crossDissolve(0.25))
         
         timeToCookLabel.linesCornerRadius = 5
         timeToCookLabel.skeletonTextNumberOfLines = 2
-//        timeToCookLabel.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
+        //        timeToCookLabel.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
         timeToCookLabel.showAnimatedSkeleton(usingColor:.silver, transition: .crossDissolve(0.25))
         
         tableView.skeletonCornerRadius = 15.0
@@ -309,7 +313,7 @@ class DetailVC: UIViewController {
             DatabaseManager.shared.deleteFromDatabase(id: recipeId)
             DispatchQueue.main.async {
                 // change button's icon
-                self.favouriteButton.setBackgroundImage(UIImage(named: "favourite"), for: .normal)
+                self.favoriteButton.setBackgroundImage(UIImage(named: "favourite"), for: .normal)
             }
         } else {
             // create the object in DB
@@ -318,10 +322,21 @@ class DetailVC: UIViewController {
                 DatabaseManager.shared.addToDatabase(food: safeRepresentedFoodObject)
                 DispatchQueue.main.async {
                     //change button's icon
-                    self.favouriteButton.setBackgroundImage(UIImage(named: "favouriteColored"), for: .normal)
+                    self.favoriteButton.setBackgroundImage(UIImage(named: "favouriteColored"), for: .normal)
                 }
             }
             
+        }
+        
+        let animationScale: CGFloat = 1.5 // This value determines how much bigger the button gets
+        let animationDuration: TimeInterval = 0.2
+        
+        UIView.animate(withDuration: animationDuration, animations: {
+            sender.transform = CGAffineTransform(scaleX: animationScale, y: animationScale)
+        }) { _ in
+            UIView.animate(withDuration: animationDuration, animations: {
+                sender.transform = .identity
+            })
         }
     }
 }
@@ -399,7 +414,7 @@ extension DetailVC {
         //hide unnecessary objects
         tableView.isHidden = true
         additionalInfoStackView.isHidden = true
-        favouriteButton.isHidden = true
+        favoriteButton.isHidden = true
         recipeButton.isHidden = true
         
         // show recipeView on the screen
@@ -410,7 +425,7 @@ extension DetailVC {
         //hide unnecessary objects
         tableView.isHidden = false
         additionalInfoStackView.isHidden = false
-        favouriteButton.isHidden = false
+        favoriteButton.isHidden = false
         recipeButton.isHidden = false
         
         
@@ -437,12 +452,12 @@ extension DetailVC {
                 self.goLeftButton.isHidden = true
             }
             
-
+            
         } else if stepCounter == recipeDescriptions.count{
             DispatchQueue.main.async {
                 self.goRightButton.isHidden = true
             }
-        
+            
             
         } else {
             DispatchQueue.main.async {
