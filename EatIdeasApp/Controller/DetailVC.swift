@@ -9,7 +9,6 @@ import UIKit
 import SkeletonView
 import RealmSwift
 
-#warning("MAM POMYSŁ: STWÓRZ ZMIENNĄ, KTÓRA BĘDZIE REPREZENTOWAŁA STATUS POSIŁKU: DODANY ALBO NIEDODANY, KTÓRĄ WRAZ Z NACISKANIEM PRZYCISU BĘDZIE SIĘ ZMIENIAC. OPERACJE NA BAZIE WYKONUJ PRZY WYCHODZENIU Z WIDOKU")
 class DetailVC: UIViewController {
     
     @IBOutlet weak var cookNowButton: UIButton!
@@ -86,29 +85,11 @@ class DetailVC: UIViewController {
         determineSource(segue: segueIdentifier)
         
     }
-#warning("powinno działać")
+    
+    
+    
     override func viewWillDisappear(_ animated: Bool) {
-        
-        if favoriteStatusChanged {
-            print("STATUS SIE ZMIENIL")
-            // create the object in DB
-            if shouldDishBeInDatabase && !isDishAlreadySaved {
-                if let safeRepresentedFoodObject = representedFoodObject {
-                    DatabaseManager.shared.addToDatabase(food: safeRepresentedFoodObject)
-                    print("DODAJE DO BAZY DANYCH PONIEWAZ POWINIEN BYC W BAZIE I NIE BYL BAZOWO ZAPISANY")
-                }
-            } else if (!shouldDishBeInDatabase && isDishAlreadySaved){
-                //delete the object
-                DatabaseManager.shared.deleteFromDatabase(id: recipeId)
-                print("USUWAM Z BAZY DANYCH POWNIEWAZ ZMIENIL SIE STATUS, NIE POWINNO GO BYC W BAZIE DANYCH A JEST BAZOWO ZAPISANY ")
-            } else if (shouldDishBeInDatabase && isDishAlreadySaved) {
-                print("STATUS SIE ZMIENIL, POWINIEN BYC W BAZIE I JEST BAZOWO ZAPISANY")
-            } else {
-                print("STATUS SIE ZMIENIL, NIE POWINNO GO BYC W BAZIE I NIE BYL BAZOWO ZAPISANY")
-            }
-        } else {
-            print("STATUS SIE NIE ZMIENIL")
-        }
+        verifyIfDishShouldBeAddedOrDeletedFromDatabase()
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch? = touches.first
@@ -294,6 +275,20 @@ class DetailVC: UIViewController {
         representedFoodObject!.dishApiId = recipeId
         representedFoodObject!.dish = displayedDishModel
         representedFoodObject!.recipes = recipiesDB
+    }
+    
+    func verifyIfDishShouldBeAddedOrDeletedFromDatabase() {
+        if favoriteStatusChanged {
+            // create the object in DB
+            if shouldDishBeInDatabase && !isDishAlreadySaved {
+                if let safeRepresentedFoodObject = representedFoodObject {
+                    DatabaseManager.shared.addToDatabase(food: safeRepresentedFoodObject)
+                }
+            } else if (!shouldDishBeInDatabase && isDishAlreadySaved){
+                //delete the object
+                DatabaseManager.shared.deleteFromDatabase(id: recipeId)
+            }
+        }
     }
     
     func getImageFromURL(_ url: URL) -> UIImage? {
