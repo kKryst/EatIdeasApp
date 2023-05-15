@@ -200,6 +200,16 @@ class DetailVC: UIViewController {
     
     fileprivate func setUpLayout() {
         
+        //set up gesture recognizers and add them to recipeView
+        let swipeRightOnRecipeView = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGestureOnRecipeView))
+        swipeRightOnRecipeView.direction = .right
+        recipeView.addGestureRecognizer(swipeRightOnRecipeView)
+        
+        let swipeLeftOnRecipeView = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGestureOnRecipeView))
+        swipeLeftOnRecipeView.direction = .left
+        recipeView.addGestureRecognizer(swipeLeftOnRecipeView)
+        
+        
         noInternetView.frame = view.frame
         
         // create a container view
@@ -319,6 +329,28 @@ class DetailVC: UIViewController {
         tableView.skeletonCornerRadius = 15.0
         tableView.showSkeleton(usingColor: .silver, transition: .crossDissolve(0.25))
         
+    }
+    
+    @objc func respondToSwipeGestureOnRecipeView(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+                // left and right are the ENDS of a swipe movement
+            case .right:
+                print("CASE RIGHT CALLED")
+                if stepCounter > 1 {
+                    stepCounter -= 1
+                    presentDescription(pushDirection: .fromLeft)
+                }
+            case .left:
+                print("CASE LEFT CALLED")
+                if stepCounter < recipeDescriptions.count-1 {
+                    stepCounter += 1
+                    presentDescription(pushDirection: .fromRight)
+                }
+            default:
+                break
+            }
+        }
     }
     
     @IBAction func tryAgainButtonPressed(_ sender: UIButton) {
@@ -467,7 +499,7 @@ extension DetailVC {
             }
             
             
-        } else if stepCounter == recipeDescriptions.count{
+        } else if stepCounter == recipeDescriptions.count-1{
             DispatchQueue.main.async {
                 self.goRightButton.isHidden = true
             }
