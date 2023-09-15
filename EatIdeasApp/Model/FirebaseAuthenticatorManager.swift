@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import GoogleSignIn
 
 
 //class to communicate with firebase authentication
@@ -70,6 +71,36 @@ struct FirebaseAuthenticatorManager {
         } else {
             // No user is signed in
             return false
+        }
+    }
+    
+    func signInWithGoogle() async {
+        
+        var loginSuccess = false
+        
+        guard let windowScene = await UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = await windowScene.windows.first,
+              let rootViewController = await window.rootViewController else {
+            print("There is no root VC")
+            return
+        }
+        do {
+            // o tu to w głównym wątku
+            Task.init { @MainActor in
+                let userAuthentication = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
+                let user = userAuthentication.user
+                
+                guard let idToken = user.idToken else {
+                    return false
+                }
+                
+                let accessToken = user.accessToken
+                let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
+                let result = try await Auth.auth().signIn(with: credential)
+                let firebaseUser = result.user
+                print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "")")
+                return true
+            }
         }
     }
     

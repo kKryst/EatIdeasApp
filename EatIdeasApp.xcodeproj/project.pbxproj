@@ -11,10 +11,10 @@
 		AF044BBA29E8515C00839806 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF044BB929E8515C00839806 /* LoginVC.swift */; };
 		AF044BBC29E88B0800839806 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF044BBB29E88B0800839806 /* RegisterVC.swift */; };
 		AF044BC029EC7C2200839806 /* FirebaseAuthenticatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF044BBF29EC7C2200839806 /* FirebaseAuthenticatorManager.swift */; };
-		AF1B55D729E84D330020C948 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF1B55D629E84D320020C948 /* GoogleService-Info.plist */; };
 		AF22F06D2975EC260097D36D /* DishData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F06C2975EC260097D36D /* DishData.swift */; };
 		AF22F06F2975EFDD0097D36D /* DIshModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F06E2975EFDD0097D36D /* DIshModel.swift */; };
 		AF22F0782983290A0097D36D /* DishRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22F0772983290A0097D36D /* DishRealmModel.swift */; };
+		AF2F0AF52AB4F72400C54E5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF2F0AF42AB4F72400C54E5E /* GoogleService-Info.plist */; };
 		AF39514029D9FDA300EC2F7A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF39513F29D9FDA300EC2F7A /* NetworkManager.swift */; };
 		AF3AFB0A2A0ED33B008B42EA /* RealmMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3AFB092A0ED33B008B42EA /* RealmMetric.swift */; };
 		AF3AFB0C2A0ED37B008B42EA /* RealmMeasures.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3AFB0B2A0ED37B008B42EA /* RealmMeasures.swift */; };
@@ -61,10 +61,10 @@
 		AF044BB929E8515C00839806 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		AF044BBB29E88B0800839806 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		AF044BBF29EC7C2200839806 /* FirebaseAuthenticatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticatorManager.swift; sourceTree = "<group>"; };
-		AF1B55D629E84D320020C948 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF22F06C2975EC260097D36D /* DishData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishData.swift; sourceTree = "<group>"; };
 		AF22F06E2975EFDD0097D36D /* DIshModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIshModel.swift; sourceTree = "<group>"; };
 		AF22F0772983290A0097D36D /* DishRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishRealmModel.swift; sourceTree = "<group>"; };
+		AF2F0AF42AB4F72400C54E5E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Helpers/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF39513F29D9FDA300EC2F7A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		AF3AFB092A0ED33B008B42EA /* RealmMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmMetric.swift; sourceTree = "<group>"; };
 		AF3AFB0B2A0ED37B008B42EA /* RealmMeasures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmMeasures.swift; sourceTree = "<group>"; };
@@ -215,11 +215,11 @@
 				AF98A6CF295E278A00461E3D /* View */,
 				AF98A6D0295E278F00461E3D /* Controller */,
 				AF3AFB0F2A10DF5C008B42EA /* Helpers */,
+				AF2F0AF42AB4F72400C54E5E /* GoogleService-Info.plist */,
 				AF98A6C3295E184C00461E3D /* Assets.xcassets */,
 				AF836FA429ABC184000AA306 /* chrup 1.wav */,
 				AF836FA329ABC184000AA306 /* chrup 2.wav */,
 				AF98A6C8295E184C00461E3D /* Info.plist */,
-				AF1B55D629E84D320020C948 /* GoogleService-Info.plist */,
 				AF98A6C0295E184A00461E3D /* EatIdeasApp.xcdatamodeld */,
 			);
 			path = EatIdeasApp;
@@ -338,7 +338,7 @@
 				AFDD2E2E29B343D900E3DF23 /* TestTableViewCell.xib in Resources */,
 				AF836FA529ABC184000AA306 /* chrup 2.wav in Resources */,
 				AF836FA629ABC184000AA306 /* chrup 1.wav in Resources */,
-				AF1B55D729E84D330020C948 /* GoogleService-Info.plist in Resources */,
+				AF2F0AF52AB4F72400C54E5E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,6 +584,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -613,6 +614,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

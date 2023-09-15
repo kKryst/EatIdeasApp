@@ -27,7 +27,7 @@ extension RandomManagerDelegate {
 
 struct RandomManager{
     // sciezka do api
-    let dishApi = "https://api.spoonacular.com/recipes/random?apiKey=1b03f0f7b52f417597ff56a137c661cb&number=2"
+    let dishApi = "https://api.spoonacular.com/recipes/random?apiKey=1b03f0f7b52f417597ff56a137c661cb&number=8"
     
     var delegate: RandomManagerDelegate?
     

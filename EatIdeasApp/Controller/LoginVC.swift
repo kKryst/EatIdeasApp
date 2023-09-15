@@ -38,6 +38,12 @@ class LoginVC: UIViewController {
     }
     
     
+    @IBAction func logInWithGoogle(_ sender: Any) {
+        Task {
+            await authenticator.signInWithGoogle()
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

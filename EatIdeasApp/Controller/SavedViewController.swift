@@ -46,16 +46,12 @@ class SavedViewController: UIViewController {
         
         logoutInLoggedOutViewButton.layer.cornerRadius = 8.0
         
-        
-        
         tableView.register(UINib(nibName: "TestTableViewCell", bundle: nil), forCellReuseIdentifier: "Saved")
         
         dishes = DatabaseManager.shared.fetchSaved()
         
         topImage.image = UIImage(named: "savedImage")
-        
-        
-        
+ 
     }
     // method checks if theres an user logged in
     func checkForAuthentication () {
@@ -64,9 +60,11 @@ class SavedViewController: UIViewController {
 //           displays extra view that covers tableview with info that there's no logged in user
             self.view.addSubview(userLoggedOutView)
             userLoggedOutView.isHidden = false
+            tableView.isHidden = true
         } else {
 //            hides the view
             userLoggedOutView.isHidden = true
+            tableView.isHidden = false
         }
         // set logoutbutton's image based on status
         logoutButton.setImageBasedOnStatus(isLogged: status)
